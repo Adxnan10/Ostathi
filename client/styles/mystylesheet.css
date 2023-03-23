@@ -1,0 +1,145 @@
+:root {
+    --mainColor: transparent;
+    --secondryColor: #023047;
+}
+
+nav {
+    margin: auto;
+    background-color:  var(--mainColor);
+    height: 5rem;
+}
+
+img {
+    padding: 0.5rem 2rem;
+    margin: 0 5rem;
+    height: 6rem;
+}
+
+.navButton {
+    margin: auto 1rem;
+    color: var(--secondryColor);
+    text-decoration: none;
+}
+
+#signup {
+    color: white;
+    background-color: #4E6E7D;
+    border-radius: 3rem;
+    border: 0;
+    height: 2.5rem;
+    width: 8rem;
+    margin: auto 1rem;    
+}
+
+#login {
+    color: white;
+    background-color: var(--secondryColor);;
+    border-radius: 3rem;
+    border: 0;
+    height: 2.5rem;
+    width: 8rem;
+    margin: auto 0 auto 2rem;
+}
+
+#navProfilePic {
+    height: 4rem;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0;
+}
+
+#profileSignedIn{
+    display: flex;
+    margin: auto 1rem auto 0;
+}
+
+#navProfileName {
+    position: relative;
+    margin: auto 0 auto -1rem;
+    color: var(--secondryColor);
+}
+
+.paymenyButtons {
+    border: 1px solid #d0cfcf;
+    margin: auto 2rem 1rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+}
+
+.Labels {
+    margin: 8px;
+}
+
+button.paymenyButtons {
+    margin-top: 1rem;
+    background-color: #F48C06;
+    border: none;
+}
+button.paymenyButtons:hover {
+    margin-top: 1rem;
+    background-color: #c27106;
+    border: none;
+}
+
+#cancelPayment {
+    border: 2px solid #F48C06;
+    color: #F48C06;
+    background-color: white;
+}
+
+#cancelPayment:hover {
+    color: white;
+    background-color: #F48C06;
+}
+
+.paymenyMethod{
+    margin: 2rem 0;
+}
+
+.paymentCard{
+    max-width: 80vw;
+    margin: 2rem auto;
+    border-radius: 1rem;
+    box-shadow: -1px 2px 30px 2px #e0e0e0;
+}
+.editHeader{
+    color: white;
+    background-color: #023047;
+    padding: 60px;
+}
+
+#details{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+#editPic{
+    margin: 1rem auto;
+    object-fit: cover;
+    height: 20rem;
+    max-width: 20rem;
+    border-radius: 2rem;
+}
+
+.profileButton {
+    margin: 1rem auto;
+    background-color: #F48C06;
+    border: none;
+    height: 3rem;
+    width: 25rem;
+}
+.profileButton:hover {
+    margin: 1rem auto;
+    background-color: #c27106;
+    border: none;
+    height: 3rem;
+    width: 25rem;
+}
+
+.profileScndClmn{
+    margin-left: 5rem;
+}
+
+.editProfile{
+    margin-top: 2rem;
+}

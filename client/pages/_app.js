@@ -1,4 +1,5 @@
 import "../styles/App.css";
+import "../styles/mystylesheet.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Head from "next/head";
 import Navbar from "../components/common/Navbar";

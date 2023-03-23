@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 export default function HomePage() {
   const [userData, setUserData] = useState({});
   useEffect(() => {
-    fetch("http://localhost:5000/home")
+    fetch("http://localhost:3001/home")
       .then(res => res.json())
       .then(data => setUserData(data));
   }, []);
