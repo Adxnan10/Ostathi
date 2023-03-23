@@ -39,16 +39,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devServer": {
-    "inline": true,
-    "contentBase": "./dist",
-    "port": 5000,
-    "proxy": {
-      "/api/**": {
-        "target": "http://localhost:5000",
-        "secure": false
-      }
-    }
   }
 }
