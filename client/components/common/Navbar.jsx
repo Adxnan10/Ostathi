@@ -8,7 +8,7 @@ export default function navbar() {
   return (
 
     <>
-           <Navbar expand="lg">
+        <Navbar expand="lg" sticky='top'>
           <Navbar.Brand href="">
             <img src="/Logo.svg" alt="Logo"/>
           </Navbar.Brand>
@@ -18,7 +18,7 @@ export default function navbar() {
               id={`offcanvasNavbar-expand-md`}
               aria-labelledby={`offcanvasNavbarLabel-expand-md`}
               placement="end"
-              
+
             >
             <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-md`}>

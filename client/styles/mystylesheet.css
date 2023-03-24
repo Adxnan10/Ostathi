@@ -1,5 +1,5 @@
 :root {
-    --mainColor: transparent;
+    --mainColor: white;
     --secondryColor: #023047;
 }
 
@@ -11,7 +11,7 @@
 }
 
 nav {
-    margin: auto 2rem;
+    margin: auto;
     background-color:  var(--mainColor);
     height: 5rem;
 }
@@ -45,6 +45,14 @@ img {
     height: 2.5rem;
     width: 8rem;
     margin: 1rem 0 1rem 1rem;
+}
+
+#login:hover{
+    opacity: 0.8;
+}
+
+#signup:hover{
+    opacity: 0.8;
 }
 
 #navProfilePic {
@@ -130,15 +138,16 @@ button.paymenyButtons:hover {
     border-radius: 2rem;
 }
 
-.profileButton {
-    margin: 1rem auto;
+button.profileButton {
+    margin: 1rem auto 0 auto;
+    color: white;
     background-color: #F48C06;
     border: none;
     height: 3rem;
     width: 25rem;
 }
-.profileButton:hover {
-    margin: 1rem auto;
+button.profileButton:hover {
+    margin: 1rem auto 0 auto;
     background-color: #c27106;
     border: none;
     height: 3rem;
