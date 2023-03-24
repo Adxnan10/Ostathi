@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Button from 'react-bootstrap/Button'
+import SessionCardP from '../components/session/SessionCardP'
 
 export default function HomePage() {
   const [userData, setUserData] = useState({});
@@ -14,6 +14,7 @@ export default function HomePage() {
         typeof userData === 'undefined' ? (<p>Loading..</p>) :
           (<h1>Hi {userData.username}</h1>)
       }
+      <SessionCardP />
     </div>
   );
 }
