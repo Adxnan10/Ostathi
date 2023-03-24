@@ -1,0 +1,8 @@
+.session-card .session-card-img {
+  border-radius: 2rem;
+  height: 100%;
+  -webkit-border-radius: 2rem;
+  -moz-border-radius: 2rem;
+  -ms-border-radius: 2rem;
+  -o-border-radius: 2rem;
+}
