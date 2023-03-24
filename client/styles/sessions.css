@@ -1,0 +1,32 @@
+.session-card .session-card-img {
+  border-radius: 2rem;
+  height: 100%;
+  min-height: 270px;
+  object-fit: fill;
+  -webkit-border-radius: 2rem;
+  -moz-border-radius: 2rem;
+  -ms-border-radius: 2rem;
+  -o-border-radius: 2rem;
+}
+
+.session-card .session-info {
+  margin: 10px;
+}
+
+.session-card .tutor-info {
+  color: var(--secondryColor);
+}
+
+.session-bid button {
+  color: #FFF;
+  background-color: #F5931C;
+  border: none;
+  width: 80%;
+  font-size: 0.8rem;
+}
+
+.session-bid span {
+  display: block;
+  color: #bbb;
+  font-size: 0.8rem;
+}

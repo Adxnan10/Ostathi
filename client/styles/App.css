@@ -1,3 +1,11 @@
-/* p {
-  font-size: 4rem;
-} */
+.rounded-pic {
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.fill-pic {
+  object-fit: fill;
+}

@@ -3,7 +3,7 @@
     --secondryColor: #023047;
 }
 
-.App{
+.App {
     display: block;
     width: 100%;
     text-align: center;
@@ -12,7 +12,7 @@
 
 nav {
     margin: auto;
-    background-color:  var(--mainColor);
+    background-color: var(--mainColor);
     height: 5rem;
 }
 
@@ -34,12 +34,12 @@ img {
     border: 0;
     height: 2.5rem;
     width: 8rem;
-    margin: 1rem 1rem;    
+    margin: 1rem 1rem;
 }
 
 #login {
     color: white;
-    background-color: var(--secondryColor);;
+    background-color: var(--secondryColor);
     border-radius: 3rem;
     border: 0;
     height: 2.5rem;
@@ -47,11 +47,11 @@ img {
     margin: 1rem 0 1rem 1rem;
 }
 
-#login:hover{
+#login:hover {
     opacity: 0.8;
 }
 
-#signup:hover{
+#signup:hover {
     opacity: 0.8;
 }
 
@@ -62,7 +62,7 @@ img {
     margin: 0;
 }
 
-#profileSignedIn{
+#profileSignedIn {
     display: flex;
     margin: auto 1rem auto 0;
 }
@@ -89,6 +89,7 @@ button.paymenyButtons {
     background-color: #F48C06;
     border: none;
 }
+
 button.paymenyButtons:hover {
     margin-top: 1rem;
     background-color: #c27106;
@@ -107,30 +108,33 @@ button.paymenyButtons:hover {
     background-color: #F48C06;
 }
 
-.paymenyMethod{
+.paymenyMethod {
     margin: 2rem 0;
 }
-.cardBody{
+
+.cardBody {
     margin: 3rem;
 }
-.paymentCard{
+
+.paymentCard {
     max-width: 80vw;
     margin: 3rem auto;
     border-radius: 1rem;
     box-shadow: -1px 2px 30px 2px #e0e0e0;
 }
-.editHeader{
+
+.editHeader {
     color: white;
     background-color: #023047;
     padding: 60px;
 }
 
-#details{
+#details {
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
 
-#editPic{
+#editPic {
     margin: 1rem auto;
     object-fit: cover;
     height: 20rem;
@@ -146,6 +150,7 @@ button.profileButton {
     height: 3rem;
     width: 25rem;
 }
+
 button.profileButton:hover {
     margin: 1rem auto 0 auto;
     background-color: #c27106;
@@ -154,14 +159,14 @@ button.profileButton:hover {
     width: 25rem;
 }
 
-.profileScndClmn{
+.profileScndClmn {
     margin-left: 5rem;
 }
 
-.editProfile{
+.editProfile {
     margin-top: 2rem;
 }
 
-p{
+p {
     font-size: 1rem;
 }
