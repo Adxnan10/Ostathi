@@ -1,20 +1,31 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Image from 'next/image'
+import Offcanvas from 'react-bootstrap/Offcanvas';
+
 
 export default function navbar() {
   return (
 
     <>
-           <Navbar expand="lg" className="ms-30">
-        <Container>
-          
-          <Navbar.Brand href="../public/Logo.svg">
-           Logo
+           <Navbar expand="lg">
+          <Navbar.Brand href="">
+            <img src="/Logo.svg" alt="Logo"/>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-          <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+          
+          <Navbar.Offcanvas
+              id={`offcanvasNavbar-expand-md`}
+              aria-labelledby={`offcanvasNavbarLabel-expand-md`}
+              placement="end"
+              
+            >
+            <Offcanvas.Header closeButton>
+                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-md`}>
+                  Ostathi
+                </Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body className="justify-content-end">
           <Nav className="me-2">
                   <a href="" class="nav-item navButton">
                         Teach
@@ -38,8 +49,8 @@ export default function navbar() {
                   <input type="button" class="nav-item btn" id="login" value="Login"/>
                  <input type="button" class="nav-item btn" id="signup" value="SignUp"/>
           </Nav>
-          </Navbar.Collapse>
-        </Container>
+          </Offcanvas.Body>
+          </Navbar.Offcanvas>
       </Navbar> 
         </> 
   )

@@ -12,9 +12,8 @@ export default function HomePage() {
     <div className="App">
       {
         typeof userData === 'undefined' ? (<p>Loading..</p>) :
-          (<p>Hi {userData.username}</p>)
+          (<h1>Hi {userData.username}</h1>)
       }
-      <Button variant="primary">SHUSH</Button>
     </div>
   );
 }
