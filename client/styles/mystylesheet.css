@@ -165,3 +165,19 @@ button.profileButton:hover {
 p{
     font-size: 1rem;
 }
+
+#footer-common {
+    display: grid;
+    width: 100%;
+    background-color: #023047;
+    color: #B2B3CF;
+}
+
+#footer-text {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 33px;
+    letter-spacing: 0.04em;
+    color: #FFFFFF;
+}
