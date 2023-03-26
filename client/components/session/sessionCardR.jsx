@@ -1,17 +1,17 @@
 import { BsClockHistory, BsGrid } from 'react-icons/bs'
 import Card from 'react-bootstrap/Card'
-
-export default function SessionCardP({ ...props }) {
+import Button from 'react-bootstrap/Button'
+export default function SessionCardR({ ...props }) {
   /**
    * you should pass a session as an object
    * a session object looks like:
-    post: true, // this is not necessary for this component to work
+    post: false, // this is not necessary for this component to work
     topic: "Math",
     duration: "2 hours",
     title: "Linear Algebra",
     text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
     img: "/Model.jpeg",
-    userName: "Yzd",
+    userName: "Yzd", 
     userImg: "/logo.svg",
     price: 20
    */
@@ -33,11 +33,12 @@ export default function SessionCardP({ ...props }) {
         </Card.Text>
         <div className="d-flex justify-content-between align-items-center">
           <div className='user-info'>
-            <img src={props.session.userImg} alt="user pic" className='user-pic rounded-pic' style={{ maxHeight: '60px' }} />
+            <img src={props.session.userImg} alt="student pic" className='user-pic rounded-pic' style={{ maxHeight: '60px' }} />
             <span>{props.session.userName}</span>
           </div>
-          <div className='session-price' style={{ color: "#F5931C" }} >
-            <span>{props.session.price} SAR</span>
+          <div className='session-bid' style={{ color: "#F5931C" }} >
+            <Button>Bid Now</Button>
+            <span>Bids starts at: {props.session.price} SAR</span>
           </div>
         </div>
       </Card.Body>
