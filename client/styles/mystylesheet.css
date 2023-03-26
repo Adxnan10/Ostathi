@@ -210,15 +210,19 @@ button.profileButton:hover {
     text-decoration: none;
     color: #B2B3CF;
 }
+
 .footer-links:hover {
     color: #F48C06;
-.sessionBackGrnd{
+}
+
+.sessionBackGrnd {
     background-image: url("/sessionBackGrnd.jpg");
     height: 40vh;
     width: auto;
     background-size: cover;
 }
-Button.optionSessionPage{
+
+Button.optionSessionPage {
     display: block;
     background-color: #F48C06;
     border: none;
@@ -227,53 +231,60 @@ Button.optionSessionPage{
     padding: 10px 0;
 }
 
-Button.optionSessionPage:hover{
+Button.optionSessionPage:hover {
     display: block;
     background-color: #c27106;
     border: none;
     width: 10rem;
     margin: 2rem auto;
-    padding: 10px 0;   
+    padding: 10px 0;
 }
-#overviewSession{
+
+#overviewSession {
     background-color: var(--activeButton);
 }
-#overviewSession:hover{
+
+#overviewSession:hover {
     opacity: 0.9;
 }
-#ratingSession:hover{
+
+#ratingSession:hover {
     opacity: 0.9;
 }
-#ratingSession{
+
+#ratingSession {
     background-color: var(--notActiveButton);
 }
 
-.datailsSession{
+.datailsSession {
     display: flex;
     justify-content: space-between;
     margin: auto 1px 1rem;
 }
-.BsGrid{
+
+.BsGrid {
     margin: 4px;
 }
-p > .BsGrid{
+
+p>.BsGrid {
     margin: 2px 1rem 0 0;
     color: #F48C06;
 }
 
-#sessionDescription{
+#sessionDescription {
     background-color: #E2F0FF;
     color: #696984;
     border-radius: 1rem;
     padding: 4rem 2rem 1rem;
 }
-.sessionOverview{
+
+.sessionOverview {
     display: none;
 }
-.sessionRating{
-    
-}
-.ratingBox{
+
+.sessionRating {}
+
+.ratingBox {
     justify-content: space-between;
     height: 12rem;
     width: 14rem;
@@ -282,34 +293,39 @@ p > .BsGrid{
     padding: 2rem;
     text-align: center;
 }
-.ratingBox > p{
+
+.ratingBox>p {
     display: block;
     margin-top: 4rem;
 }
 
-.ratingBar{
-   
+.ratingBar {
+
     max-height: 5px;
     accent-color: #c27106;
 }
-.ratingBars{
+
+.ratingBars {
     margin: 2rem;
 }
 
-#sessionPics{
+#sessionPics {
     border-radius: 50%;
 }
-#nameSessionDet{
+
+#nameSessionDet {
     display: flex;
     justify-content: space-between;
     margin: auto;
     font-weight: bold;
 }
-.buttonSession{
+
+.buttonSession {
     display: flex;
     justify-content: space-between;
 }
-#floatingCard{
+
+#floatingCard {
     position: relative;
     bottom: 250px;
     width: 20rem;
@@ -317,20 +333,23 @@ p > .BsGrid{
     border: none;
 }
 
-#tutorPicSD{
+#tutorPicSD {
     height: auto;
     width: 100%;
     object-fit: cover;
 }
-.cardHeader h2{
+
+.cardHeader h2 {
     margin-top: 15px;
 }
-.cardHeader p{
+
+.cardHeader p {
     margin-top: 2rem;
     text-align: center;
-    color:#F48C06;
+    color: #F48C06;
 }
-#registerSessionBTN{
+
+#registerSessionBTN {
     display: block;
     background-color: #F48C06;
     color: white;
@@ -339,12 +358,15 @@ p > .BsGrid{
     border: none;
     margin: auto;
 }
-#registerSessionBTN:hover{
+
+#registerSessionBTN:hover {
     opacity: 0.9;
 }
-#titleSesDet{
+
+#titleSesDet {
     margin-bottom: 3rem;
 }
-#greyGuarnt{
+
+#greyGuarnt {
     color: #808080;
 }
