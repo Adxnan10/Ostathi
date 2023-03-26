@@ -54,8 +54,8 @@
 
 .userCard {
   position: relative;
-  width: 300px;
-  height: 150px;
+  width: 320px;
+  height: 160px;
   margin: 3rem 0;
   outline: #023047;
   text-align: center;
@@ -89,8 +89,8 @@
 
 .userCard .rating {
   width: 40%;
-  margin: 0 auto;
+  margin: 5px auto;
 }
 
 
-/* The end of styling userCardz */
+/* The end of styling userCard */
