@@ -171,6 +171,7 @@ p{
     width: 100%;
     background-color: #023047;
     color: #B2B3CF;
+    padding-top: 30px;
 }
 
 #footer-text {
@@ -180,4 +181,30 @@ p{
     line-height: 33px;
     letter-spacing: 0.04em;
     color: #FFFFFF;
+}
+
+#footer-img {
+    line-height: 3rem;
+}
+
+.footer-left-border {
+    border-left: 1px solid #626381;
+    max-height: fit-content;
+}
+
+.footer-right-border {
+    border-right: 1px solid #626381;
+    max-height: fit-content;
+}
+
+.footer-padding {
+    padding: 0 7px;
+}
+
+.footer-links {
+    text-decoration: none;
+    color: #B2B3CF;
+}
+.footer-links:hover {
+    color: #F48C06;
 }

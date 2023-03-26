@@ -1,16 +1,25 @@
 export default function Footer() {
   return (
-    <footer id="footer-common">
-      <div class="container-fluid">
-        <div class="row justify-content-center">
-          <img class="col-3" src="logo.svg" alt="Logo" />  
-          <img class="col-3" src="vr.svg" alt="Logo" />  
-          <p class="col-3" id="footer-text"> Your new way of learning. </p>
+    <footer id="footer-common" className="footer-bs mt-auto">
+      <div className="container-fluid overflow-hidden">
+
+        <div className="d-flex justify-content-center mb-3 align-items-center">
+          <img className="my-auto" id="footer-img" src="logo.svg" alt="Logo" />
+          <p className="my-auto footer-left-border footer-padding" id="footer-text"> Your new way of learning. </p>
         </div>
-        <div class="row justify-content-center">
-          <p class="col-1"> © 2023 Ostathi Inc. </p>
+      
+        <div className="d-flex justify-content-center mb-5" style={{width: '40%', alignItems: 'center', margin: '0 auto'}}>
+          <a href="#" className="footer-links"> <p className="my-auto footer-padding"> Careers </p> </a>
+          <a href="#" className="footer-links"> <p className="my-auto footer-padding footer-left-border">Privacy Policy </p> </a>
+          <a href="#" className="footer-links"> <p className="my-auto footer-padding footer-left-border"> Terms & Conditions </p> </a>
         </div>
+
+        <div className="d-flex justify-content-center mb-3">
+          <p className="my-auto"> © 2023 Ostathi Inc. </p>
+        </div>
+
       </div>
     </footer>
   )
 }
+ 
