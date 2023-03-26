@@ -208,12 +208,47 @@ Button.optionSessionPage:hover{
     justify-content: space-between;
     margin: auto 1px 1rem;
 }
+.BsGrid{
+    margin: 4px;
+}
+p > .BsGrid{
+    margin: 2px 1rem 0 0;
+    color: #F48C06;
+}
 
 #sessionDescription{
     background-color: #E2F0FF;
     color: #696984;
     border-radius: 1rem;
     padding: 4rem 2rem 1rem;
+}
+.sessionOverview{
+    display: none;
+}
+.sessionRating{
+    
+}
+.ratingBox{
+    justify-content: space-between;
+    height: 12rem;
+    width: 14rem;
+    background-color: #FFFFFF;
+    border-radius: 2rem;
+    padding: 2rem;
+    text-align: center;
+}
+.ratingBox > p{
+    display: block;
+    margin-top: 4rem;
+}
+
+.ratingBar{
+   
+    max-height: 5px;
+    accent-color: #c27106;
+}
+.ratingBars{
+    margin: 2rem;
 }
 
 #sessionPics{
@@ -230,8 +265,8 @@ Button.optionSessionPage:hover{
     justify-content: space-between;
 }
 #floatingCard{
-    position: absolute;
-    top: 300px;
+    position: relative;
+    bottom: 250px;
     width: 20rem;
     margin-left: 5rem;
     border: none;
