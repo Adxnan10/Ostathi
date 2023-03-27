@@ -169,6 +169,7 @@ button.profileButton:hover {
 
 .editProfile {
     margin-top: 2rem;
+    margin-bottom: 4rem;
 }
 
 #footer-common {
@@ -222,7 +223,20 @@ button.profileButton:hover {
     background-size: cover;
 }
 
-Button.optionSessionPage {
+button.optionSessionPage {
+    display: block;
+    background-color: #808080;
+    border: none;
+    width: 10rem;
+    margin: 2rem auto;
+    padding: 10px 0;
+}
+
+button.optionSessionPage:hover {
+    background-color: #808080;
+    opacity: 0.9;
+}
+button.activeButtonDS{
     display: block;
     background-color: #F48C06;
     border: none;
@@ -230,32 +244,10 @@ Button.optionSessionPage {
     margin: 2rem auto;
     padding: 10px 0;
 }
-
-Button.optionSessionPage:hover {
-    display: block;
-    background-color: #c27106;
-    border: none;
-    width: 10rem;
-    margin: 2rem auto;
-    padding: 10px 0;
-}
-
-#overviewSession {
-    background-color: var(--activeButton);
-}
-
-#overviewSession:hover {
+button.activeButtonDS:hover{
+    background-color: #F48C06;
     opacity: 0.9;
 }
-
-#ratingSession:hover {
-    opacity: 0.9;
-}
-
-#ratingSession {
-    background-color: var(--notActiveButton);
-}
-
 .datailsSession {
     display: flex;
     justify-content: space-between;
@@ -281,8 +273,6 @@ p>.BsGrid {
 .sessionOverview {
     display: none;
 }
-
-.sessionRating {}
 
 .ratingBox {
     justify-content: space-between;
@@ -369,4 +359,100 @@ p>.BsGrid {
 
 #greyGuarnt {
     color: #808080;
+}
+.sessionBackGrnd{
+    background-image: url("/sessionBackGrnd.jpg");
+    height: 40vh;
+    width: auto;
+    background-size: cover;
+}
+.datailsSession{
+    display: flex;
+    justify-content: space-between;
+    margin: auto 1px 1rem;
+}
+#sessionDescription{
+    background-color: #E2F0FF;
+    color: #696984;
+    border-radius: 1rem;
+    padding: 4rem 2rem 1rem;
+}
+#sessionDetailsPage{
+    margin-top: 4rem;
+    margin-bottom: 6rem;
+    min-height: 35rem;
+}
+#sessionPics{
+    border-radius: 50%;
+}
+#nameSessionDet{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    font-weight: bold;
+}
+.buttonSession{
+    display: flex;
+    justify-content: space-between;
+}
+#floatingCard{
+    position: absolute;
+    top: 300px;
+    width: 20rem;
+    margin-left: 5rem;
+    border: none;
+}
+
+#tutorPicSD{
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+}
+.cardHeader h2{
+    margin-top: 15px;
+}
+.cardHeader p{
+    margin-top: 2rem;
+    text-align: center;
+    color:#F48C06;
+}
+#registerSessionBTN{
+    display: block;
+    background-color: #F48C06;
+    color: white;
+    width: 80%;
+    padding: 12px;
+    border: none;
+    margin: auto;
+}
+#registerSessionBTN:hover{
+    opacity: 0.9;
+}
+#titleSesDet{
+    margin-bottom: 3rem;
+}
+#greyGuarnt{
+    color: #808080;
+}
+
+/*Tutor Details*/
+#overviewTutor p{
+    color: #808080;
+}
+#moreSessions{
+    background-color: #023047;
+    border: 0;
+    color: white;
+    width: 10rem;
+    height: 3rem;
+    margin: 2rem auto;
+}
+#moreSessions:hover{
+    opacity: 0.9;
+}
+#cardsArea{
+    margin: 2rem;
+}
+.cardMargin{
+    padding: 2rem;    
 }
