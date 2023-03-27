@@ -4,8 +4,8 @@ export default function Footer() {
         <div className="container-fluid overflow-hidden">
   
           <div className="d-flex justify-content-center mb-3 align-items-center">
-            <img className="my-auto" id="footer-img" src="logo.svg" alt="Logo" />
-            <p className="my-auto footer-left-border footer-padding" id="footer-text"> Your new way of learning. </p>
+            <img className="my-auto footer-right-border" id="footer-img" src="logo.svg" alt="Logo" />
+            <p className="my-auto footer-padding" id="footer-text">Your new way of learning</p>
           </div>
         
           <div className="d-flex justify-content-center mb-5" style={{width: '40%', alignItems: 'center', margin: '0 auto'}}>

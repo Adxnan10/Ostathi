@@ -183,8 +183,10 @@ button.profileButton:hover {
 #footer-text {
     font-style: normal;
     font-weight: 300;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 33px;
+    margin-left: 2rem;
+    width: 10rem;
     letter-spacing: 0.04em;
     color: #FFFFFF;
 }
