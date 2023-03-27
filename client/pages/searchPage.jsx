@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import SessionCardP from '../components/session/SessionCardP'
 import SessionCardR from '../components/session/SessionCardR'
+import UserCard from '../components/user/UserCard'
 import { useState, useRef } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import Container from 'react-bootstrap/Container'
@@ -31,6 +32,12 @@ export default function searchPage() {
     price: 30
   }
   ];
+  const dummyUsers = [{
+    fullName: "Yzd",
+    img: "/Model.jpeg",
+    rating: 3,
+    major: "Physics"
+  }];
   const [matchedSearch, setmatchedSearch] = useState([...dummySessions]);
   // TODO : This is just a dummy search to test the search functionality
   const title = useRef("");
@@ -85,10 +92,16 @@ export default function searchPage() {
       <Container>
         <Row>
           {matchedSearch.length > 0 ? matchedSearch.map((value, index) => {
-            return <Col><SessionCardP session={value} key={index} /></Col>
+            return <Col key={index} ><SessionCardP session={value} /></Col>
           }) : "Nothing matches the search"}
         </Row>
-
+      </Container>
+      <Container>
+        <Row>
+          {dummyUsers.map((value, index) => {
+            return <Col key={index}><UserCard user={value} /></Col>
+          })}
+        </Row>
       </Container>
     </>
   )
