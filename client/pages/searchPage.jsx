@@ -3,41 +3,54 @@ import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import SessionCardP from '../components/session/SessionCardP'
 import SessionCardR from '../components/session/SessionCardR'
-import { useState, useRef } from 'react'
+import UserCard from '../components/user/UserCard'
+import { useState, useRef, useEffect } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { dummySessions, dummyUsers } from '../public/fakeDataBase.json'
 
 export default function searchPage() {
-  const dummySessions = [{
-    topic: "Math",
-    duration: "2 hours",
-    title: "Linear Algebra",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
-    img: "/Model.jpeg",
-    userName: "Yzd",
-    userImg: "/Model.jpeg",
-    price: 20
-  },
-  {
-    topic: "Algorithms",
-    duration: "1 hour",
-    title: "A* explained",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
-    img: "/Model.jpeg",
-    userName: "Adnan",
-    userImg: "/Model.jpeg",
-    price: 30
+  const [sessions, setSessions] = useState([...dummySessions]);
+  const [users, setUsers] = useState([...dummyUsers]);
+  const [matchedSessions, setMatchedSessions] = useState([...sessions]);
+  const [matchedUsers, setMatchedUsers] = useState([...users]);
+  const [searchType, setSearchType] = useState('session')
+  const subject = useRef(' ')
+  const sessionType = useRef('1')
+  const searchKeywords = useRef(" ")
+  useEffect(() => {
+    search()
+  }, [searchType])
+  const isMatched = () => {
+    return matchedSessions.length > 0 || matchedUsers.length > 0
   }
-  ];
-  const [matchedSearch, setmatchedSearch] = useState([...dummySessions]);
-  // TODO : This is just a dummy search to test the search functionality
-  const title = useRef("");
   const search = (e) => {
-    e.preventDefault();
-    setmatchedSearch(dummySessions.filter((session) => session.title.includes(title.current.value)))
+    if (e)
+      e.preventDefault();
+    if (searchType == 'session') {
+      setMatchedUsers([])
+      setMatchedSessions(sessions.filter((session) => {
+        return (
+          (session.post == sessionType.current.value)
+          && session.title.includes(searchKeywords.current.value)
+          && session.topic.includes(subject.current.value)
+        )
+      }))
+    } else {
+      setMatchedSessions([])
+      setMatchedUsers(users.filter((user) => (
+        user.fullName.includes(searchKeywords.current.value)
+        && user.major.includes(subject.current.value)
+      )))
+    }
   };
+
+  const changeSearchType = (e) => {
+    setSearchType(e.currentTarget.value)
+  };
+  // TODO : This is just a dummy search to test the search functionality
   // TODO complete the search page.
   return (
     <>
@@ -47,7 +60,7 @@ export default function searchPage() {
             <Form.Control
               className="search-bar"
               type="text"
-              ref={title}
+              ref={searchKeywords}
               onChange={search}
               placeholder="Search here"
             >
@@ -64,32 +77,44 @@ export default function searchPage() {
         </Form.Group>
 
         <Form.Group className="mb-3 d-flex search-input-group" controlId="formFilters">
-          <Form.Select aria-label="filter-subject">
-            <option>subject</option>
+          <Form.Select onChange={changeSearchType} aria-label="filter-search-type">
+            <option value="session">session</option>
+            <option value="tutor">tutor</option>
+          </Form.Select>
+          <Form.Select onChange={search} ref={subject} aria-label="filter-subject">
+            <option value=''>subject</option>
             <option value="Math">Math</option>
             <option value="Physics">Physics</option>
             <option value="Programming">Programming</option>
           </Form.Select>
-          <Form.Select aria-label="filter-search-type">
-            <option>looking for..</option>
-            <option value="tutor">tutor</option>
-            <option value="session">session</option>
-          </Form.Select>
-          <Form.Select aria-label="filter-session-type">
-            <option>session type</option>
-            <option value="learn">learn</option>
-            <option value="teach">teach</option>
-          </Form.Select>
+          {searchType == 'session' ?
+            <Form.Select onChange={search} ref={sessionType} aria-label="filter-session-type">
+              {/* 1 and 0 to compare with boolean value */}
+              <option value="1">learn</option>
+              <option value="0">teach</option>
+            </Form.Select> : ''
+          }
+
         </Form.Group>
       </Form>
-      <Container>
-        <Row>
-          {matchedSearch.length > 0 ? matchedSearch.map((value, index) => {
-            return <Col><SessionCardP session={value} key={index} /></Col>
-          }) : "Nothing matches the search"}
-        </Row>
+      <div style={{ marginBottom: "4rem" }}>
+        <Container>
+          <Row>
+            {matchedSessions.map((value, index) => {
+              return <Col key={index} xxl={3} xl={4} lg={6} sm={12} > {value.post ? <SessionCardP session={value} /> : <SessionCardR session={value} />}</Col>
+            })}
+          </Row>
+        </Container>
+        <Container>
+          <Row>
+            {matchedUsers.map((value, index) => {
+              return <Col xxl={3} xl={4} lg={6} md={6} sm={12} key={index}><UserCard user={value} /></Col>
+            })}
+          </Row>
+        </Container>
+      </div>
 
-      </Container>
+      {isMatched() ? '' : <h1 style={{ textAlign: 'center', height: '40vh', color: "#023047" }}>"Sorry ostathi, we could not match your search"</h1>}
     </>
   )
 }

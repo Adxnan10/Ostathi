@@ -49,3 +49,48 @@
   background-color: var(--orangeColor);
   border: none;
 }
+
+/*  Styling user Card */
+
+.userCard {
+  position: relative;
+  width: 320px;
+  height: 160px;
+  margin: 3rem auto;
+  outline: #023047;
+  text-align: center;
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.1), 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.userCard .img-container {
+  height: 72px;
+}
+
+.userCard img {
+  position: absolute;
+  top: -2rem;
+  left: 35%;
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  padding: 0px;
+}
+
+.userCard .user-full-name {
+  color: var(--secondryColor);
+  /* font-size: rem; */
+  margin: 0px;
+}
+
+.userCard .user-major {
+  color: #666976;
+  margin: 0px;
+}
+
+.userCard .rating {
+  width: 40%;
+  margin: 5px auto;
+}
+
+
+/* The end of styling userCard */
