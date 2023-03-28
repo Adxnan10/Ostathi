@@ -541,3 +541,33 @@ p>.BsGrid {
     color: #808080;
     margin-top: 1rem;
 }
+
+.pageHeaderBar {
+    color: white;
+    background-color: #023047;
+    padding: 60px;
+}
+
+.pageContent {
+    margin: 5rem auto;
+    padding: 0 5rem;
+    align-items: center;
+}
+
+.form-group {
+    margin: 4rem auto;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bolder;
+}
+.form-group select {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
