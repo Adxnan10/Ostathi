@@ -1,22 +1,19 @@
 import Container from 'react-bootstrap/Container';
-import React from 'react';
+import {useState} from 'react'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { BsClockHistory, BsGrid } from 'react-icons/bs'
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import ReactDOM from 'react-dom/client';
 
 //Provide Rating, Pics, Session Details, Dates, Names, etc.
 
 export default function SessionDetails(){
-    var rate = "none";
-    var overview = "block";
-    const rating = [1500,1000,2555,2300,2500]
+    const rating = [3,5,8,1,5]
     var total = 0;
     rating.forEach(element => {
-        total =+ element;
+        total += element;
     });
     const comments = [{
         name:"Yazeed",
@@ -27,19 +24,32 @@ export default function SessionDetails(){
         comment:"Nice tutor",
         date: "May 24, 2022"
     }]
-
+    const [rate, setRate] = useState("none");
+    const [overview, setOverview] = useState('block')
+    const [OVB, setOVB] = useState("")
+    const rateView = (e) => {
+        setRate("block");
+        setOverview("none");
+        e.currentTarget.classList.add("activeButtonDS");
+        e.currentTarget.previousSibling.classList.remove("activeButtonDS")}
+    const overViewView = (e) => {
+        setOverview("block");
+        setRate("none");
+        e.currentTarget.classList.add("activeButtonDS");
+        e.currentTarget.nextSibling.classList.remove("activeButtonDS")
+    }
     return(<>
     <div className="sessionBackGrnd"/>
     <Container>
        <Row>
-        <Col lg="8">
+        <Col lg="8" id='sessionDetailsPage'>
             <Row>
                <Col lg="8" xl="6" className='buttonSession'>
-               <Button className="btn btn-primary optionSessionPage" id='overviewSession'>
+               <Button className="optionSessionPage activeButtonDS" onClick={overViewView}>
                         Overview
                     </Button>
-                    <Button className="btn btn-primary optionSessionPage" id='ratingSession' onClick={(overview) => overview = "none"}>
-                        {overview}
+                    <Button className="optionSessionPage" onClick={rateView}>
+                        Rating
                     </Button>
                </Col>
                    
