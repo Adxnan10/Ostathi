@@ -75,31 +75,41 @@
   ],
   "dummyUsers": [
     {
+      "userName": "Yazoody77",
       "fullName": "Yzd",
+      "Bio": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
       "img": "/Model.jpeg",
       "rating": 3,
       "major": "Physics"
     },
     {
+      "userName": "Adxnan10",
       "fullName": "Adnan",
+      "Bio": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
       "img": "/Model.jpeg",
       "rating": 5,
       "major": "SWE"
     },
     {
+      "userName": "Ahmad999",
       "fullName": "Ahmad",
+      "Bio": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
       "img": "/Model.jpeg",
       "rating": 5,
       "major": "ICS"
     },
     {
+      "userName": "xxMubarak",
       "fullName": "Mubarak",
+      "Bio": "My name is mubarak and ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
       "img": "/Model.jpeg",
       "rating": 3,
       "major": "ICS"
     },
     {
+      "userName": "Sager505",
       "fullName": "Sager",
+      "Bio": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
       "img": "/Model.jpeg",
       "rating": 5,
       "major": "SWE"

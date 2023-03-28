@@ -10,7 +10,7 @@ export default function navbar() {
   return (
     <>
       <Navbar expand="lg" sticky='top'>
-        <Navbar.Brand href="">
+        <Navbar.Brand href="/">
           <img src="/Logo.svg" alt="Logo" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

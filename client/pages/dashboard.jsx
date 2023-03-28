@@ -5,10 +5,14 @@ import Button from 'react-bootstrap/Button'
 import SessionCardP from '../components/session/SessionCardP'
 import { BsStar, BsStarFill } from "react-icons/bs";
 import React, { useState } from "react";
+import Router from 'next/router'
 
 
 export default function DashBoard() {
   var cond = true;
+  const goToEditPage = () => {
+    Router.push('/editProfile')
+  }
 
   const dummySessions = [{
     topic: "Math",
@@ -151,7 +155,7 @@ export default function DashBoard() {
           <h5>Adnan</h5>
         </Row>
         <Row>
-          <Button id="dashButton">
+          <Button id="dashButton" onClick={goToEditPage}>
             Edit Profile
           </Button>
         </Row>

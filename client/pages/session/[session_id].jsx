@@ -6,10 +6,13 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { BsClockHistory, BsGrid } from 'react-icons/bs'
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import { useRouter } from 'next/router'
 
 //Provide Rating, Pics, Session Details, Dates, Names, etc.
 
 export default function SessionDetails() {
+  const router = useRouter()
+  const { session_id } = router.query
   const rating = [3, 5, 8, 1, 5]
   var total = 0;
   rating.forEach(element => {
