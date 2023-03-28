@@ -1,6 +1,6 @@
 import { BsClockHistory, BsGrid } from 'react-icons/bs'
 import Card from 'react-bootstrap/Card'
-
+import Router from 'next/router'
 export default function SessionCardP({ ...props }) {
   /**
    * you should pass a session as an object
@@ -16,7 +16,7 @@ export default function SessionCardP({ ...props }) {
     price: 20
    */
   return (
-    <Card className="session-card session-card-posted" style={{ width: '20rem', borderRadius: '1rem' }}>
+    <Card onClick={() => Router.push(`/session/${props.session.session_id}`)} className="session-card session-card-posted" style={{ width: '20rem', borderRadius: '1rem' }}>
       <div className="indicator">posted</div>
       <Card.Img className="session-card-img" variant="top" src={props.session.img} />
       <Card.Body>
