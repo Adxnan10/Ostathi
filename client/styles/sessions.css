@@ -1,12 +1,38 @@
 .session-card {
   text-align: center;
   margin: 1rem auto;
+  position: relative;
+}
+
+.session-card .indicator {
+  position: absolute;
+  padding: 5px 10px;
+  width: fit-content;
+  top: 6px;
+  left: 6px;
+  color: white;
+  opacity: 0.7;
+  font-weight: bold;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.session-card-posted .indicator {
+  background-color: #198754;
+
+}
+
+.session-card-requested .indicator {
+  background-color: rgb(244, 82, 82);
 }
 
 .session-card .session-card-img {
   border-radius: 2rem;
-  height: 100%;
-  min-height: 270px;
+  height: 304px;
+  width: 100%;
   object-fit: fill;
   -webkit-border-radius: 2rem;
   -moz-border-radius: 2rem;
@@ -14,12 +40,23 @@
   -o-border-radius: 2rem;
 }
 
+.session-card .card-text {
+  min-height: 70px;
+}
+
 .session-card .session-info {
   margin: 10px;
 }
 
-.session-card .tutor-info {
+.session-card .user-info {
   color: var(--secondryColor);
+}
+
+.session-card .user-pic {
+  height: 64px;
+  width: 80px;
+  object-fit: fill;
+  /* width: ; */
 }
 
 .session-bid button {
@@ -27,7 +64,7 @@
   background-color: var(--orangeColor);
   border: none;
   width: 80%;
-  font-size: 0.8rem;
+  font-size: 1.1rem;
 }
 
 .session-bid span {
