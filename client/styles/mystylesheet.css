@@ -183,8 +183,10 @@ button.profileButton:hover {
 #footer-text {
     font-style: normal;
     font-weight: 300;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 33px;
+    margin-left: 2rem;
+    width: 10rem;
     letter-spacing: 0.04em;
     color: #FFFFFF;
 }
@@ -435,6 +437,8 @@ p>.BsGrid {
     color: #808080;
 }
 
+
+
 /*Tutor Details*/
 #overviewTutor p{
     color: #808080;
@@ -450,9 +454,51 @@ p>.BsGrid {
 #moreSessions:hover{
     opacity: 0.9;
 }
-#cardsArea{
-    margin: 2rem;
+.cardsArea{
+    padding: 2rem;
 }
 .cardMargin{
     padding: 2rem;    
+}
+
+
+/*Dashboard Page*/
+#dashboardPage, h4{
+    margin: 2rem 1rem;
+}
+#dashPic{
+    margin: auto;
+    margin-top: 4rem;
+    height: 250px;
+    width: 250px;
+}
+#dashboardPage h5{
+    margin: 2rem 0;
+    text-align: center;
+    font-size: 2rem;
+}
+#dashButton{
+    display: block;
+    background-color: #F48C06;
+    color: white;
+    width: 60%;
+    padding: 12px;
+    border: none;
+    margin: auto;
+}
+#dashButton:hover{
+    opacity: 0.9;
+}
+#tutorsArea{
+    margin-top: 4rem;
+}
+#dashboardPage .ratingBox{
+    box-shadow: -1px 2px 30px 2px #e0e0e0;
+    margin: 4rem auto;
+    width: 60%;
+}
+#dashboardPage p{
+    display: block;
+    color: #808080;
+    margin-top: 1rem;
 }
