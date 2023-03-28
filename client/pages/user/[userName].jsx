@@ -7,10 +7,13 @@ import Card from 'react-bootstrap/Card';
 import { BsClockHistory, BsGrid } from 'react-icons/bs'
 import SessionCardP from '../../components/session/SessionCardP'
 import { useRouter } from 'next/router'
+import { dummyUsers } from '../public/fakeDataBase.json'
 
 export default function UserPage() {
   const router = useRouter()
   const { userName } = router.query
+  
+  // const user = dummyUsers.filter(() => )
   console.log(userName)
   var cond = true;
   const rating = [1500, 1000, 2555, 2300, 2500]
@@ -18,48 +21,6 @@ export default function UserPage() {
   rating.forEach(element => {
     total = + element;
   });
-
-  const dummySessions = [{
-    topic: "Math",
-    duration: "2 hours",
-    title: "Linear Algebra",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
-    img: "/Model.jpeg",
-    userName: "Yzd",
-    userImg: "/logo.svg",
-    price: 20
-  },
-  {
-    topic: "Algorithms",
-    duration: "1 hour",
-    title: "A* explained",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
-    img: "/logo.svg",
-    userName: "Adnan",
-    userImg: "/Model.jpeg",
-    price: 30
-  },
-  {
-    topic: "Algorithms",
-    duration: "1 hour",
-    title: "A* explained",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
-    img: "/logo.svg",
-    userName: "Adnan",
-    userImg: "/Model.jpeg",
-    price: 30
-  },
-  {
-    topic: "Algorithms",
-    duration: "1 hour",
-    title: "A* explained",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
-    img: "/logo.svg",
-    userName: "Adnan",
-    userImg: "/Model.jpeg",
-    price: 30
-  }]
-
   const [toggle, setToggle] = useState(true);
   const [moreSessions, setMoreSessions] = useState("none");
   const [lessButton, setLessButton] = useState("none");
