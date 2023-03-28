@@ -171,3 +171,35 @@ p {
     font-size: 1rem;
 }
 
+
+
+/* ----------- Mubarak ----------------------- */
+
+.login-register-slider {
+    border-radius: 30px;
+    background-color: #666666;
+    width: 200px;
+    text-align: center;
+}
+
+.login-sides {
+    width: 50%;
+    height: auto;
+    float: left;
+    display: flex;
+    justify-content: center;
+    background-color: #4E6E7D;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----------- Mubarak ----------------------- */
