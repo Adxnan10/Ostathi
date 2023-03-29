@@ -4,33 +4,83 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { BsClockHistory, BsGrid } from 'react-icons/bs'
+import { BsStar, BsStarFill, BsGrid } from 'react-icons/bs'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { useRouter } from 'next/router'
+import { dummyUsers, dummySessions,sessionRating } from '/public/fakeDataBase.json'
 
 //Provide Rating, Pics, Session Details, Dates, Names, etc.
 
 export default function SessionDetails() {
   const router = useRouter()
   const { session_id } = router.query
-  const rating = [3, 5, 8, 1, 5]
-  var total = 0;
-  rating.forEach(element => {
-    total += element;
-  });
-  const comments = [{
-    name: "Yazeed",
-    comment: "Nice tutor",
-    date: "May 24, 2022"
-  }, {
-    name: "Yazeed",
-    comment: "Nice tutor",
-    date: "May 24, 2022"
-  }]
+  const [sessions, setSessions] = useState([...dummySessions]);
+  const [ratings, setRatings] = useState([...sessionRating]);
+  const [session,setSession] = useState([...sessions.filter((session) => {
+    return(
+      session.session_id == session_id
+    );
+  })]);
+  const [rating,setRating] = useState([...ratings.filter((rating) => {
+    return(
+      rating.session_id == session_id
+    );
+  })]);
+
+  function calcRates(){
+    const totalRating = [0,0,0,0,0];
+    rating.forEach((e) => {
+      if(e.rating == 1){
+        totalRating[0] = totalRating[0] + 1
+      } else if(e.rating == 2){
+        totalRating[1] = totalRating[1] + 1
+      } else if(e.rating == 3){
+        totalRating[2] = totalRating[2] + 1
+      } else if(e.rating == 4){
+        totalRating[3] = totalRating[3] + 1
+      } else if(e.rating == 5){
+        totalRating[4] = totalRating[4] + 1
+      } 
+    });
+    return(totalRating);
+  }
+  const totalRating = calcRates();
+  
+  function total(a){
+    
+      var total = 0;
+      var totalReviewres = 0;
+      for (let index = 0; index < totalRating.length; index++) {
+       total += totalRating[index] * (index+1);
+       totalReviewres += totalRating[index];
+      }
+      if(a == 0){
+      return(totalReviewres == 0? 0 : total/(totalReviewres*5) * 5)
+    } else {
+      return(totalReviewres)
+    }
+  }
+
+  const stars = (rating) => {
+    const starsTags = [];
+    const roundedRating = Math.round(rating)
+    for (let i = 0; i < roundedRating; ++i) {
+      starsTags.push((<BsStarFill color="#fdb022"></BsStarFill>));
+    }
+    for (let i = 0; i < 5 - roundedRating; ++i) {
+      starsTags.push((<BsStar color="gray"></BsStar>));
+    }
+    return (
+      <div>{starsTags}</div>
+    );
+    }
+  
+  
   const [rate, setRate] = useState("none");
   const [overview, setOverview] = useState('block')
   const [OVB, setOVB] = useState("")
   const rateView = (e) => {
+    total();
     setRate("block");
     setOverview("none");
     e.currentTarget.classList.add("activeButtonDS");
@@ -42,6 +92,7 @@ export default function SessionDetails() {
     e.currentTarget.classList.add("activeButtonDS");
     e.currentTarget.nextSibling.classList.remove("activeButtonDS")
   }
+  
   return (<>
     <div className="sessionBackGrnd" />
     <Container>
@@ -64,8 +115,8 @@ export default function SessionDetails() {
                 <Row>
                   <div className='datailsSession'>
                     <div className='datailsSession'>
-                      <img src="/Model.jpeg" alt="Model" id='sessionPics' />
-                      <p id='nameSessionDet'>Yazeed</p >
+                      <img src={session[0].img} alt="Model" id='sessionPics' />
+                      <p id='nameSessionDet'>{session[0].userName}</p >
                     </div>
                     <div className='datailsSession'>
                       <BsGrid className='BsGrid' />
@@ -74,33 +125,28 @@ export default function SessionDetails() {
                   </div>
                 </Row>
                 <Row className='datailsSession'>
-                  <p>Explanation: I think we all know the obvious distinction between these two terms; the word class is singular and the word classes is plural. However, these terms have various meanings depending on the context or discipline in which they are used. unched less than a year ago by Blackboard co-founder Michael Chasen,
-                    The Department of Information and Computer Science offers a BS in Software Engineering. The current
-                    program was revised and approved in 2020. The program has been developed considering IEEE/ACM The Department of Information and Computer Science offers a BS in Software Engineering. The current
-                    program was revised and approved in 2020. The program has been developed considering IEEE/ACM
-                    Software Engineering SE2014 guidelines and meets ABET’s Engineering Accreditation Criteria (EAC).
-                    Software Engineering SE2014 guidelines and meets ABET’s Engineering Accreditation Criteria (EAC).
-                  </p>
+                  <p>{session[0].text}</p>
                 </Row>
               </div>
               <div className='sessionRating' style={{ display: rate }}>
                 <Row>
                   <Col sm="12" md="6" lg="4" xlg="4">
                     <div className='ratingBox'>
-                      <h4>4 out of 5</h4>
-                      <p>Top rating</p>
+                      <h4>{Math.round(total(0))} out of 5</h4>
+                      {stars(total(0))}
+                      <p>{rating.length} reviews</p>
                     </div>
                   </Col>
                   <Col>
                     <div className='ratingBars'>
-                      {rating.map((value, index) => {
+                      {totalRating.map((value, index) => {
                         return (
                           <Row>
                             <Col md="6" lg="2">
                               <p>{index + 1} stars</p>
                             </Col>
                             <Col>
-                              <div className='ratingBar'><ProgressBar variant='warning' className='ratingBar' now={(value / total) * 100} /></div>
+                              <div className='ratingBar'><ProgressBar variant='warning' className='ratingBar' now={(value / total(1)) * 100} /></div>
                             </Col>
                           </Row>
                         );
@@ -109,13 +155,13 @@ export default function SessionDetails() {
                     </div>
                   </Col>
                 </Row>
-                {comments.map((value, index) => {
+                {rating.map((value, index) => {
                   return (
                     <><Row>
                       <div className='datailsSession'>
                         <div className='datailsSession'>
-                          <img src="/Model.jpeg" alt="Model" id='sessionPics' />
-                          <p id='nameSessionDet'>{value.name}</p >
+                          <img src={session[0].img} alt="Model" id='sessionPics' />
+                          <p id='nameSessionDet'>{value.userName}</p >
                         </div>
                         <div className='datailsSession'>
                           <BsGrid className='BsGrid' />
@@ -127,7 +173,7 @@ export default function SessionDetails() {
                         <p>{value.comment}
                         </p>
                       </Row>
-                      {comments.length - index - 1 == 0 ? <></> : <hr />}
+                      {rating.length - index - 1 == 0 ? <></> : <hr />}
                     </>
                   );
                 })}
@@ -139,8 +185,8 @@ export default function SessionDetails() {
           <Card id='floatingCard'>
             <Card.Img variant="top" src="/Model.jpeg" id='tutorPicSD' />
             <Card.Title className='cardHeader'>
-              <h2 >$49.99</h2>
-              <p>11 hours left</p>
+              <h2 >${session[0].price}</h2>
+              <p>{session[0].duration} left</p>
               <Button className="btn btn-primary" id='registerSessionBTN'>
                 Register Now
               </Button>

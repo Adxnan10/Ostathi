@@ -1,26 +1,52 @@
 import Container from 'react-bootstrap/Container';
-import React, { useState } from 'react';
+import React, { use, useMemo, useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { BsClockHistory, BsGrid } from 'react-icons/bs'
+import { BsStar, BsStarFill } from 'react-icons/bs'
 import SessionCardP from '../../components/session/SessionCardP'
 import { useRouter } from 'next/router'
-import { dummyUsers } from '../public/fakeDataBase.json'
+import { dummyUsers, dummySessions, sessionRating } from '/public/fakeDataBase.json'
 
 export default function UserPage() {
+  var cond = true;
   const router = useRouter()
   const { userName } = router.query
-  
-  // const user = dummyUsers.filter(() => )
-  console.log(userName)
-  var cond = true;
-  const rating = [1500, 1000, 2555, 2300, 2500]
-  var total = 0;
-  rating.forEach(element => {
-    total = + element;
-  });
+  const [users, setUsers] = useState([...dummyUsers]);
+  const [sessions, setSessions] = useState([...dummySessions]);
+  const [ratings, setRatings] = useState([...sessionRating]);
+  const [rating,setRating] = useState([...ratings.filter((rating) => {
+    return(
+      rating.tutor == userName
+    );
+  })]);
+  const [user,setUser] = useState([...dummyUsers.filter((user) => {
+    return(
+      user.userName == userName
+    );
+})]);
+
+  const [session,setSession] = useState([...sessions.filter((session) => {
+    return(
+      session.userName == userName
+    );
+  })])
+
+  const stars = (rating) => {
+    const starsTags = [];
+    const roundedRating = Math.round(rating)
+    for (let i = 0; i < roundedRating; ++i) {
+      starsTags.push((<BsStarFill color="#fdb022"></BsStarFill>));
+    }
+    for (let i = 0; i < 5 - roundedRating; ++i) {
+      starsTags.push((<BsStar></BsStar>));
+    }
+    return (
+      <div>{starsTags}</div>
+    );
+    }
+
   const [toggle, setToggle] = useState(true);
   const [moreSessions, setMoreSessions] = useState("none");
   const [lessButton, setLessButton] = useState("none");
@@ -39,35 +65,32 @@ export default function UserPage() {
     }
   });
 
-  return (<>
+return (<>
     <div className="sessionBackGrnd" />
     <Container>
       <Row>
         <Col lg="8" id='sessionDetailsPage'>
           <Row id='overviewTutor'>
             <h5><b>Overvirew</b></h5>
-            <p>Explanation: I think we all know the obvious distinction between these two terms; the word class is singular and the word classes is plural. However, these terms have various meanings depending on the context or discipline in which they are used. unched less than a year ago by Blackboard co-founder Michael Chasen,
-              The Department of Information and Computer Science offers a BS in Software Engineering. The current
-              program was revised and approved in 2020. The program has been developed considering IEEE/ACM The Department of Information and Computer Science offers a BS in Software Engineering. The current
-              program was revised and approved in 2020. The program has been developed considering IEEE/ACM
-              Software Engineering SE2014 guidelines and meets ABET’s Engineering Accreditation Criteria (EAC).
-              Software Engineering SE2014 guidelines and meets ABET’s Engineering Accreditation Criteria (EAC).
-            </p>
+            <p>{user[0].Bio}</p>
           </Row>
           <hr />
           <Row className='cardsArea'>
-            {dummySessions.map((value, index) => <>
-              {index <= 1 ?
+            {session.length == 0 ? <h4 style={{marginTop: "4rem"}}>Sorry Ostathi, There is no session at this time!</h4> :
+            session.map((value, index) => <>
+              {
+              index <= 1 ?
                 <Col sm="12" md="12" lg='6' xl="6" className='cardMargin'><SessionCardP session={value} /></Col>
                 :
-                dummySessions.length > 2 && cond ?
+                session.length > 2 && cond ?
                   <>
                     <Button id='moreSessions' style={{ display: moreButton }} onClick={showMoreSessions}>
-                      More Session
+                    More Sessions
                     </Button>
                     {cond = false}
                     <Col style={{ display: moreSessions }} sm="12" md="12" lg='6' xl="6"><SessionCardP session={value} /></Col>
                   </> : <Col style={{ display: moreSessions }} sm="12" md="12" lg='6' xl="6"><SessionCardP session={value} /></Col>
+               
               }
             </>
             )}
@@ -80,29 +103,21 @@ export default function UserPage() {
         </Col>
         <Col>
           <Card id='floatingCard'>
-            <Card.Img variant="top" src="/Model.jpeg" id='tutorPicSD' />
+            <Card.Img variant="top" src={user[0].img} id='tutorPicSD' />
             <Card.Title className='cardHeader'>
-              <h2 >Adnan Alshehri</h2>
-              <p></p>
+              <h2 >{user[0].fullName}</h2>
+              <p style={{color: 'gray'}} >{user[0].major}</p>
               <Button className="btn btn-primary" id='registerSessionBTN'>
                 Star
               </Button>
             </Card.Title>
             <hr />
             <Card.Body>
-              <h4 id='titleSesDet'><b>This Instructor has</b></h4>
-              <div id='greyGuarnt'>
-                <div>
-                  <p><BsGrid className='BsGrid' />Honesty and Integrity</p>
-                </div>
-                <div>
-                  <p><BsGrid className='BsGrid' />One-to-One messaging</p>
-                </div>
-                <div>
-                  <p><BsGrid className='BsGrid' />Certification on Math</p>
-                </div>
-              </div>
-
+            <div className='ratingBox'>
+            <h4>{user[0].rating} out of 5</h4>
+            {stars(user[0].rating)}
+            <p style={{margin:"1rem"}}>{rating.length} review</p>
+          </div>
             </Card.Body>
           </Card>
         </Col>
