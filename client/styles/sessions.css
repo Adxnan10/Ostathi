@@ -23,12 +23,18 @@
 
 .session-card-posted .indicator {
   background-color: #198754;
-
 }
 
 .session-card-requested .indicator {
   background-color: rgb(244, 82, 82);
 }
+
+.session-card .indicator.session-type {
+  top: 44px;
+  background-color: var(--secondryColor);
+}
+
+
 
 .session-card .session-card-img {
   border-radius: 2rem;

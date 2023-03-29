@@ -3,6 +3,7 @@
     {
       "session_id": 1,
       "post": true,
+      "session_type": "one-one",
       "topic": "Math",
       "duration": "2 hours",
       "title": "Linear Algebra",
@@ -27,6 +28,7 @@
     {
       "session_id": 3,
       "post": true,
+      "session_type": "group",
       "topic": "Physics",
       "duration": "1 hour",
       "title": "Quantum physics",
@@ -39,6 +41,7 @@
     {
       "session_id": 4,
       "post": true,
+      "session_type": "workshop",
       "topic": "Data structures",
       "duration": "1 hour",
       "title": "Stack",
@@ -51,6 +54,7 @@
     {
       "session_id": 5,
       "post": true,
+      "session_type": "one-one",
       "topic": "Chem",
       "duration": "1 hour",
       "title": "Composites",
@@ -63,6 +67,7 @@
     {
       "session_id": 5,
       "post": true,
+      "session_type": "group",
       "topic": "Medicine",
       "duration": "2 hours ",
       "title": "Anatomy in 2 hours",

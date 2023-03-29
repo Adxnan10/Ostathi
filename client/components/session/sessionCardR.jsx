@@ -20,6 +20,7 @@ export default function SessionCardR({ ...props }) {
   return (
     <Card onClick={() => Router.push(`/session/${props.session.session_id}`)} className="session-card session-card-requested" style={{ width: '20rem', borderRadius: '1rem' }}>
       <div className="indicator">requested</div>
+      <div className={`indicator session-type`}>one-one</div>
       <Card.Img className="session-card-img" variant="top" src={props.session.img} />
       <Card.Body>
         <div className="session-info d-flex justify-content-around" style={{ color: "#666976" }}>
