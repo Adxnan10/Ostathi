@@ -549,25 +549,59 @@ p>.BsGrid {
 }
 
 .pageContent {
-    margin: 5rem auto;
+    margin: 4.5rem auto;
     padding: 0 5rem;
     align-items: center;
 }
 
-.form-group {
+.form-post {
     margin: 4rem auto;
 }
 
-.form-group label {
+.form-post label {
     display: block;
+    margin-top: 2rem;
     margin-bottom: 0.5rem;
     font-weight: bolder;
 }
-.form-group select {
+
+.form-post option {
+    color: black;
+}
+
+.form-post .full-width {
     display: block;
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.85rem;
     border: 1px solid #D9D9D9;
     border-radius: 10px;
     box-sizing: border-box;
+    color: #9D9B9B;
+}
+.form-post .half-width {
+    display: block;
+    width: 100%;
+    max-width: 49vw;
+    padding: 0.85rem;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #9D9B9B;
+}
+
+
+.form-post input::placeholder {
+    color: #9D9B9B;
+}
+.form-post textarea::placeholder {
+    color: #9D9B9B;
+}
+
+#postButton {
+    display: block;
+    width: 30vw;
+    margin: 3.5rem .5rem;
+    height: 3.5rem;
+    float: right;
+    border-radius: 10px;
 }
