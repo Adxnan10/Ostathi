@@ -172,6 +172,174 @@ button.profileButton:hover {
     margin-bottom: 4rem;
 }
 
+/* ----------- Mubarak ----------------------- */
+
+/* #login-main {
+    font-family: 'Poppins';
+} */
+
+.login-register-slider {
+    border-radius: 30px;
+    background-color: #666666;
+    height: 3em;
+    width: 250px;
+    text-align: center;
+}
+
+.login-sides {
+    width: 100%;
+    height: 50em;
+    float: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.login-main-phrase {
+    /* margin: 2em; */
+    width: 100%;
+    color: white;
+    font-size: 4em;
+    font-weight: bold;
+}
+
+
+.login-intro {
+    /* margin: 2em; */
+    width: 75%;
+    color: white;
+    font-size: 1.5em;
+}
+
+.login-form-box {
+    width: 450px;
+    height: 700px;
+    position: relative;
+    margin: 6% auto;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.login-button-box {
+    width: 220px;
+    margin: 30px auto 50px auto;
+    position: relative;
+    box-shadow: 0 0 0px 10px #568ca6;
+    background-color: #568ca6;
+    border-radius: 30px;
+}
+
+.login-toggle-btn {
+    padding: 5px 30px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+    color: #fff;
+}
+
+#login-btn-highlight {
+    top: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background: #219ebc;
+    border-radius: 30px;
+    transition: .5s;
+}
+
+#register-btn-highlight {
+    top: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background: #219ebc;
+    border-radius: 30px;
+    transition: .5s;
+    left: 100px;
+}
+
+.login-form-prompt{
+    margin: 30px auto;
+    text-align: left;
+}
+
+.login-form-prompt p {
+    padding: 0;
+    margin: 0 12px;
+    color: #c9d3d8;
+}
+
+.login-input-group {
+    top: 180px;
+    position: absolute;
+    width: 94%;
+    transition: .5s;
+}
+
+.login-form-label {
+    color: #fff;
+    padding-left: 15px;
+}
+
+.login-input-field {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0 30px 0;
+    border: 1px solid #219EBC;
+    border-radius: 40px;
+    padding-left: 30px;
+    background: #fff;
+}
+
+.login-submit-btn {
+    width: 50%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    background: #219ebc;
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+    color: #fff;
+    
+}
+
+.login-submit-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.login-check-box {
+    margin: 10px 5px 30px 0;
+    color: #fff;
+}
+
+#login-chk-span {
+    color: #fff;
+    font-size: 12px;
+    margin-top: 7px;
+    position: absolute;
+}
+
+
+#login-form {
+    left: 12px;
+}
+/* 
+#register-form {
+    left: 450px;
+} */
+
+
+
+
+
+/* ----------- Mubarak ----------------------- */
 #footer-common {
     display: grid;
     width: 100%;
