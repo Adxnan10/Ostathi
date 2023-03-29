@@ -7,11 +7,23 @@
     /* F5931C */
 }
 
-.App {
-    display: block;
-    width: 100%;
-    text-align: center;
-    margin: 5rem auto;
+#landingBCKGRN{
+    position: relative;
+    top: 0;
+    margin-top: 0;
+    height:100%;
+    
+    
+}
+
+#welcoming{
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 20rem 5rem;
+    width: 50%;
+    
 }
 
 nav {

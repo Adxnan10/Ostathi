@@ -71,7 +71,7 @@ export default function Login() {
                         <p>Enter you username and password </p>
                     </div>
                     <form className="login-input-group" id="register-form">
-                    <label for="emai;" className="login-form-label">Email</label>
+                    <label for="email" className="login-form-label">Email</label>
                     <input type="email" className="login-input-field" placeholder="Enter your Email" requiered/>
                     <label for="username" className="login-form-label">Username</label>
                     <input type="text" className="login-input-field" placeholder="Enter your username" requiered/>
