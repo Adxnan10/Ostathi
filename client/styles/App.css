@@ -9,3 +9,89 @@
 .fill-pic {
   object-fit: fill;
 }
+
+.search-box {
+  background-color: #023047;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.search-box .search-input-group {
+  width: 60%;
+  margin: 0px auto;
+}
+
+.search-box .search-bar {
+  color: #023047;
+}
+
+.search-box .search-bar:focus {
+  border-color: var(--orangeColor);
+  outline: none;
+  box-shadow: none;
+}
+
+.search-box .form-select {
+  outline: none;
+  width: fit-content;
+  box-shadow: none;
+  margin-right: 1rem;
+}
+
+.search-box .form-select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
+
+#searchButton {
+  background-color: var(--orangeColor);
+  border: none;
+}
+
+/*  Styling user Card */
+
+.userCard {
+  position: relative;
+  width: 320px;
+  height: 160px;
+  margin: 3rem auto;
+  outline: #023047;
+  text-align: center;
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.1), 3px 3px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.userCard .img-container {
+  height: 72px;
+}
+
+.userCard img {
+  position: absolute;
+  top: -2rem;
+  left: 35%;
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  padding: 0px;
+}
+
+.userCard .user-full-name {
+  color: var(--secondryColor);
+  /* font-size: rem; */
+  margin: 0px;
+}
+
+.userCard .user-major {
+  color: #666976;
+  margin: 0px;
+}
+
+.userCard .rating {
+  width: 40%;
+  margin: 5px auto;
+}
+
+
+/* The end of styling userCard */

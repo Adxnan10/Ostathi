@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@jjunyjjuny/react-carousel": "^1.1.2",
+    "react-items-carousel": "^2.8.0",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1"
+  }
+}

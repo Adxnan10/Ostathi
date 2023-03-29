@@ -1,6 +1,10 @@
 :root {
     --mainColor: white;
     --secondryColor: #023047;
+    --activeButton: #F48C06;
+    --notActiveButton: #b0b0b0;
+    --orangeColor: #F48C06;
+    /* F5931C */
 }
 
 .App {
@@ -165,13 +169,8 @@ button.profileButton:hover {
 
 .editProfile {
     margin-top: 2rem;
+    margin-bottom: 4rem;
 }
-
-p {
-    font-size: 1rem;
-}
-
-
 
 /* ----------- Mubarak ----------------------- */
 
@@ -341,3 +340,333 @@ p {
 
 
 /* ----------- Mubarak ----------------------- */
+#footer-common {
+    display: grid;
+    width: 100%;
+    background-color: #023047;
+    color: #B2B3CF;
+    padding-top: 30px;
+}
+
+#footer-text {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 33px;
+    margin-left: 2rem;
+    width: 10rem;
+    letter-spacing: 0.04em;
+    color: #FFFFFF;
+}
+
+#footer-img {
+    line-height: 3rem;
+}
+
+.footer-left-border {
+    border-left: 1px solid #626381;
+    max-height: fit-content;
+}
+
+.footer-right-border {
+    border-right: 1px solid #626381;
+    max-height: fit-content;
+}
+
+.footer-padding {
+    padding: 0 7px;
+}
+
+.footer-links {
+    text-decoration: none;
+    color: #B2B3CF;
+}
+
+.footer-links:hover {
+    color: #F48C06;
+}
+
+.sessionBackGrnd {
+    background-image: url("/sessionBackGrnd.jpg");
+    height: 40vh;
+    width: auto;
+    background-size: cover;
+}
+
+button.optionSessionPage {
+    display: block;
+    background-color: #808080;
+    border: none;
+    width: 10rem;
+    margin: 2rem auto;
+    padding: 10px 0;
+}
+
+button.optionSessionPage:hover {
+    background-color: #808080;
+    opacity: 0.9;
+}
+button.activeButtonDS{
+    display: block;
+    background-color: #F48C06;
+    border: none;
+    width: 10rem;
+    margin: 2rem auto;
+    padding: 10px 0;
+}
+button.activeButtonDS:hover{
+    background-color: #F48C06;
+    opacity: 0.9;
+}
+.datailsSession {
+    display: flex;
+    justify-content: space-between;
+    margin: auto 1px 1rem;
+}
+
+.BsGrid {
+    margin: 4px;
+}
+
+p>.BsGrid {
+    margin: 2px 1rem 0 0;
+    color: #F48C06;
+}
+
+#sessionDescription {
+    background-color: #E2F0FF;
+    color: #696984;
+    border-radius: 1rem;
+    padding: 4rem 2rem 1rem;
+}
+
+.sessionOverview {
+    display: none;
+}
+
+.ratingBox {
+    justify-content: space-between;
+    height: 12rem;
+    width: 14rem;
+    background-color: #FFFFFF;
+    border-radius: 2rem;
+    padding: 2rem;
+    text-align: center;
+}
+
+.ratingBox>p {
+    display: block;
+    margin-top: 4rem;
+}
+
+.ratingBar {
+
+    max-height: 5px;
+    accent-color: #c27106;
+}
+
+.ratingBars {
+    margin: 2rem;
+}
+
+#sessionPics {
+    border-radius: 50%;
+}
+
+#nameSessionDet {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    font-weight: bold;
+}
+
+.buttonSession {
+    display: flex;
+    justify-content: space-between;
+}
+
+#floatingCard {
+    position: relative;
+    bottom: 250px;
+    width: 20rem;
+    margin-left: 5rem;
+    border: none;
+}
+
+#tutorPicSD {
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+}
+
+.cardHeader h2 {
+    margin-top: 15px;
+}
+
+.cardHeader p {
+    margin-top: 2rem;
+    text-align: center;
+    color: #F48C06;
+}
+
+#registerSessionBTN {
+    display: block;
+    background-color: #F48C06;
+    color: white;
+    width: 80%;
+    padding: 12px;
+    border: none;
+    margin: auto;
+}
+
+#registerSessionBTN:hover {
+    opacity: 0.9;
+}
+
+#titleSesDet {
+    margin-bottom: 3rem;
+}
+
+#greyGuarnt {
+    color: #808080;
+}
+.sessionBackGrnd{
+    background-image: url("/sessionBackGrnd.jpg");
+    height: 40vh;
+    width: auto;
+    background-size: cover;
+}
+.datailsSession{
+    display: flex;
+    justify-content: space-between;
+    margin: auto 1px 1rem;
+}
+#sessionDescription{
+    background-color: #E2F0FF;
+    color: #696984;
+    border-radius: 1rem;
+    padding: 4rem 2rem 1rem;
+}
+#sessionDetailsPage{
+    margin-top: 4rem;
+    margin-bottom: 6rem;
+    min-height: 35rem;
+}
+#sessionPics{
+    border-radius: 50%;
+}
+#nameSessionDet{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    font-weight: bold;
+}
+.buttonSession{
+    display: flex;
+    justify-content: space-between;
+}
+#floatingCard{
+    position: absolute;
+    top: 300px;
+    width: 20rem;
+    margin-left: 5rem;
+    border: none;
+}
+
+#tutorPicSD{
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+}
+.cardHeader h2{
+    margin-top: 15px;
+}
+.cardHeader p{
+    margin-top: 2rem;
+    text-align: center;
+    color:#F48C06;
+}
+#registerSessionBTN{
+    display: block;
+    background-color: #F48C06;
+    color: white;
+    width: 80%;
+    padding: 12px;
+    border: none;
+    margin: auto;
+}
+#registerSessionBTN:hover{
+    opacity: 0.9;
+}
+#titleSesDet{
+    margin-bottom: 3rem;
+}
+#greyGuarnt{
+    color: #808080;
+}
+
+
+
+/*Tutor Details*/
+#overviewTutor p{
+    color: #808080;
+}
+#moreSessions{
+    background-color: #023047;
+    border: 0;
+    color: white;
+    width: 10rem;
+    height: 3rem;
+    margin: 2rem auto;
+}
+#moreSessions:hover{
+    opacity: 0.9;
+}
+.cardsArea{
+    padding: 2rem;
+}
+.cardMargin{
+    padding: 2rem;    
+}
+
+
+/*Dashboard Page*/
+#dashboardPage, h4{
+    margin: 2rem 1rem;
+}
+#dashPic{
+    margin: auto;
+    margin-top: 4rem;
+    height: 250px;
+    width: 250px;
+}
+#dashboardPage h5{
+    margin: 2rem 0;
+    text-align: center;
+    font-size: 2rem;
+}
+#dashButton{
+    display: block;
+    background-color: #F48C06;
+    color: white;
+    width: 60%;
+    padding: 12px;
+    border: none;
+    margin: auto;
+}
+#dashButton:hover{
+    opacity: 0.9;
+}
+#tutorsArea{
+    margin-top: 4rem;
+}
+#dashboardPage .ratingBox{
+    box-shadow: -1px 2px 30px 2px #e0e0e0;
+    margin: 4rem auto;
+    width: 60%;
+}
+#dashboardPage p{
+    display: block;
+    color: #808080;
+    margin-top: 1rem;
+}
