@@ -37,8 +37,9 @@ export default function PostSession() {
                     <div className="col">
                         <label class="row" htmlFor="Type"> Type </label>
                         <select class="row half-width" name="Type"  >
-                            <option value="One-to-one" selected> One to one meeting </option>
-                            <option value="Group"> Group meeting </option>
+                            <option value="Tutoring" selected> One-to-one session </option>
+                            <option value="Group"> Group session </option>
+                            <option value="Lecture"> General lecture </option>
                         </select>
                     </div>
                     <div className="col">
