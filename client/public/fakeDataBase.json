@@ -7,11 +7,11 @@
       "topic": "Math",
       "duration": "2 hours",
       "title": "Linear Algebra",
-      "text": "Loremipsumdolorsitamet,consecteturadipisicingelit.Hicvoluptate!Lorempsumdolorsitamet,consecteturadipisicingelit.Hic, voluptate! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
+      "text": "Loremipsumdolorsitamet, consecteturadipisicingelit. Hicvoluptate!Lorempsumdolors itamet,consecteturadipisicin gelit.Hic, voluptate! Lorem ipsum dolor sit amet, cons ectetur adipisicing elit. Hic, voluptate! Lorem i psum dolor sit amet, consectetur  adipisicing elit. Hic, voluptate!",
       "img": "/Model.jpeg",
-      "userName": "Yzd",
+      "userName": "Yazoody77",
       "userImg": "/Model.jpeg",
-      "price": 20
+      "price": 20.99
     },
     {
       "session_id": 2,
@@ -85,7 +85,8 @@
       "Bio": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
       "img": "/Model.jpeg",
       "rating": 3,
-      "major": "Physics"
+      "major": "Physics",
+      "comments": 4
     },
     {
       "userName": "Adxnan10",
@@ -119,5 +120,29 @@
       "rating": 5,
       "major": "SWE"
     }
+  ], "sessionRating":
+  [
+  {"session_id": 1,
+    "tutor": "Adxnan10",
+    "userName":"Sager505",
+    "comment":"Nice Tutor",
+    "rating": 5,
+    "img": "/Model.jpeg",
+    "date": "4th of July 2023"
+  },{"session_id": 1,
+  "tutor": "Adxnan10",
+  "userName":"Yazed",
+  "comment":"Nice Tutor, He loves what he doing",
+  "rating": 5,
+  "img": "/Model.jpeg",
+  "date": "4th of May 2022"
+},{"session_id": 1,
+"tutor": "Yazoody77",
+"userName":"Moataz",
+"comment":"Adnan is a really great person regardless of his teaching",
+"rating": 3,
+"img": "/Model.jpeg",
+"date": "5th of May 2022"
+}
   ]
 }

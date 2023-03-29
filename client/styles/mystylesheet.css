@@ -667,6 +667,10 @@ p>.BsGrid {
 .cardMargin{
     padding: 2rem;    
 }
+#floatingCard .ratingBox{
+    box-shadow: -1px 2px 30px 2px #e0e0e0;
+    margin: 4rem auto;
+}
 
 
 /*Dashboard Page*/

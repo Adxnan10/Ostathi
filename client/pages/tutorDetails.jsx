@@ -57,22 +57,11 @@ export default function SessionDetails(){
         price: 30
       }]
 
-      const [toggle, setToggle] = useState(true);
       const [moreSessions, setMoreSessions] = useState("none");
-      const [lessButton, setLessButton] = useState("none");
-      const [moreButton, setMoreButton] = useState("block");
+      const [moreButton, setMoreButton] = useState("display");
       const showMoreSessions = (() => {
-            if(toggle){
-                setToggle(false);
-                setMoreSessions("block");
-                setMoreButton("none");
-                setLessButton("block"); 
-            } else {
-                setMoreSessions("none");
-                setMoreButton("block");
-                setLessButton("none"); 
-                setToggle(true);
-            }
+            setMoreSessions("block");
+            setMoreButton("none");
       });
 
     return(<>
@@ -91,27 +80,24 @@ export default function SessionDetails(){
                         </p>
             </Row>
             <hr />
-            <Row className='cardsArea'>
+            <Row id='cardsArea'>
                 {dummySessions.map((value,index) => <>
                     {index <= 1 ? 
                     <Col  sm="12" md="12" lg='6' xl="6" className='cardMargin'><SessionCardP session={value} /></Col>
                     :
                     dummySessions.length > 2 && cond? 
-                    <>
+                    <Row>
                     <Button id='moreSessions' style={{display: moreButton}} onClick={showMoreSessions}>
                         More Session
                     </Button>
                     {cond = false}
+                    </Row> : 
                     <Col  style={{display: moreSessions}} sm="12" md="12" lg='6' xl="6"><SessionCardP session={value} /></Col>
-                    </> :  <Col  style={{display: moreSessions}} sm="12" md="12" lg='6' xl="6"><SessionCardP session={value} /></Col>
+                
                      }
                 </>
                 )}
-                <Row>
-                <Col> <Button id='moreSessions' style={{display: lessButton}} onClick={showMoreSessions}>
-                        Show Less
-                    </Button></Col>
-                </Row>  
+               
             </Row>
         </Col>
         <Col>
