@@ -13,7 +13,7 @@ export default function PostSession() {
         </div>
 
         <div className="container">
-            <form className="form-post">
+            <form className="form-post" method="POST">
                 <label class="row" htmlFor="Subject"> Session Subject </label>
                 <select class="row full-width" name="Subject" placeholder="Software Engineering">
                     <option value="Software Engineering" selected> Software Engineering </option>
