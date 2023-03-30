@@ -8,10 +8,12 @@ import Col from 'react-bootstrap/Col'
 export default function HomePage() {
   return (
     <div className="App">
-      <Container>
-        <Row>
+        <Row >
+          <img id='landingBCKGRN' src="/landingPage.png" alt="Page" />
+          <p className="login-main-phrase" id='welcoming'>
+                    <span style={{color: "#F48C06"}}> Studying </span> online is now much easier
+                </p>
         </Row>
-      </Container>
     </div>
   );
 }
