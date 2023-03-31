@@ -11,7 +11,7 @@ export default function navbar() {
     <>
       <Navbar expand="lg" sticky='top'>
         <Navbar.Brand href="/">
-          <img src="/Logo.svg" alt="Logo" />
+        <img src="/Logo.svg" alt="Logo" style={{marginLeft:'4rem'}}/>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
@@ -28,7 +28,7 @@ export default function navbar() {
           </Offcanvas.Header>
           <Offcanvas.Body className="justify-content-end">
             <Nav className="me-2">
-              <Link href="/postForm" class="nav-item navButton">
+              <Link href="/postSession" class="nav-item navButton">
                 Teach
               </Link>
               <Link href="/requestForm" class="nav-item navButton">

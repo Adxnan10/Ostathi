@@ -7,6 +7,7 @@ import Card from 'react-bootstrap/Card';
 import { BsStar, BsStarFill, BsGrid } from 'react-icons/bs'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { useRouter } from 'next/router'
+import Router from 'next/router'
 import { dummyUsers, dummySessions,sessionRating } from '/public/fakeDataBase.json'
 
 //Provide Rating, Pics, Session Details, Dates, Names, etc.
@@ -185,9 +186,9 @@ export default function SessionDetails() {
           <Card id='floatingCard'>
             <Card.Img variant="top" src="/Model.jpeg" id='tutorPicSD' />
             <Card.Title className='cardHeader'>
-              <h2 >${session[0].price}</h2>
+              <h2 >{session[0].price} SAR</h2>
               <p>{session[0].duration} left</p>
-              <Button className="btn btn-primary" id='registerSessionBTN'>
+              <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => Router.push(`/payment/${session_id}`)}>
                 Register Now
               </Button>
             </Card.Title>

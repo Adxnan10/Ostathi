@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button'
 import React, {useState } from 'react';
 import { dummySessions } from '/public/fakeDataBase.json'
 import SessionCardP from '../components/session/SessionCardP'
+import Router from 'next/router'
+
 
 export default function HomePage() {
   const [sessions, setSessoin] = useState([...dummySessions])
@@ -63,16 +65,16 @@ export default function HomePage() {
               <p>
                 As a tutor
               </p>
-              <Button id='startS'>Start session today</Button>
+              <Button id='startS' onClick={() => {Router.push(`/postSession`)}}>Start session today</Button>
             </div>
             </div>
           </Col>
           <Col>
           <div id='joinLandPage' style={{backgroundImage: `url(Rectangle2.jpg)`}}>
             <div id='join'><p>As A Student</p> 
-            <Button id='joinS'>Join your collegues</Button>
+            <Button id='joinS' onClick={() => {Router.push(`/searchPage`)}}>Join your collegues</Button>
             </div>
-                      </div>
+            </div>
           </Col>
         </Row>
     </div>

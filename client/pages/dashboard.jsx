@@ -163,7 +163,7 @@ export default function DashBoard() {
           <div className='ratingBox'>
             <h4>4 out of 5</h4>
             {stars(4)}
-            <p>3450 review</p>
+            <div>3450 review</div>
           </div>
 
         </Row>

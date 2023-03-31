@@ -160,7 +160,9 @@ img {
     height: 3rem;
     border-radius: 0.5rem;
 }
-
+#f{
+    flex-wrap: nowrap;
+}
 .Labels {
     margin: 8px;
 }
@@ -788,7 +790,6 @@ p>.BsGrid {
 #dashboardPage p{
     display: block;
     color: #808080;
-    margin-top: 1rem;
 }
 
 .pageHeaderBar {
