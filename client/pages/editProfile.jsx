@@ -1,68 +1,70 @@
+import Router from 'next/router'
+
 export default function EditProfile() {
     return (
         <>
-            <div class="editHeader">
+            <div className="editHeader">
                 <h1>Edit Profile</h1>
             </div>
-            <div class="container">
-                <div class="row  editProfile">
-                    <div class="col-sm-12 col-md-12 col-lg-6">
+            <div className="container">
+                <div className="row  editProfile">
+                    <div className="col-sm-12 col-md-12 col-lg-6">
                         <form>
-                            <div class="row">
-                                <div class="row">
+                            <div className="row">
+                                <div className="row">
                                     <h1 id="details">Details</h1>
                                 </div>
-                                <label htmlFor="Name" class="Labels">
+                                <label htmlFor="Name" className="Labels">
                                     Name
                                 </label>
                             </div>
-                            <div class="row">
-                                <input type="text" name="Name" class="col paymenyButtons" placeholder="Enter Your Name" />
+                            <div className="row">
+                                <input type="text" name="Name" className="col paymenyButtons" placeholder="Enter Your Name" />
                             </div>
 
-                            <div class="row">
-                                <label htmlFor="Number" class="Labels">
+                            <div className="row">
+                                <label htmlFor="Number" className="Labels">
                                     Phone Number
                                 </label>
                             </div>
-                            <div class="row">
-                                <input type="text" name="Number" class="col paymenyButtons" placeholder="+966 xx-xxx-xxxx" />
+                            <div className="row">
+                                <input type="text" name="Number" className="col paymenyButtons" placeholder="+966 xx-xxx-xxxx" />
                             </div>
 
-                            <div class="row">
-                                <label htmlFor="Email" class="Labels">
+                            <div className="row">
+                                <label htmlFor="Email" className="Labels">
                                     Email
                                 </label>
                             </div>
-                            <div class="row">
-                                <input type="text" name="Email" class="col paymenyButtons" placeholder="xxxxx@gmail.com" />
+                            <div className="row">
+                                <input type="text" name="Email" className="col paymenyButtons" placeholder="xxxxx@gmail.com" />
                             </div>
-                            <div class="row">
-                                <label htmlFor="DateBirth" class="Labels">
+                            <div className="row">
+                                <label htmlFor="DateBirth" className="Labels">
                                     Date of Birth
                                 </label>
                             </div>
-                            <div class="row">
-                                <input type="text" name="DateBirth" class="col paymenyButtons" placeholder="1999-08-31" />
+                            <div className="row">
+                                <input type="text" name="DateBirth" className="col paymenyButtons" placeholder="1999-08-31" />
                             </div>
                         </form>
                     </div>
-                    <div class="col profileScndClmn">
-                        <div class="row" id="profilePic">
-                            <img class="col" src="Model.jpeg" alt="Profile pic" id="editPic" />
+                    <div className="col profileScndClmn">
+                        <div className="row" id="profilePic">
+                            <img className="col" src="Model.jpeg" alt="Profile pic" id="editPic" />
                         </div>
-                        <div class="row">
-                            <button class="btn btn-primary profileButton">
+                        <div className="row">
+                            <button className="btn btn-primary profileButton">
                                 Edit Picture
                             </button>
                         </div>
-                        <div class="row">
-                            <button class="btn btn-primary profileButton">
+                        <div className="row">
+                            <button className="btn btn-primary profileButton" onClick={() => Router.push(`/session/1`)}>
                                 Preview
                             </button>
                         </div>
-                        <div class="row">
-                            <button class="btn btn-primary profileButton">
+                        <div className="row">
+                            <button className="btn btn-primary profileButton">
                                 Save
                             </button>
                         </div>

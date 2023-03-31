@@ -12,20 +12,85 @@
     top: 0;
     margin-top: 0;
     height:100%;
-    
-    
 }
-
+.landingText{
+    color: #023047;
+    display: block;
+    margin: auto;
+    margin-bottom: 3rem;
+    text-align: center;
+    font-size: 3vw;
+}
 #welcoming{
     color: white;
     position: absolute;
     top: 0;
     left: 0;
-    margin: 20rem 5rem;
+    margin: 20vw 5vw;
     width: 50%;
-    
+    font-size: 4vw;
 }
-
+#landingCards{
+    padding: 2rem 6rem 8rem 6rem;
+ }
+ #classesLandPage{
+    margin: 2rem;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+ }
+ #classLandPage{
+    height: 15rem;
+    margin: 2rem 2rem 6rem;
+    background-size: cover;
+    border-radius: 1em;
+ } 
+ #classLandPage div{
+    height: 100%;
+    margin: auto;
+    background-color: rgba(2, 2, 2, 0.4) ;
+    color: white;
+    border-radius: 1em;
+ }
+ #joinLandPage{
+    height: 20rem;
+    margin: 2rem;
+    background-size: cover;
+    border-radius: 1em;
+    text-align: center;
+ }
+ #join{
+   font-size: 2rem;
+   background-color: rgba(2, 2, 2, 0.4) ;
+   margin: auto;
+   height: 100%;
+   color: white;
+   border-radius: 1rem;
+ }
+ #startS{
+    height: 5rem;
+    width: 15rem;
+    font-size: 1.5rem;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 3rem;
+  }
+  #joinS{
+    height: 5rem;
+    width: 15rem;
+    font-size: 1.5rem;
+    background-color: var(--activeButton);
+    color: white;
+    border:0;
+    border-radius: 3rem;
+  }
+  #joinS:hover{
+    opacity: 0.9;
+  }
+  #startS:hover{
+    background-color: rgba(2, 2, 2, 0.4);
+  }
 nav {
     margin: auto;
     background-color: var(--mainColor);
@@ -95,7 +160,9 @@ img {
     height: 3rem;
     border-radius: 0.5rem;
 }
-
+#f{
+    flex-wrap: nowrap;
+}
 .Labels {
     margin: 8px;
 }
@@ -211,7 +278,7 @@ button.profileButton:hover {
     /* margin: 2em; */
     width: 100%;
     color: white;
-    font-size: 4em;
+    font-size: 4rem;
     font-weight: bold;
 }
 
@@ -723,7 +790,6 @@ p>.BsGrid {
 #dashboardPage p{
     display: block;
     color: #808080;
-    margin-top: 1rem;
 }
 
 .pageHeaderBar {

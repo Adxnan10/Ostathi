@@ -3,6 +3,8 @@
   margin: 1rem auto;
   position: relative;
   cursor: pointer;
+  box-shadow: 1px 1px 20px 1px #cfcfcf;
+  border: 0;
 }
 
 .session-card .indicator {
@@ -23,6 +25,7 @@
 
 .session-card-posted .indicator {
   background-color: #198754;
+  
 }
 
 .session-card-requested .indicator {
