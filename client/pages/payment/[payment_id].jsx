@@ -4,14 +4,14 @@ import { useState } from 'react'
 import { dummySessions } from '/public/fakeDataBase.json'
 
 export default function Payment() {
-  const router = useRouter()
-  const session_id = router.query.payment_id
-  const [sessions, setSessions] = useState([...dummySessions]);
-  const [session,setSession] = useState([...sessions.filter((session) => {
-    return(
-      session.session_id == session_id
-    );
-  })]);
+    const router = useRouter()
+    const session_id = router.query.payment_id
+    const [sessions, setSessions] = useState([...dummySessions]);
+    const [session, setSession] = useState([...sessions.filter((session) => {
+        return (
+            session.session_id == session_id
+        );
+    })]);
     return (
         <>
             <Card class="paymentCard">

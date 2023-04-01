@@ -8,7 +8,11 @@ import SessionCardR from '../components/session/SessionCardR'
 import Router from 'next/router'
 import SessionCardFactory from '../components/session/SessionCardFactory';
 
-
+function FeatureCard({ ...props }) {
+  return (
+    <h1>{props.color}</h1>
+  )
+}
 export default function HomePage() {
   const [sessions, setSessoin] = useState([...dummySessions])
   function generateSession() {
@@ -38,6 +42,7 @@ export default function HomePage() {
         </div>
       </Row>
       <Row style={{ padding: "10vw" }}>
+        <FeatureCard color="#ss"></FeatureCard>
         <img id='landingBCKGRN' src="/All-in-one.png" alt="All-in-One" />
       </Row>
       <Row>

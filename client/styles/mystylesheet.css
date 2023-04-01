@@ -597,6 +597,10 @@ p>.BsGrid {
     justify-content: space-between;
 }
 
+.buttonSession button {
+    margin: 1rem 1rem;
+}
+
 #floatingCard {
     position: relative;
     bottom: 250px;
@@ -675,8 +679,9 @@ p>.BsGrid {
 }
 
 #floatingCard {
-    position: absolute;
-    top: 300px;
+    /* position: absolute;
+    top: 300px; */
+    margin-top: 100px;
     width: 20rem;
     margin-left: 5rem;
     border: none;
