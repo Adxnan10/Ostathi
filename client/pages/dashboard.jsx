@@ -6,70 +6,15 @@ import SessionCardP from '../components/session/SessionCardP'
 import { BsStar, BsStarFill } from "react-icons/bs";
 import React, { useState } from "react";
 import Router from 'next/router'
-
+import { dummySessions, dummyUsers } from '../public/fakeDataBase.json'
 
 export default function DashBoard() {
   var cond = true;
+  const [sessions, setSessions] = useState([...dummySessions]);
+  const [users, setUsers] = useState([...dummyUsers]);
   const goToEditPage = () => {
     Router.push('/editProfile')
   }
-
-  const dummySessions = [{
-    topic: "Math",
-    duration: "2 hours",
-    title: "Linear Algebra",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
-    img: "/Model.jpeg",
-    userName: "Yzd",
-    userImg: "/logo.svg",
-    price: 20
-  },
-  {
-    topic: "Algorithms",
-    duration: "1 hour",
-    title: "A* explained",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
-    img: "/logo.svg",
-    userName: "Adnan",
-    userImg: "/Model.jpeg",
-    price: 30
-  },
-  {
-    topic: "Algorithms",
-    duration: "1 hour",
-    title: "xplained",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
-    img: "/logo.svg",
-    userName: "Adnan",
-    userImg: "/Model.jpeg",
-    price: 30
-  },
-  {
-    topic: "rkjsfhd",
-    duration: "1 hour",
-    title: " explained",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
-    img: "/logo.svg",
-    userName: "Adnan",
-    userImg: "/Model.jpeg",
-    price: 30
-  },
-  {
-    topic: "rkjsfhd",
-    duration: "1 hour",
-    title: " explained",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
-    img: "/logo.svg",
-    userName: "Adnan",
-    userImg: "/Model.jpeg",
-    price: 30
-  }]
-  const dummyUsers = [{
-    fullName: "Yzd",
-    img: "/Model.jpeg",
-    rating: 3,
-    major: "Physics"
-  }];
 
   const [toggle, setToggle] = useState(true);
   const [moreSessions, setMoreSessions] = useState("none");
@@ -109,11 +54,11 @@ export default function DashBoard() {
           <h4>My Sessions</h4>
         </Row>
         <Row className='cardsArea' >
-          {dummySessions.map((value, index) => <>
+          {sessions.map((value, index) => <>
             {index <= 2 ?
               <Col className='cardMargin' lg="4"><SessionCardP session={value} /></Col>
               :
-              dummySessions.length > 3 && cond ?
+              sessions.length > 3 && cond ?
                 <>
                   <Button id='moreSessions' style={{ display: moreButton }} onClick={showMoreSessions}>
                     More Session
@@ -139,7 +84,7 @@ export default function DashBoard() {
           </Row>
           <Row>
             <Col>
-              <UserCard user={dummyUsers[0]} />
+              <UserCard user={users[0]} />
             </Col>
 
           </Row>

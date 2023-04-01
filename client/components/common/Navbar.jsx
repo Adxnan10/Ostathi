@@ -11,7 +11,7 @@ export default function navbar() {
     <>
       <Navbar expand="lg" sticky='top'>
         <Navbar.Brand href="/">
-        <img src="/Logo.svg" alt="Logo" style={{marginLeft:'4rem'}}/>
+          <img src="/Logo.svg" alt="Logo" style={{ marginLeft: '4rem' }} />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
@@ -31,7 +31,7 @@ export default function navbar() {
               <Link href="/postSession" class="nav-item navButton">
                 Teach
               </Link>
-              <Link href="/requestForm" class="nav-item navButton">
+              <Link href="/requestSession" class="nav-item navButton">
                 Learn
               </Link>
               <Link href="/searchPage" class="nav-item navButton">
