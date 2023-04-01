@@ -1,6 +1,17 @@
 import Card from 'react-bootstrap/Card';
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { dummySessions } from '/public/fakeDataBase.json'
 
-export default function Paymen() {
+export default function Payment() {
+    const router = useRouter()
+    const session_id = router.query.payment_id
+    const [sessions, setSessions] = useState([...dummySessions]);
+    const [session, setSession] = useState([...sessions.filter((session) => {
+        return (
+            session.session_id == session_id
+        );
+    })]);
     return (
         <>
             <Card class="paymentCard">
@@ -9,16 +20,16 @@ export default function Paymen() {
                     <div class="container">
                         <div class="row">
                             <h1 class="col" style={{ margin: '2rem 2rem 0 2rem' }} >Check Out</h1>
-                            <h1 class="col" style={{ textAlign: 'end', margin: '3rem 5rem auto 0' }}>49.99$</h1>
+                            <h1 class="col" style={{ textAlign: 'end', margin: '3rem 5rem auto 0' }}>{session[0].price} SAR</h1>
                         </div>
                         <div class="row">
                             <p style={{ color: "rgb(130, 130, 130)", margin: "0 0 2rem 3rem" }}>Choose your payment</p>
                         </div>
                         <div class="row row-cols-md-2 row-cols-lg-4 row-cols-xlg-4 paymenyMethod">
-                            <img src="mada.svg" alt="Mada" class="col paymenyMethod" />
-                            <img src="paypal.svg" alt="Paypal" class="col paymenyMethod" />
-                            <img src="visa.svg" alt="Visa" class="col paymenyMethod" />
-                            <img src="mstrcard.svg" alt="Mastercard" class="col paymenyMethod" />
+                            <img src="/mada.svg" alt="Mada" class="col paymenyMethod" />
+                            <img src="/paypal.svg" alt="Paypal" class="col paymenyMethod" />
+                            <img src="/visa.svg" alt="Visa" class="col paymenyMethod" />
+                            <img src="/mstrcard.svg" alt="Mastercard" class="col paymenyMethod" />
                         </div>
 
                         <form>
