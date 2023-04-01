@@ -6,6 +6,7 @@ import { dummySessions } from '/public/fakeDataBase.json'
 import SessionCardP from '../components/session/SessionCardP'
 import SessionCardR from '../components/session/SessionCardR'
 import Router from 'next/router'
+import SessionCardFactory from '../components/session/SessionCardFactory';
 
 
 export default function HomePage() {
@@ -45,7 +46,7 @@ export default function HomePage() {
       <Row id='landingCards'>
         {generateSession().map((value, index) => <>{
           <Col key={index} xxl={3} xl={4} lg={6} sm={12} >
-            {value.post ? <SessionCardP session={value} /> : <SessionCardR session={value} />}
+            <SessionCardFactory session={value}></SessionCardFactory>
           </Col>
         }</>)}
         <Button id='moreSessions' onClick={goTosearch}>See more</Button>

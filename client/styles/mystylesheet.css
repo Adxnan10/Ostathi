@@ -116,6 +116,11 @@ nav {
     margin: auto;
     background-color: var(--mainColor);
     height: 5rem;
+    box-shadow: 1px 1px 10px rgb(0 0 0 / 28%);
+}
+
+.navbar-toggler {
+    margin-right: 10px;
 }
 
 img {

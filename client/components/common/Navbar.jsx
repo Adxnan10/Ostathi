@@ -9,7 +9,7 @@ export default function navbar() {
 
   return (
     <>
-      <Navbar expand="lg" sticky='top'>
+      <Navbar expand="lg" sticky='top' style={{ flexWrap: 'nowrap' }}>
         <Navbar.Brand href="/">
           <img src="/Logo.svg" alt="Logo" style={{ marginLeft: '4rem' }} />
         </Navbar.Brand>
