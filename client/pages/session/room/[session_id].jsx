@@ -7,7 +7,7 @@ import { MdGroups } from 'react-icons/md';
 
 export default function SessionRoom() {
   return (
-    <div style={{padding: "20px", width: "100%", height: 600, display: 'flex',flexDirection:'column', alignItems : 'center', rowGap: '50px'}}>
+    <div style={{padding: "20px", width: "100%", height: 800, display: 'flex',flexDirection:'column', alignItems : 'center', rowGap: '50px'}}>
         <div className='session-details-container'>
             <h1> Session Details </h1>
             <div class="session-detail">
