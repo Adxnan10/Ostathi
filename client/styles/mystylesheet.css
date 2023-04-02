@@ -1,19 +1,126 @@
 :root {
     --mainColor: white;
     --secondryColor: #023047;
+    --activeButton: #F48C06;
+    --notActiveButton: #b0b0b0;
+    --orangeColor: #F48C06;
+    /* F5931C */
 }
 
-.App {
+/*TODO remove duplicates of this file, there are many! */
+/* Also, we should split this stylesheet into more than one. */
+
+#landingBCKGRN {
+    position: relative;
+    top: 0;
+    margin-top: 0;
+    height: 100%;
+}
+
+.landingText {
+    color: #023047;
     display: block;
-    width: 100%;
+    margin: auto;
+    margin-bottom: 3rem;
     text-align: center;
-    margin: 5rem auto;
+    font-size: 3vw;
+}
+
+#welcoming {
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 20vw 5vw;
+    width: 50%;
+    font-size: 4vw;
+}
+
+#landingCards {
+    padding: 2rem 6rem 8rem 6rem;
+}
+
+#classesLandPage {
+    margin: 2rem;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+}
+
+#classLandPage {
+    height: 15rem;
+    margin: 2rem 2rem 6rem;
+    background-size: cover;
+    border-radius: 1em;
+}
+
+#classLandPage div {
+    height: 100%;
+    margin: auto;
+    background-color: rgba(2, 2, 2, 0.4);
+    color: white;
+    border-radius: 1em;
+}
+
+#joinLandPage {
+    height: 20rem;
+    margin: 2rem;
+    background-size: cover;
+    border-radius: 1em;
+    text-align: center;
+}
+
+#join {
+    font-size: 2rem;
+    background-color: rgba(2, 2, 2, 0.4);
+    margin: auto;
+    height: 100%;
+    color: white;
+    border-radius: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#startS {
+    height: 5rem;
+    width: 15rem;
+    font-size: 1.5rem;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 3rem;
+}
+
+#joinS {
+    height: 5rem;
+    width: 15rem;
+    font-size: 1.5rem;
+    background-color: var(--activeButton);
+    color: white;
+    border: 0;
+    border-radius: 3rem;
+}
+
+#joinS:hover {
+    opacity: 0.9;
+}
+
+#startS:hover {
+    background-color: rgba(2, 2, 2, 0.4);
 }
 
 nav {
     margin: auto;
     background-color: var(--mainColor);
     height: 5rem;
+    box-shadow: 1px 1px 10px rgb(0 0 0 / 28%);
+}
+
+.navbar-toggler {
+    margin-right: 10px;
 }
 
 img {
@@ -78,6 +185,10 @@ img {
     margin: auto 2rem 1rem;
     height: 3rem;
     border-radius: 0.5rem;
+}
+
+#f {
+    flex-wrap: nowrap;
 }
 
 .Labels {
@@ -165,6 +276,299 @@ button.profileButton:hover {
 
 .editProfile {
     margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+/* ----------- Mubarak ----------------------- */
+
+/* #login-main {
+    font-family: 'Poppins';
+} */
+
+.login-register-slider {
+    border-radius: 30px;
+    background-color: #666666;
+    height: 3em;
+    width: 250px;
+    text-align: center;
+}
+
+.login-sides {
+    width: 100%;
+    height: 50em;
+    float: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.login-main-phrase {
+    /* margin: 2em; */
+    width: 100%;
+    color: white;
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+
+.login-intro {
+    /* margin: 2em; */
+    width: 75%;
+    color: white;
+    font-size: 1.5em;
+}
+
+.login-form-box {
+    width: 450px;
+    height: 700px;
+    position: relative;
+    margin: 6% auto;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.login-button-box {
+    width: 220px;
+    margin: 30px auto 50px auto;
+    position: relative;
+    box-shadow: 0 0 0px 10px #568ca6;
+    background-color: #568ca6;
+    border-radius: 30px;
+}
+
+.login-toggle-btn {
+    padding: 5px 30px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+    color: #fff;
+}
+
+#login-btn-highlight {
+    top: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background: #219ebc;
+    border-radius: 30px;
+    transition: .5s;
+}
+
+#register-btn-highlight {
+    top: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background: #219ebc;
+    border-radius: 30px;
+    transition: .5s;
+    left: 100px;
+}
+
+.login-form-prompt {
+    margin: 30px auto;
+    text-align: left;
+}
+
+.login-form-prompt p {
+    padding: 0;
+    margin: 0 12px;
+    color: #c9d3d8;
+}
+
+.login-input-group {
+    top: 180px;
+    position: absolute;
+    width: 94%;
+    transition: .5s;
+}
+
+.login-form-label {
+    color: #fff;
+    padding-left: 15px;
+}
+
+.login-input-field {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0 30px 0;
+    border: 1px solid #219EBC;
+    border-radius: 40px;
+    padding-left: 30px;
+    background: #fff;
+}
+
+.login-submit-btn {
+    width: 50%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    background: #219ebc;
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+    color: #fff;
+
+}
+
+.login-submit-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.login-check-box {
+    margin: 10px 5px 30px 0;
+    color: #fff;
+}
+
+#login-chk-span {
+    color: #fff;
+    font-size: 12px;
+    margin-top: 7px;
+    position: absolute;
+}
+
+
+#login-form {
+    left: 12px;
+}
+
+/* 
+#register-form {
+    left: 450px;
+} */
+
+
+
+
+
+/* ----------- Mubarak ----------------------- */
+#footer-common {
+    display: grid;
+    width: 100%;
+    background-color: #023047;
+    color: #B2B3CF;
+    padding-top: 30px;
+}
+
+#footer-text {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 33px;
+    margin-left: 2rem;
+    width: 10rem;
+    letter-spacing: 0.04em;
+    color: #FFFFFF;
+}
+
+#footer-img {
+    line-height: 3rem;
+}
+
+.footer-left-border {
+    border-left: 1px solid #626381;
+    max-height: fit-content;
+}
+
+.footer-right-border {
+    border-right: 1px solid #626381;
+    max-height: fit-content;
+}
+
+.footer-padding {
+    padding: 0 7px;
+}
+
+.footer-links {
+    text-decoration: none;
+    color: #B2B3CF;
+}
+
+
+.footer-links:hover {
+    color: #F48C06;
+}
+
+.sessionBackGrnd {
+    background-image: url("/sessionBackGrnd.jpg");
+    height: 40vh;
+    width: auto;
+    background-size: cover;
+}
+
+button.optionSessionPage {
+    display: block;
+    background-color: #808080;
+    border: none;
+    width: 10rem;
+    margin: 2rem auto;
+    padding: 10px 0;
+}
+
+button.optionSessionPage:hover {
+    background-color: #808080;
+    opacity: 0.9;
+}
+
+button.activeButtonDS {
+    display: block;
+    background-color: #F48C06;
+    border: none;
+    width: 10rem;
+    margin: 2rem auto;
+    padding: 10px 0;
+}
+
+button.activeButtonDS:hover {
+    background-color: #F48C06;
+    opacity: 0.9;
+}
+
+.datailsSession {
+    display: flex;
+    justify-content: space-between;
+    margin: auto 1px 1rem;
+}
+
+.BsGrid {
+    margin: 4px;
+}
+
+p>.BsGrid {
+    margin: 2px 1rem 0 0;
+    color: #F48C06;
+}
+
+#sessionDescription {
+    background-color: #E2F0FF;
+    color: #696984;
+    border-radius: 1rem;
+    padding: 4rem 2rem 1rem;
+}
+
+.sessionOverview {
+    display: none;
+}
+
+.ratingBox {
+    justify-content: space-between;
+    height: 12rem;
+    width: 14rem;
+    background-color: #FFFFFF;
+    border-radius: 2rem;
+    padding: 2rem;
+    text-align: center;
+}
+
+.ratingBox>p {
+    display: block;
+    margin-top: 4rem;
 }
 
 p {

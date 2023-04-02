@@ -1,0 +1,154 @@
+{
+  "dummySessions": [
+    {
+      "session_id": 1,
+      "post": true,
+      "session_type": "one-one",
+      "topic": "Math",
+      "duration": "2 hours",
+      "title": "Linear Algebra",
+      "text": "Loremipsumdolorsitamet, consecteturadipisicingelit. Hicvoluptate!Lorempsumdolors itamet,consecteturadipisicin gelit.Hic, voluptate! Lorem ipsum dolor sit amet, cons ectetur adipisicing elit. Hic, voluptate! Lorem i psum dolor sit amet, consectetur  adipisicing elit. Hic, voluptate!",
+      "img": "/Model.jpeg",
+      "userName": "Yazoody77",
+      "userImg": "/Model.jpeg",
+      "price": 20.99
+    },
+    {
+      "session_id": 2,
+      "post": false,
+      "topic": "Algorithms",
+      "session_type": "one-one",
+      "duration": "1 hour",
+      "title": "A* explained",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
+      "img": "/Model.jpeg",
+      "userName": "Adnan",
+      "userImg": "/Model.jpeg",
+      "price": 30
+    },
+    {
+      "session_id": 3,
+      "post": true,
+      "session_type": "group",
+      "topic": "Physics",
+      "duration": "1 hour",
+      "title": "Quantum physics",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
+      "img": "/Model.jpeg",
+      "userName": "Yzd",
+      "userImg": "/Model.jpeg",
+      "price": 60
+    },
+    {
+      "session_id": 4,
+      "post": true,
+      "session_type": "workshop",
+      "topic": "Data structures",
+      "duration": "1 hour",
+      "title": "Stack",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
+      "img": "/Model.jpeg",
+      "userName": "Adnan",
+      "userImg": "/Model.jpeg",
+      "price": 60
+    },
+    {
+      "session_id": 5,
+      "post": true,
+      "session_type": "one-one",
+      "topic": "Chem",
+      "duration": "1 hour",
+      "title": "Composites",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
+      "img": "/Model.jpeg",
+      "userName": "Adnan",
+      "userImg": "/Model.jpeg",
+      "price": 60
+    },
+    {
+      "session_id": 6,
+      "post": true,
+      "session_type": "group",
+      "topic": "Medicine",
+      "duration": "2 hours ",
+      "title": "Anatomy in 2 hours",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
+      "img": "/Model.jpeg",
+      "userName": "Adnan",
+      "userImg": "/Model.jpeg",
+      "price": 120
+    }
+  ],
+  "dummyUsers": [
+    {
+      "userName": "Yazoody77",
+      "fullName": "Yzd",
+      "Bio": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
+      "img": "/Model.jpeg",
+      "rating": 3,
+      "major": "Physics",
+      "comments": 4
+    },
+    {
+      "userName": "Adxnan10",
+      "fullName": "Adnan",
+      "Bio": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
+      "img": "/Model.jpeg",
+      "rating": 5,
+      "major": "SWE"
+    },
+    {
+      "userName": "Ahmad999",
+      "fullName": "Ahmad",
+      "Bio": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
+      "img": "/Model.jpeg",
+      "rating": 5,
+      "major": "ICS"
+    },
+    {
+      "userName": "xxMubarak",
+      "fullName": "Mubarak",
+      "Bio": "My name is mubarak and ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
+      "img": "/Model.jpeg",
+      "rating": 3,
+      "major": "ICS"
+    },
+    {
+      "userName": "Sager505",
+      "fullName": "Sager",
+      "Bio": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
+      "img": "/Model.jpeg",
+      "rating": 5,
+      "major": "SWE"
+    }
+  ],
+  "sessionRating": [
+    {
+      "session_id": 1,
+      "tutor": "Adxnan10",
+      "userName": "Sager505",
+      "comment": "Nice Tutor",
+      "rating": 5,
+      "img": "/Model.jpeg",
+      "date": "4th of July 2023"
+    },
+    {
+      "session_id": 1,
+      "tutor": "Adxnan10",
+      "userName": "Yazed",
+      "comment": "Nice Tutor, He loves what he doing",
+      "rating": 5,
+      "img": "/Model.jpeg",
+      "date": "4th of May 2022"
+    },
+    {
+      "session_id": 1,
+      "tutor": "Yazoody77",
+      "userName": "Moataz",
+      "comment": "Adnan is a really great person regardless of his teaching",
+      "rating": 3,
+      "img": "/Model.jpeg",
+      "date": "5th of May 2022"
+    }
+  ]
+}
