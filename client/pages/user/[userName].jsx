@@ -8,6 +8,7 @@ import { BsStar, BsStarFill } from 'react-icons/bs'
 import { useRouter } from 'next/router'
 import { dummyUsers, dummySessions, sessionRating } from '/public/fakeDataBase.json'
 import SessionCardFactory from '../../components/session/SessionCardFactory';
+import Error from '../error'
 
 export default function UserPage() {
   var cond = true;
@@ -65,11 +66,12 @@ export default function UserPage() {
     }
   });
 
+  try{
   return (<>
     <div className="sessionBackGrnd" />
     <Container>
       <Row>
-        <Col lg="8" id='sessionDetailsPage'>
+        <Col md="6" lg="6" xl="7" id='sessionDetailsPage'>
           <Row id='overviewTutor'>
             <h5><b>Overvirew</b></h5>
             <p>{user[0].Bio}</p>
@@ -123,5 +125,7 @@ export default function UserPage() {
         </Col>
       </Row>
     </Container>
-  </>);
+  </>);} catch {
+    return(<Error/>)
+  }
 }
