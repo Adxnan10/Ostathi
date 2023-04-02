@@ -3,8 +3,6 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import React, { useState } from 'react';
 import { dummySessions } from '/public/fakeDataBase.json'
-import SessionCardP from '../components/session/SessionCardP'
-import SessionCardR from '../components/session/SessionCardR'
 import Router from 'next/router'
 import SessionCardFactory from '../components/session/SessionCardFactory';
 

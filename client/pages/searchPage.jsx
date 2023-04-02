@@ -1,8 +1,6 @@
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
-import SessionCardP from '../components/session/SessionCardP'
-import SessionCardR from '../components/session/SessionCardR'
 import UserCard from '../components/user/UserCard'
 import { useState, useRef, useEffect } from 'react'
 import { BsSearch } from 'react-icons/bs'
@@ -10,6 +8,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { dummySessions, dummyUsers } from '../public/fakeDataBase.json'
+import SessionCardFactory from '../components/session/SessionCardFactory'
 
 export default function searchPage() {
   const [sessions, setSessions] = useState([...dummySessions]);
@@ -101,7 +100,7 @@ export default function searchPage() {
         <Container>
           <Row>
             {matchedSessions.map((value, index) => {
-              return <Col key={index} xxl={3} xl={4} lg={6} sm={12} > {value.post ? <SessionCardP session={value} /> : <SessionCardR session={value} />}</Col>
+              return <Col key={index} xxl={3} xl={4} lg={6} sm={12} ><SessionCardFactory session={value} /></Col>
             })}
           </Row>
         </Container>

@@ -1,6 +1,11 @@
-function SessionCardFactory() {
+import SessionCardP from "./SessionCardP";
+import SessionCardR from "./SessionCardR";
+
+export default function SessionCardFactory({ ...props }) {
+  const sessionPassed = props.session
   return (
-    <div>SessionCardFactory</div>
+    <>
+      {sessionPassed.post ? <SessionCardP session={sessionPassed}></SessionCardP> : <SessionCardR session={sessionPassed}></SessionCardR>}
+    </>
   )
 }
-export default SessionCardFactory
