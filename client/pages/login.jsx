@@ -47,9 +47,9 @@ export default function Login() {
                         <p>Enter you username and password </p>
                     </div>
                     <form className="login-input-group" id="login-form">
-                        <label for="username" className="login-form-label">Username</label>
+                        <label htmlFor="username" className="login-form-label">Username</label>
                         <input type="text" className="login-input-field" placeholder="Enter your username" requiered/>
-                        <label for="password" className="login-form-label">Password</label>
+                        <label htmlFor="password" className="login-form-label">Password</label>
                         <input type="password" className="login-input-field" placeholder="Enter your password" requiered/>
                         <input type="checkbox" className="login-check-box" /><span id="login-chk-span">Remember me</span>
                         <div className="login-submit-container">
@@ -71,11 +71,11 @@ export default function Login() {
                         <p>Enter you username and password </p>
                     </div>
                     <form className="login-input-group" id="register-form">
-                    <label for="emai;" className="login-form-label">Email</label>
+                    <label htmlFor="email" className="login-form-label">Email</label>
                     <input type="email" className="login-input-field" placeholder="Enter your Email" requiered/>
-                    <label for="username" className="login-form-label">Username</label>
+                    <label htmlFor="username" className="login-form-label">Username</label>
                     <input type="text" className="login-input-field" placeholder="Enter your username" requiered/>
-                    <label for="password" className="login-form-label">Password</label>
+                    <label htmlFor="password" className="login-form-label">Password</label>
                     <input type="password" className="login-input-field" placeholder="Enter your password" requiered/>
                     {/* <input type="checkbox" className="login-check-box" /><span id="login-chk-span">Agree to terms & conditions</span> */}
                     <div className="login-submit-container">
