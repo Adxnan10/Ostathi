@@ -1,6 +1,5 @@
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import { AiFillFileAdd } from 'react-icons/ai'
 import { MdGroups } from 'react-icons/md'
