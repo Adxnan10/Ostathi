@@ -13,7 +13,7 @@
 #landingBCKGRN {
     position: relative;
     top: 0;
-    margin-top: 0;
+    margin-top: -1rem;
     height: 100%;
 }
 

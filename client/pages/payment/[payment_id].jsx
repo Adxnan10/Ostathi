@@ -1,6 +1,8 @@
 import Card from 'react-bootstrap/Card';
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import Error from '../error'
+import Router from 'next/router'
 import { dummySessions } from '/public/fakeDataBase.json'
 
 export default function Payment() {
@@ -12,6 +14,7 @@ export default function Payment() {
             session.session_id == session_id
         );
     })]);
+    try{
     return (
         <>
             <Card class="paymentCard">
@@ -67,7 +70,7 @@ export default function Payment() {
                                 </button>
                             </div>
                             <div class="row">
-                                <button class="btn btn-primary col paymenyButtons" id="cancelPayment">
+                                <button class="btn btn-primary col paymenyButtons" id="cancelPayment" onClick={() => Router.push(`/session/${session_id}`)}>
                                     Cancel
                                 </button>
                             </div>
@@ -76,5 +79,11 @@ export default function Payment() {
                 </Card.Body>
             </Card>
         </>
-    );
+    );} catch(e) {
+        return(
+            <>
+            <Error/>
+            </>
+        );
+    }
 }
