@@ -47,7 +47,7 @@ export default function HomePage() {
           <p style={{ fontSize: "1vw" }}>Ostathi is an interesting platform that will teach you in more an interactive way</p>
         </div>
       </Row>
-      <Row style={{ padding: "8vw 3vw", justifyContent: 'center', alignItems: 'center' }}>
+      <Row style={{ padding: "8vw 1vw", justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ textAlign: 'center' }}>
           <h2 style={{ color: '#2F327D', fontSize: '2rem', fontWeight: 'bold' }}>Need a help to understand a topic?</h2>
           <p style={{ color: '#696984', fontSize: '1.2rem' }}>Ostathi will connect you with experts in any topic with easy 3 steps</p>
