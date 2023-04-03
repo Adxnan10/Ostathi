@@ -37,7 +37,7 @@
 }
 
 #landingCards {
-    padding: 2rem 6rem 8rem 6rem;
+    padding: 2rem 1rem 8rem 1rem;
 }
 
 #classesLandPage {
@@ -49,7 +49,7 @@
 
 #classLandPage {
     height: 15rem;
-    margin: 2rem 2rem 6rem;
+    margin: 2rem 1rem 6rem;
     background-size: cover;
     border-radius: 1em;
 }
@@ -444,11 +444,10 @@ button.profileButton:hover {
 } */
 
 
+
+
+
 /* ----------- Mubarak ----------------------- */
-
-
-
-
 #footer-common {
     display: grid;
     width: 100%;
@@ -572,216 +571,327 @@ p>.BsGrid {
     margin-top: 4rem;
 }
 
-p {
-    font-size: 1rem;
+.ratingBar {
+
+    max-height: 5px;
+    accent-color: #c27106;
 }
 
-
-
-/* ----------- Mubarak ----------------------- */
-
-/* #login-main {
-    font-family: 'Poppins';
-} */
-
-.login-register-slider {
-    border-radius: 30px;
-    background-color: #666666;
-    height: 3em;
-    width: 250px;
-    text-align: center;
+.ratingBars {
+    margin: 2rem;
 }
 
-.login-sides {
-    width: 100%;
-    height: 50em;
-    float: left;
+#sessionPics {
+    border-radius: 50%;
+}
+
+#nameSessionDet {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.login-main-phrase {
-    /* margin: 2em; */
-    width: 100%;
-    color: white;
-    font-size: 4em;
+    justify-content: space-between;
+    margin: auto;
     font-weight: bold;
 }
 
-
-.login-intro {
-    /* margin: 2em; */
-    width: 75%;
-    color: white;
-    font-size: 1.5em;
+.buttonSession {
+    display: flex;
+    justify-content: space-between;
 }
 
-.login-form-box {
-    width: 450px;
-    height: 700px;
+.buttonSession button {
+    margin: 1rem 1rem;
+}
+
+#floatingCard {
     position: relative;
-    margin: 6% auto;
-    padding: 5px;
-    overflow: hidden;
+    bottom: 250px;
+    width: 20rem;
+    margin-left: 5rem;
+    border: none;
 }
 
-.login-button-box {
-    width: 220px;
-    margin: 30px auto 50px auto;
-    position: relative;
-    box-shadow: 0 0 0px 10px #568ca6;
-    background-color: #568ca6;
-    border-radius: 30px;
-}
-
-.login-toggle-btn {
-    padding: 5px 30px;
-    cursor: pointer;
-    background: transparent;
-    border: 0;
-    outline: none;
-    position: relative;
-    color: #fff;
-}
-
-#login-btn-highlight {
-    top: 0;
-    position: absolute;
-    width: 110px;
-    height: 100%;
-    background: #219ebc;
-    border-radius: 30px;
-    transition: .5s;
-}
-
-#register-btn-highlight {
-    top: 0;
-    position: absolute;
-    width: 110px;
-    height: 100%;
-    background: #219ebc;
-    border-radius: 30px;
-    transition: .5s;
-    left: 100px;
-}
-
-.login-form-prompt{
-    margin: 30px auto;
-    text-align: left;
-}
-
-.login-form-prompt p {
-    padding: 0;
-    margin: 0 12px;
-    color: #c9d3d8;
-}
-
-.login-input-group {
-    top: 180px;
-    position: absolute;
-    width: 94%;
-    transition: .5s;
-}
-
-.login-form-label {
-    color: #fff;
-    padding-left: 15px;
-}
-
-.login-input-field {
+#tutorPicSD {
+    height: auto;
     width: 100%;
-    padding: 10px 0;
-    margin: 5px 0 30px 0;
-    border: 1px solid #219EBC;
-    border-radius: 40px;
-    padding-left: 30px;
-    background: #fff;
+    object-fit: cover;
 }
 
-.login-submit-btn {
-    width: 50%;
-    padding: 10px 30px;
-    cursor: pointer;
+.cardHeader h2 {
+    margin-top: 15px;
+}
+
+.cardHeader p {
+    margin-top: 2rem;
+    text-align: center;
+    color: #F48C06;
+}
+
+#registerSessionBTN {
     display: block;
+    background-color: #F48C06;
+    color: white;
+    width: 80%;
+    padding: 12px;
+    border: none;
     margin: auto;
-    background: #219ebc;
-    border: 0;
-    outline: none;
-    border-radius: 30px;
-    color: #fff;
-    
 }
 
-.login-submit-container {
+#registerSessionBTN:hover {
+    opacity: 0.9;
+}
+
+#titleSesDet {
+    margin-bottom: 3rem;
+}
+
+#greyGuarnt {
+    color: #808080;
+}
+
+
+
+#sessionDescription {
+    background-color: #E2F0FF;
+    color: #696984;
+    border-radius: 1rem;
+    padding: 4rem 2rem 1rem;
+}
+
+#sessionDetailsPage {
+    margin-top: 4rem;
+    margin-bottom: 6rem;
+    min-height: 35rem;
+}
+
+#sessionPics {
+    border-radius: 50%;
+}
+
+#nameSessionDet {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    font-weight: bold;
+}
+
+.buttonSession {
+    display: flex;
+    justify-content: space-between;
+}
+
+#floatingCard {
+    /* position: absolute;
+    top: 300px; */
+    margin-top: 100px;
+    width: 20rem;
+    margin-left: 5rem;
+    border: none;
+}
+
+#tutorPicSD {
+    height: auto;
     width: 100%;
-    display: flex;
-    flex-direction: row;
+    object-fit: cover;
 }
 
-
-.login-check-box {
-    margin: 10px 5px 30px 0;
-    color: #fff;
+.cardHeader h2 {
+    margin-top: 15px;
 }
 
-#login-chk-span {
-    color: #fff;
-    font-size: 12px;
-    margin-top: 7px;
-    position: absolute;
+.cardHeader p {
+    margin-top: 2rem;
+    text-align: center;
+    color: #F48C06;
 }
 
-
-#login-form {
-    left: 12px;
-}
-/* 
-#register-form {
-    left: 450px;
-} */
-
-
-
-
-
-/****************  Seesion room ******************/
-
-.session-details-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    height: 85px;
+#registerSessionBTN {
+    display: block;
+    background-color: #F48C06;
+    color: white;
     width: 80%;
-    padding: 1rem;
-    border-radius: 30px;
-    box-shadow: 0 0 10px gray;  
+    padding: 12px;
+    border: none;
+    margin: auto;
 }
 
-.session-detail {
-    display: flex;
-    flex-direction: column;
+#registerSessionBTN:hover {
+    opacity: 0.9;
+}
+
+#titleSesDet {
+    margin-bottom: 3rem;
+}
+
+#greyGuarnt {
+    color: #808080;
+}
+
+
+
+/*Tutor Details*/
+#overviewTutor p {
+    color: #808080;
+}
+
+#moreSessions {
+    background-color: #023047;
+    border: 0;
+    color: white;
+    width: 10rem;
+    height: 3rem;
+    margin: 2rem auto;
+}
+
+#moreSessions:hover {
+    opacity: 0.9;
+}
+
+.cardsArea {
+    padding: 2rem;
+}
+
+.cardMargin {
+    padding: 2rem;
+}
+
+#floatingCard .ratingBox {
+    box-shadow: -1px 2px 30px 2px #e0e0e0;
+    margin: 4rem auto;
+}
+
+
+/*Dashboard Page*/
+#dashboardPage,
+h4 {
+    margin: 2rem 1rem;
+}
+
+#dashPic {
+    margin: auto;
+    margin-top: 4rem;
+    height: 250px;
+    width: 250px;
+}
+
+#dashboardPage h5 {
+    margin: 2rem 0;
+    text-align: center;
+    font-size: 2rem;
+}
+
+#dashButton {
+    display: block;
+    background-color: #F48C06;
+    color: white;
+    width: 60%;
+    padding: 12px;
+    border: none;
+    margin: auto;
+}
+
+#dashButton:hover {
+    opacity: 0.9;
+}
+
+#tutorsArea {
+    margin-top: 4rem;
+}
+
+#dashboardPage .ratingBox {
+    box-shadow: -1px 2px 30px 2px #e0e0e0;
+    margin: 4rem auto;
+    width: 60%;
+}
+
+#dashboardPage p {
+    display: block;
+    color: #808080;
+}
+
+.pageHeaderBar {
+    color: white;
+    background-color: #023047;
+    padding: 60px;
+}
+
+.pageContent {
+    margin: 4.5rem auto;
+    padding: 0 5rem;
     align-items: center;
-    margin: auto 120px 0 auto;
 }
 
-.chat-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height: 100%;
-    width: 80%;
-    padding: 1rem;
+.form-post {
+    margin: 4rem auto;
+}
+
+.form-post label {
+    display: block;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: bolder;
+}
+
+.form-post option {
+    color: black;
+}
+
+.form-post .full-width {
+    display: block;
+    width: 100%;
+    padding: 0.85rem;
+    border: 1px solid #D9D9D9;
     border-radius: 10px;
-    box-shadow: 0 0 10px gray;  
+    box-sizing: border-box;
+    color: #9D9B9B;
+}
+
+.form-post .half-width {
+    display: block;
+    width: 100%;
+    max-width: 49vw;
+    padding: 0.85rem;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #9D9B9B;
+}
+
+.form-post .quarter-width {
+    display: block;
+    width: 25%;
+    max-width: 49vw;
+    padding: 0.85rem;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #9D9B9B;
 }
 
 
+.form-post input::placeholder {
+    color: #9D9B9B;
+}
 
+.form-post textarea::placeholder {
+    color: #9D9B9B;
+}
 
+#postButton {
+    display: block;
+    width: 30vw;
+    margin: 3.5rem .5rem;
+    height: 3.5rem;
+    float: right;
+    border-radius: 10px;
+}
 
-
-/* ----------- Cards ----------------------- */
+#requestButton {
+    display: block;
+    width: 30vw;
+    margin: 3.5rem .5rem;
+    height: 3.5rem;
+    float: right;
+    border-radius: 10px;
+}
 
 .feature-card {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
@@ -792,7 +902,7 @@ p {
     margin-top: 75px;
 }
 
-.feature-card-icon{
+.feature-card-icon {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
     position: absolute;
     display: flex;
@@ -806,7 +916,7 @@ p {
     width: 94px;
     height: 94px;
     border-radius: 50%;
-    
+
 }
 
 .feature-card-body {
@@ -816,18 +926,15 @@ p {
     text-align: center;
 }
 
-.feature-card-body h2{
+.feature-card-body h2 {
     font-weight: bold;
     font-size: 2rem;
     margin: 0 0 20px;
     color: #2F327D;
 }
 
-.feature-card-body p{
+.feature-card-body p {
     font-size: 1.2rem;
     color: #696984;
     padding: 20px 35px;
 }
-
-
-/* ----------- Mubarak ----------------------- */
