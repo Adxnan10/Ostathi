@@ -7,29 +7,120 @@
     /* F5931C */
 }
 
-#landingBCKGRN{
+/*TODO remove duplicates of this file, there are many! */
+/* Also, we should split this stylesheet into more than one. */
+
+#landingBCKGRN {
     position: relative;
     top: 0;
-    margin-top: 0;
-    height:100%;
-    
-    
+    margin-top: -1rem;
+    height: 100%;
 }
 
-#welcoming{
+.landingText {
+    color: #023047;
+    display: block;
+    margin: auto;
+    margin-bottom: 3rem;
+    text-align: center;
+    font-size: 3vw;
+}
+
+#welcoming {
     color: white;
     position: absolute;
     top: 0;
     left: 0;
-    margin: 20rem 5rem;
+    margin: 20vw 5vw;
     width: 50%;
-    
+    font-size: 4vw;
+}
+
+#landingCards {
+    padding: 2rem 1rem 8rem 1rem;
+}
+
+#classesLandPage {
+    margin: 2rem;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+}
+
+#classLandPage {
+    height: 15rem;
+    margin: 2rem 1rem 6rem;
+    background-size: cover;
+    border-radius: 1em;
+}
+
+#classLandPage div {
+    height: 100%;
+    margin: auto;
+    background-color: rgba(2, 2, 2, 0.4);
+    color: white;
+    border-radius: 1em;
+}
+
+#joinLandPage {
+    height: 20rem;
+    margin: 2rem;
+    background-size: cover;
+    border-radius: 1em;
+    text-align: center;
+}
+
+#join {
+    font-size: 2rem;
+    background-color: rgba(2, 2, 2, 0.4);
+    margin: auto;
+    height: 100%;
+    color: white;
+    border-radius: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#startS {
+    height: 5rem;
+    width: 15rem;
+    font-size: 1.5rem;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 3rem;
+}
+
+#joinS {
+    height: 5rem;
+    width: 15rem;
+    font-size: 1.5rem;
+    background-color: var(--activeButton);
+    color: white;
+    border: 0;
+    border-radius: 3rem;
+}
+
+#joinS:hover {
+    opacity: 0.9;
+}
+
+#startS:hover {
+    background-color: rgba(2, 2, 2, 0.4);
 }
 
 nav {
     margin: auto;
     background-color: var(--mainColor);
     height: 5rem;
+    box-shadow: 1px 1px 10px rgb(0 0 0 / 28%);
+}
+
+.navbar-toggler {
+    margin-right: 10px;
 }
 
 img {
@@ -94,6 +185,10 @@ img {
     margin: auto 2rem 1rem;
     height: 3rem;
     border-radius: 0.5rem;
+}
+
+#f {
+    flex-wrap: nowrap;
 }
 
 .Labels {
@@ -211,7 +306,7 @@ button.profileButton:hover {
     /* margin: 2em; */
     width: 100%;
     color: white;
-    font-size: 4em;
+    font-size: 4rem;
     font-weight: bold;
 }
 
@@ -272,7 +367,7 @@ button.profileButton:hover {
     left: 100px;
 }
 
-.login-form-prompt{
+.login-form-prompt {
     margin: 30px auto;
     text-align: left;
 }
@@ -316,7 +411,7 @@ button.profileButton:hover {
     outline: none;
     border-radius: 30px;
     color: #fff;
-    
+
 }
 
 .login-submit-container {
@@ -342,6 +437,7 @@ button.profileButton:hover {
 #login-form {
     left: 12px;
 }
+
 /* 
 #register-form {
     left: 450px;
@@ -394,50 +490,12 @@ button.profileButton:hover {
     color: #B2B3CF;
 }
 
-#footer-common {
-    display: grid;
-    width: 100%;
-    background-color: #023047;
-    color: #B2B3CF;
-    padding-top: 30px;
-}
-
-#footer-text {
-    font-style: normal;
-    font-weight: 300;
-    font-size: 22px;
-    line-height: 33px;
-    letter-spacing: 0.04em;
-    color: #FFFFFF;
-}
-
-#footer-img {
-    line-height: 3rem;
-}
-
-.footer-left-border {
-    border-left: 1px solid #626381;
-    max-height: fit-content;
-}
-
-.footer-right-border {
-    border-right: 1px solid #626381;
-    max-height: fit-content;
-}
-
-.footer-padding {
-    padding: 0 7px;
-}
-
-.footer-links {
-    text-decoration: none;
-    color: #B2B3CF;
-}
 
 .footer-links:hover {
     color: #F48C06;
 }
-.sessionBackGrnd{
+
+.sessionBackGrnd {
     background-image: url("/sessionBackGrnd.jpg");
     height: 40vh;
     width: auto;
@@ -457,7 +515,8 @@ button.optionSessionPage:hover {
     background-color: #808080;
     opacity: 0.9;
 }
-button.activeButtonDS{
+
+button.activeButtonDS {
     display: block;
     background-color: #F48C06;
     border: none;
@@ -465,10 +524,12 @@ button.activeButtonDS{
     margin: 2rem auto;
     padding: 10px 0;
 }
-button.activeButtonDS:hover{
+
+button.activeButtonDS:hover {
     background-color: #F48C06;
     opacity: 0.9;
 }
+
 .datailsSession {
     display: flex;
     justify-content: space-between;
@@ -536,6 +597,10 @@ p>.BsGrid {
     justify-content: space-between;
 }
 
+.buttonSession button {
+    margin: 1rem 1rem;
+}
+
 #floatingCard {
     position: relative;
     bottom: 250px;
@@ -581,63 +646,64 @@ p>.BsGrid {
 #greyGuarnt {
     color: #808080;
 }
-.sessionBackGrnd{
-    background-image: url("/sessionBackGrnd.jpg");
-    height: 40vh;
-    width: auto;
-    background-size: cover;
-}
-.datailsSession{
-    display: flex;
-    justify-content: space-between;
-    margin: auto 1px 1rem;
-}
-#sessionDescription{
+
+
+
+#sessionDescription {
     background-color: #E2F0FF;
     color: #696984;
     border-radius: 1rem;
     padding: 4rem 2rem 1rem;
 }
-#sessionDetailsPage{
+
+#sessionDetailsPage {
     margin-top: 4rem;
     margin-bottom: 6rem;
     min-height: 35rem;
 }
-#sessionPics{
+
+#sessionPics {
     border-radius: 50%;
 }
-#nameSessionDet{
+
+#nameSessionDet {
     display: flex;
     justify-content: space-between;
     margin: auto;
     font-weight: bold;
 }
-.buttonSession{
+
+.buttonSession {
     display: flex;
     justify-content: space-between;
 }
-#floatingCard{
-    position: absolute;
-    top: 300px;
+
+#floatingCard {
+    /* position: absolute;
+    top: 300px; */
+    margin-top: 100px;
     width: 20rem;
     margin-left: 5rem;
     border: none;
 }
 
-#tutorPicSD{
+#tutorPicSD {
     height: auto;
     width: 100%;
     object-fit: cover;
 }
-.cardHeader h2{
+
+.cardHeader h2 {
     margin-top: 15px;
 }
-.cardHeader p{
+
+.cardHeader p {
     margin-top: 2rem;
     text-align: center;
-    color:#F48C06;
+    color: #F48C06;
 }
-#registerSessionBTN{
+
+#registerSessionBTN {
     display: block;
     background-color: #F48C06;
     color: white;
@@ -646,23 +712,27 @@ p>.BsGrid {
     border: none;
     margin: auto;
 }
-#registerSessionBTN:hover{
+
+#registerSessionBTN:hover {
     opacity: 0.9;
 }
-#titleSesDet{
+
+#titleSesDet {
     margin-bottom: 3rem;
 }
-#greyGuarnt{
+
+#greyGuarnt {
     color: #808080;
 }
 
 
 
 /*Tutor Details*/
-#overviewTutor p{
+#overviewTutor p {
     color: #808080;
 }
-#moreSessions{
+
+#moreSessions {
     background-color: #023047;
     border: 0;
     color: white;
@@ -670,37 +740,45 @@ p>.BsGrid {
     height: 3rem;
     margin: 2rem auto;
 }
-#moreSessions:hover{
+
+#moreSessions:hover {
     opacity: 0.9;
 }
-.cardsArea{
+
+.cardsArea {
     padding: 2rem;
 }
-.cardMargin{
-    padding: 2rem;    
+
+.cardMargin {
+    padding: 2rem;
 }
-#floatingCard .ratingBox{
+
+#floatingCard .ratingBox {
     box-shadow: -1px 2px 30px 2px #e0e0e0;
     margin: 4rem auto;
 }
 
 
 /*Dashboard Page*/
-#dashboardPage, h4{
+#dashboardPage,
+h4 {
     margin: 2rem 1rem;
 }
-#dashPic{
+
+#dashPic {
     margin: auto;
     margin-top: 4rem;
     height: 250px;
     width: 250px;
 }
-#dashboardPage h5{
+
+#dashboardPage h5 {
     margin: 2rem 0;
     text-align: center;
     font-size: 2rem;
 }
-#dashButton{
+
+#dashButton {
     display: block;
     background-color: #F48C06;
     color: white;
@@ -709,21 +787,24 @@ p>.BsGrid {
     border: none;
     margin: auto;
 }
-#dashButton:hover{
+
+#dashButton:hover {
     opacity: 0.9;
 }
-#tutorsArea{
+
+#tutorsArea {
     margin-top: 4rem;
 }
-#dashboardPage .ratingBox{
+
+#dashboardPage .ratingBox {
     box-shadow: -1px 2px 30px 2px #e0e0e0;
     margin: 4rem auto;
     width: 60%;
 }
-#dashboardPage p{
+
+#dashboardPage p {
     display: block;
     color: #808080;
-    margin-top: 1rem;
 }
 
 .pageHeaderBar {
@@ -762,6 +843,7 @@ p>.BsGrid {
     box-sizing: border-box;
     color: #9D9B9B;
 }
+
 .form-post .half-width {
     display: block;
     width: 100%;
@@ -783,10 +865,22 @@ p>.BsGrid {
     color: #9D9B9B;
 }
 
+.form-post .quarter-width {
+    display: block;
+    width: 25%;
+    max-width: 49vw;
+    padding: 0.85rem;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #9D9B9B;
+}
+
 
 .form-post input::placeholder {
     color: #9D9B9B;
 }
+
 .form-post textarea::placeholder {
     color: #9D9B9B;
 }
@@ -808,3 +902,52 @@ p>.BsGrid {
     float: right;
     border-radius: 10px;
 }
+<<<<<<< HEAD
+=======
+
+.feature-card {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    position: relative;
+    width: 25rem;
+    height: 360px;
+    margin-top: 75px;
+}
+
+.feature-card-icon {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 39%;
+    top: -45px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+    width: 94px;
+    height: 94px;
+    border-radius: 50%;
+
+}
+
+.feature-card-body {
+    position: relative;
+    top: 100px;
+    padding: 30px, 0;
+    text-align: center;
+}
+
+.feature-card-body h2 {
+    font-weight: bold;
+    font-size: 2rem;
+    margin: 0 0 20px;
+    color: #2F327D;
+}
+
+.feature-card-body p {
+    font-size: 1.2rem;
+    color: #696984;
+    padding: 20px 35px;
+}
+>>>>>>> main

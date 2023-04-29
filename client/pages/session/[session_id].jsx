@@ -7,7 +7,9 @@ import Card from 'react-bootstrap/Card';
 import { BsStar, BsStarFill, BsGrid } from 'react-icons/bs'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { useRouter } from 'next/router'
-import { dummyUsers, dummySessions,sessionRating } from '/public/fakeDataBase.json'
+import Router from 'next/router'
+import Error from '../error'
+import { dummyUsers, dummySessions, sessionRating } from '/public/fakeDataBase.json'
 
 //Provide Rating, Pics, Session Details, Dates, Names, etc.
 
@@ -16,48 +18,48 @@ export default function SessionDetails() {
   const { session_id } = router.query
   const [sessions, setSessions] = useState([...dummySessions]);
   const [ratings, setRatings] = useState([...sessionRating]);
-  const [session,setSession] = useState([...sessions.filter((session) => {
-    return(
+  const [session, setSession] = useState([...sessions.filter((session) => {
+    return (
       session.session_id == session_id
     );
   })]);
-  const [rating,setRating] = useState([...ratings.filter((rating) => {
-    return(
+  const [rating, setRating] = useState([...ratings.filter((rating) => {
+    return (
       rating.session_id == session_id
     );
   })]);
 
-  function calcRates(){
-    const totalRating = [0,0,0,0,0];
+  function calcRates() {
+    const totalRating = [0, 0, 0, 0, 0];
     rating.forEach((e) => {
-      if(e.rating == 1){
+      if (e.rating == 1) {
         totalRating[0] = totalRating[0] + 1
-      } else if(e.rating == 2){
+      } else if (e.rating == 2) {
         totalRating[1] = totalRating[1] + 1
-      } else if(e.rating == 3){
+      } else if (e.rating == 3) {
         totalRating[2] = totalRating[2] + 1
-      } else if(e.rating == 4){
+      } else if (e.rating == 4) {
         totalRating[3] = totalRating[3] + 1
-      } else if(e.rating == 5){
+      } else if (e.rating == 5) {
         totalRating[4] = totalRating[4] + 1
-      } 
+      }
     });
-    return(totalRating);
+    return (totalRating);
   }
   const totalRating = calcRates();
-  
-  function total(a){
-    
-      var total = 0;
-      var totalReviewres = 0;
-      for (let index = 0; index < totalRating.length; index++) {
-       total += totalRating[index] * (index+1);
-       totalReviewres += totalRating[index];
-      }
-      if(a == 0){
-      return(totalReviewres == 0? 0 : total/(totalReviewres*5) * 5)
+
+  function total(a) {
+
+    var total = 0;
+    var totalReviewres = 0;
+    for (let index = 0; index < totalRating.length; index++) {
+      total += totalRating[index] * (index + 1);
+      totalReviewres += totalRating[index];
+    }
+    if (a == 0) {
+      return (totalReviewres == 0 ? 0 : total / (totalReviewres * 5) * 5)
     } else {
-      return(totalReviewres)
+      return (totalReviewres)
     }
   }
 
@@ -73,9 +75,9 @@ export default function SessionDetails() {
     return (
       <div>{starsTags}</div>
     );
-    }
-  
-  
+  }
+
+
   const [rate, setRate] = useState("none");
   const [overview, setOverview] = useState('block')
   const [OVB, setOVB] = useState("")
@@ -92,12 +94,12 @@ export default function SessionDetails() {
     e.currentTarget.classList.add("activeButtonDS");
     e.currentTarget.nextSibling.classList.remove("activeButtonDS")
   }
-  
+  try{
   return (<>
     <div className="sessionBackGrnd" />
     <Container>
       <Row>
-        <Col lg="8" id='sessionDetailsPage'>
+        <Col sm="12" md="8" id='sessionDetailsPage'>
           <Row>
             <Col lg="8" xl="6" className='buttonSession'>
               <Button className="optionSessionPage activeButtonDS" onClick={overViewView}>
@@ -185,24 +187,24 @@ export default function SessionDetails() {
           <Card id='floatingCard'>
             <Card.Img variant="top" src="/Model.jpeg" id='tutorPicSD' />
             <Card.Title className='cardHeader'>
-              <h2 >${session[0].price}</h2>
+              <h2 >{session[0].price} SAR</h2>
               <p>{session[0].duration} left</p>
-              <Button className="btn btn-primary" id='registerSessionBTN'>
+              <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => Router.push(`/payment/${session_id}`)}>
                 Register Now
               </Button>
             </Card.Title>
             <hr />
             <Card.Body>
-              <h4 id='titleSesDet'><b>This Course Includes</b></h4>
+              <h4 id='titleSesDet'><b>{session[0].title}</b></h4>
               <div id='greyGuarnt'>
                 <div>
-                  <p><BsGrid className='BsGrid' />Money Back Guarantee</p>
+                  <p><BsGrid className='BsGrid' />{session[0].topic}</p>
                 </div>
                 <div>
-                  <p><BsGrid className='BsGrid' />Access on all devices</p>
+                  <p><BsGrid className='BsGrid' />{session[0].session_type}</p>
                 </div>
                 <div>
-                  <p><BsGrid className='BsGrid' />Certification of completion</p>
+                  <p><BsGrid className='BsGrid' />{session[0].duration}</p>
                 </div>
               </div>
 
@@ -211,5 +213,7 @@ export default function SessionDetails() {
         </Col>
       </Row>
     </Container>
-  </>);
+  </>);} catch {
+    return(<Error/>)
+  }
 }

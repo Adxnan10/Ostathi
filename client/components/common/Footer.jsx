@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="container-fluid overflow-hidden">
   
           <div className="d-flex justify-content-center mb-3 align-items-center">
-            <img className="my-auto footer-right-border" id="footer-img" src="logo.svg" alt="Logo" />
+            <img className="my-auto footer-right-border" id="footer-img" src="/logo.svg" alt="Logo" />
             <p className="my-auto  footer-padding" id="footer-text"> Your new way of learning</p>
           </div>
         

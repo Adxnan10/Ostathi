@@ -17,6 +17,7 @@
       "session_id": 2,
       "post": false,
       "topic": "Algorithms",
+      "session_type": "one-one",
       "duration": "1 hour",
       "title": "A* explained",
       "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
@@ -65,7 +66,7 @@
       "price": 60
     },
     {
-      "session_id": 5,
+      "session_id": 6,
       "post": true,
       "session_type": "group",
       "topic": "Medicine",
@@ -120,29 +121,34 @@
       "rating": 5,
       "major": "SWE"
     }
-  ], "sessionRating":
-  [
-  {"session_id": 1,
-    "tutor": "Adxnan10",
-    "userName":"Sager505",
-    "comment":"Nice Tutor",
-    "rating": 5,
-    "img": "/Model.jpeg",
-    "date": "4th of July 2023"
-  },{"session_id": 1,
-  "tutor": "Adxnan10",
-  "userName":"Yazed",
-  "comment":"Nice Tutor, He loves what he doing",
-  "rating": 5,
-  "img": "/Model.jpeg",
-  "date": "4th of May 2022"
-},{"session_id": 1,
-"tutor": "Yazoody77",
-"userName":"Moataz",
-"comment":"Adnan is a really great person regardless of his teaching",
-"rating": 3,
-"img": "/Model.jpeg",
-"date": "5th of May 2022"
-}
+  ],
+  "sessionRating": [
+    {
+      "session_id": 1,
+      "tutor": "Adxnan10",
+      "userName": "Sager505",
+      "comment": "Nice Tutor",
+      "rating": 5,
+      "img": "/Model.jpeg",
+      "date": "4th of July 2023"
+    },
+    {
+      "session_id": 1,
+      "tutor": "Adxnan10",
+      "userName": "Yazed",
+      "comment": "Nice Tutor, He loves what he doing",
+      "rating": 5,
+      "img": "/Model.jpeg",
+      "date": "4th of May 2022"
+    },
+    {
+      "session_id": 1,
+      "tutor": "Yazoody77",
+      "userName": "Moataz",
+      "comment": "Adnan is a really great person regardless of his teaching",
+      "rating": 3,
+      "img": "/Model.jpeg",
+      "date": "5th of May 2022"
+    }
   ]
 }
