@@ -15,9 +15,6 @@
     "react-icons": "^4.8.0",
     "react-items-carousel": "^2.8.0",
     "react-scripts": "5.0.1",
-    "sqlite": "^4.1.2",
-    "sqlite3": "^5.1.6",
-    "swr": "^2.1.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
