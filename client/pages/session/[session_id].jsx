@@ -8,6 +8,7 @@ import { BsStar, BsStarFill, BsGrid } from 'react-icons/bs'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { useRouter } from 'next/router'
 import Router from 'next/router'
+import Error from '../error'
 import { dummyUsers, dummySessions, sessionRating } from '/public/fakeDataBase.json'
 
 //Provide Rating, Pics, Session Details, Dates, Names, etc.
@@ -93,7 +94,7 @@ export default function SessionDetails() {
     e.currentTarget.classList.add("activeButtonDS");
     e.currentTarget.nextSibling.classList.remove("activeButtonDS")
   }
-
+  try{
   return (<>
     <div className="sessionBackGrnd" />
     <Container>
@@ -194,16 +195,16 @@ export default function SessionDetails() {
             </Card.Title>
             <hr />
             <Card.Body>
-              <h4 id='titleSesDet'><b>This Course Includes</b></h4>
+              <h4 id='titleSesDet'><b>{session[0].title}</b></h4>
               <div id='greyGuarnt'>
                 <div>
-                  <p><BsGrid className='BsGrid' />Money Back Guarantee</p>
+                  <p><BsGrid className='BsGrid' />{session[0].topic}</p>
                 </div>
                 <div>
-                  <p><BsGrid className='BsGrid' />Access on all devices</p>
+                  <p><BsGrid className='BsGrid' />{session[0].session_type}</p>
                 </div>
                 <div>
-                  <p><BsGrid className='BsGrid' />Certification of completion</p>
+                  <p><BsGrid className='BsGrid' />{session[0].duration}</p>
                 </div>
               </div>
 
@@ -212,5 +213,7 @@ export default function SessionDetails() {
         </Col>
       </Row>
     </Container>
-  </>);
+  </>);} catch {
+    return(<Error/>)
+  }
 }

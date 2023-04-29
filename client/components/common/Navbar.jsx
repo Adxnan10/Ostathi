@@ -28,33 +28,33 @@ export default function navbar() {
           </Offcanvas.Header>
           <Offcanvas.Body className="justify-content-end">
             <Nav className="me-2">
-              <Link href="/postSession" class="nav-item navButton">
+              <Link href="/postSession" className="nav-item navButton">
                 Teach
               </Link>
-              <Link href="/requestSession" class="nav-item navButton">
+              <Link href="/requestSession" className="nav-item navButton">
                 Learn
               </Link>
-              <Link href="/searchPage" class="nav-item navButton">
+              <Link href="/searchPage" className="nav-item navButton">
                 Sessions
               </Link>
-              <Link href="/searchPage" class="nav-item navButton">
+              <Link href="/searchPage" className="nav-item navButton">
                 Tutors
               </Link>
-              <Link href="/how" class="nav-item navButton">
+              <Link href="/how" className="nav-item navButton">
                 How it works
               </Link>
-              {/* <button id="profileSignedIn" class="nav-item btn">
+              {/* <button id="profileSignedIn" className="nav-item btn">
                     <img src={"../../public/Model.jpeg"} alt="Profile Pic" id="navProfilePic"/>
                     <p id="navProfileName">Yazeed</p>
                  </button> */}
               <Link href="/login">
-                <input type="button" class="nav-item btn" id="login" value="Login" />
+                <input type="button" className="nav-item btn" id="login" value="Login" />
               </Link>
               {/* All links in the navbar are temp for testing.
                 The next href should navigate to dashboard
               */}
               <Link href="/dashboard">
-                <input type="button" class="nav-item btn" id="signup" value="SignUp" />
+                <input type="button" className="nav-item btn" id="signup" value="SignUp" />
               </Link>
 
 

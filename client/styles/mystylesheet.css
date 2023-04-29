@@ -13,7 +13,7 @@
 #landingBCKGRN {
     position: relative;
     top: 0;
-    margin-top: 0;
+    margin-top: -1rem;
     height: 100%;
 }
 
@@ -37,7 +37,7 @@
 }
 
 #landingCards {
-    padding: 2rem 6rem 8rem 6rem;
+    padding: 2rem 1rem 8rem 1rem;
 }
 
 #classesLandPage {
@@ -49,7 +49,7 @@
 
 #classLandPage {
     height: 15rem;
-    margin: 2rem 2rem 6rem;
+    margin: 2rem 1rem 6rem;
     background-size: cover;
     border-radius: 1em;
 }
@@ -929,4 +929,50 @@ h4 {
     height: 3.5rem;
     float: right;
     border-radius: 10px;
+}
+
+.feature-card {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    position: relative;
+    width: 25rem;
+    height: 360px;
+    margin-top: 75px;
+}
+
+.feature-card-icon {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 39%;
+    top: -45px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+    width: 94px;
+    height: 94px;
+    border-radius: 50%;
+
+}
+
+.feature-card-body {
+    position: relative;
+    top: 100px;
+    padding: 30px, 0;
+    text-align: center;
+}
+
+.feature-card-body h2 {
+    font-weight: bold;
+    font-size: 2rem;
+    margin: 0 0 20px;
+    color: #2F327D;
+}
+
+.feature-card-body p {
+    font-size: 1.2rem;
+    color: #696984;
+    padding: 20px 35px;
 }

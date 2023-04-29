@@ -1,16 +1,21 @@
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import { AiFillFileAdd } from 'react-icons/ai'
+import { MdGroups } from 'react-icons/md'
+import { TfiCreditCard } from 'react-icons/tfi'
 import React, { useState } from 'react';
 import { dummySessions } from '/public/fakeDataBase.json'
-import SessionCardP from '../components/session/SessionCardP'
-import SessionCardR from '../components/session/SessionCardR'
 import Router from 'next/router'
 import SessionCardFactory from '../components/session/SessionCardFactory';
 
+
 function FeatureCard({ ...props }) {
   return (
-    <h1>{props.color}</h1>
+    <div className="feature-card">
+      <div className="feature-card-icon" style={{ backgroundColor: props.backgroundColor }}> {props.icon} </div>
+      <div className="feature-card-body"><h2> {props.title} </h2> <p> {props.text} </p></div>
+    </div>
   )
 }
 export default function HomePage() {
@@ -41,9 +46,21 @@ export default function HomePage() {
           <p style={{ fontSize: "1vw" }}>Ostathi is an interesting platform that will teach you in more an interactive way</p>
         </div>
       </Row>
-      <Row style={{ padding: "10vw" }}>
-        <FeatureCard color="#ss"></FeatureCard>
-        <img id='landingBCKGRN' src="/All-in-one.png" alt="All-in-One" />
+      <Row style={{ padding: "8vw 1vw", justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <h2 style={{ color: '#2F327D', fontSize: '2rem', fontWeight: 'bold' }}>Need a help to understand a topic?</h2>
+          <p style={{ color: '#696984', fontSize: '1.2rem' }}>Ostathi will connect you with experts in any topic with easy 3 steps</p>
+        </div>
+        <Col className='d-flex justify-content-center align-items-center'>
+          <FeatureCard backgroundColor='#5b72ee' icon={<AiFillFileAdd color='white' size="48px" />} title="Post a session request" text="It’s free and easy to post a session. Simply fill in a title, description and budget and competitive bids come within minutes."></FeatureCard>
+        </Col>
+        <Col className='d-flex justify-content-center align-items-center'>
+          <FeatureCard backgroundColor='#00cbb8' icon={<MdGroups color='white' size="48px" />} title="Choose a tutor" text="Choose from tutors’ bids a tutor that has the needed qualifications and with the best price."></FeatureCard>
+        </Col>
+        <Col className='d-flex justify-content-center align-items-center'>
+          <FeatureCard backgroundColor='#29b9e7' icon={<TfiCreditCard color='white' size="48px" />} title="Pay Safely" text="Only pay for a session when it has been completed using our milestone payment system."></FeatureCard>
+        </Col>
+        {/* <img id='landingBCKGRN' src="/All-in-one.png" alt="All-in-One" /> */}
       </Row>
       <Row>
         <div className='landingText'> Explore our upcoming <span style={{ color: "#F48C06" }}> sessions </span></div>

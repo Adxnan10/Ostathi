@@ -2,8 +2,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import UserCard from '../components/user/UserCard'
 import Button from 'react-bootstrap/Button'
-import SessionCardP from '../components/session/SessionCardP'
-import SessionCardR from '../components/session/SessionCardR'
+import SessionCardFactory from '../components/session/SessionCardFactory'
 import { BsStar, BsStarFill } from "react-icons/bs";
 import React, { useState } from "react";
 import Router from 'next/router'
@@ -57,7 +56,9 @@ export default function DashBoard() {
         <Row className='cardsArea' >
           {sessions.map((value, index) => <>
             {index <= 2 ?
-              <Col className='cardMargin' lg="4">{value.post ? <SessionCardP session={value} /> : <SessionCardR session={value} />}</Col>
+              <Col className='cardMargin' lg="4">
+                <SessionCardFactory session={value} />
+              </Col>
               :
               sessions.length > 3 && cond ?
                 <>
@@ -65,8 +66,12 @@ export default function DashBoard() {
                     More Session
                   </Button>
                   {cond = false}
-                  <Col lg="4" style={{ display: moreSessions }} className='cardMargin'>{value.post ? <SessionCardP session={value} /> : <SessionCardR session={value} />}</Col>
-                </> : <Col lg="4" style={{ display: moreSessions }} className='cardMargin'>{value.post ? <SessionCardP session={value} /> : <SessionCardR session={value} />}</Col>
+                  <Col lg="4" style={{ display: moreSessions }} className='cardMargin'>
+                    <SessionCardFactory session={value} />
+                  </Col>
+                </> : <Col lg="4" style={{ display: moreSessions }} className='cardMargin'>
+                  <SessionCardFactory session={value} />
+                </Col>
 
             }
           </>
