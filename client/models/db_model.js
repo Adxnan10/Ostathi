@@ -10,10 +10,29 @@ const getDbConnection = async () => {
 // query the database to return an array of sessions from the sessions table.
 const getAllSessions = async () => {
   const db = await getDbConnection();
+  const sessions = await db.all('SELECT * FROM SESSION JOIN request_Session')
+  await db.close()
+  return sessions
+}
+const getAllPostedSessions = async () => {
+  const db = await getDbConnection();
   const sessions = await db.all('SELECT * FROM SESSION')
   await db.close()
   return sessions
 }
+const getAllRequestedSessions = async (searchKeyword, subject, offset) => {
+  const db = await getDbConnection();
+  // where sth like %or%
+  const sessions = await db.all(`
+  SELECT * FROM REQUEST_SESSION ses WHERE title LIKE '%${searchKeyword}%' and EXISTS(
+    SELECT * FROM SUBJECT subj JOIN SESSION_SUBJECT ses_subj ON subj.id = ses_subj.subject_id
+    WHERE ses_subj.request_session_id = ses.id AND subj.name = ${subject}
+  ) ORDER BY 'startDate' DESC LIMIT ${limit} OFFSET ${offset}
+  `)
+  await db.close()
+  return sessions
+}
+
 // query the database to return one object holding all the details of the session with the id given. Return data from the sessions table.
 const getSessionDetails = async (session_id) => {
   const db = await getDbConnection();
