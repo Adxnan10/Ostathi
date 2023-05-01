@@ -9,48 +9,67 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { dummySessions, dummyUsers } from '../public/fakeDataBase.json'
 import SessionCardFactory from '../components/session/SessionCardFactory'
+import { useRouter } from 'next/router'
+import useSWR from 'swr'
+
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function searchPage() {
-  const [sessions, setSessions] = useState([...dummySessions]);
-  const [users, setUsers] = useState([...dummyUsers]);
-  const [matchedSessions, setMatchedSessions] = useState([...sessions]);
-  const [matchedUsers, setMatchedUsers] = useState([...users]);
+  // const router = useRouter()
+  // const { , , , searchKeyword, offset } = { ...router.query }
+
   const [searchType, setSearchType] = useState('session')
-  const subject = useRef(' ')
+  /* the following vars for front end */
+  const subject = useRef('')
   const sessionType = useRef('1')
   const searchKeywords = useRef(" ")
+  /* the following vars for backend fetching */
+  const [searchKeyword, setSearchKeyword] = useState('')
+  const [searchSubject, setSearchSubject] = useState('')
+  const [searchSessionType, setSearchSessionType] = useState('post')
+  const [content, setContent] = useState('Content is loading')
+  const { data, error, isLoading } = useSWR(`/api/search?searchType=${searchType}&subject=${searchSubject}&sessionType=${searchSessionType}&searchKeyword=${searchKeyword}`, fetcher)
   useEffect(() => {
     search()
   }, [searchType])
-  const isMatched = () => {
-    return matchedSessions.length > 0 || matchedUsers.length > 0
-  }
+  useEffect(() => {
+    if (error) {
+      setContent(<h1 style={{ textAlign: 'center', height: '40vh', color: "#023047" }}>Sorry ostathi, we could not match your search</h1>)
+    } else if (isLoading) {
+      setContent(<h1 style={{ textAlign: 'center', height: '40vh', color: "#023047" }}>Loading content...</h1>)
+    } else {
+      if (data.result.length < 1) {
+        setContent(<h1 style={{ textAlign: 'center', height: '40vh', color: "#023047" }}>Sorry ostathi, we could not match your search</h1>)
+      } else {
+        if (searchType == 'session') {
+          setContent(data.result.map((value, index) => {
+            return <Col key={value.id} xxl={3} xl={4} lg={6} sm={12} ><SessionCardFactory session={value} post={searchSessionType} /></Col>
+          }))
+        } else {
+          setContent(data.result.map((value, index) => {
+            return <Col xxl={3} xl={4} lg={6} md={6} sm={12} key={index}><UserCard user={value} /></Col>
+          }))
+        }
+      }
+    }
+  }, [data])
+
   const search = (e) => {
     if (e)
       e.preventDefault();
+    setSearchSubject(subject.current.value)
+    setSearchKeyword(searchKeywords.current.value)
     if (searchType == 'session') {
-      setMatchedUsers([])
-      setMatchedSessions(sessions.filter((session) => {
-        return (
-          (session.post == sessionType.current.value)
-          && session.title.includes(searchKeywords.current.value)
-          && session.topic.includes(subject.current.value)
-        )
-      }))
+      setSearchSessionType(sessionType.current.value == '1' ? "post" : "requested")
     } else {
-      setMatchedSessions([])
-      setMatchedUsers(users.filter((user) => (
-        user.fullName.includes(searchKeywords.current.value)
-        && user.major.includes(subject.current.value)
-      )))
+
     }
   };
 
   const changeSearchType = (e) => {
     setSearchType(e.currentTarget.value)
   };
-  // TODO : This is just a dummy search to test the search functionality
-  // TODO complete the search page.
   return (
     <>
       <Form onSubmit={search} className="search-box">
@@ -93,27 +112,15 @@ export default function searchPage() {
               <option value="0">teach</option>
             </Form.Select> : ''
           }
-
         </Form.Group>
       </Form>
       <div style={{ marginBottom: "4rem" }}>
         <Container>
           <Row>
-            {matchedSessions.map((value, index) => {
-              return <Col key={index} xxl={3} xl={4} lg={6} sm={12} ><SessionCardFactory session={value} /></Col>
-            })}
-          </Row>
-        </Container>
-        <Container>
-          <Row>
-            {matchedUsers.map((value, index) => {
-              return <Col xxl={3} xl={4} lg={6} md={6} sm={12} key={index}><UserCard user={value} /></Col>
-            })}
+            {content}
           </Row>
         </Container>
       </div>
-
-      {isMatched() ? '' : <h1 style={{ textAlign: 'center', height: '40vh', color: "#023047" }}>"Sorry ostathi, we could not match your search"</h1>}
     </>
   )
 }

@@ -281,6 +281,10 @@ button.profileButton:hover {
 
 /* ----------- Mubarak ----------------------- */
 
+/**************** LOGIN PAGE ******************/
+
+
+
 /* #login-main {
     font-family: 'Poppins';
 } */
@@ -447,7 +451,41 @@ button.profileButton:hover {
 
 
 
+/****************  Seesion room ******************/
+
+.session-details-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    height: 85px;
+    width: 80%;
+    padding: 1rem;
+    border-radius: 30px;
+    box-shadow: 0 0 10px gray;  
+}
+
+.session-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto 120px 0 auto;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+    width: 80%;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px gray;  
+}
+
 /* ----------- Mubarak ----------------------- */
+
+
+
 #footer-common {
     display: grid;
     width: 100%;
