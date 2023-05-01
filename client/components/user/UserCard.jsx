@@ -1,7 +1,7 @@
 import { BsStar, BsStarFill, BsPersonBoundingBox } from "react-icons/bs";
 import Router from 'next/router';
 export default function UserCard({ ...props }) {
-  const goToUserPage = () => (Router.push(`/user/${props.user.userName}`))
+  const goToUserPage = () => (Router.push(`/user/${props.user.username}`))
   const stars = () => {
     const starsTags = [];
     const roundedRating = Math.round(props.user.rating)
@@ -21,10 +21,10 @@ export default function UserCard({ ...props }) {
   return (
     <div className="userCard" onClick={goToUserPage}>
       <div className="img-container">
-        <img src={props.user.img} alt="" />
+        <img src={props.user.profilePicture} alt="" />
       </div>
-      <h4 className="user-full-name">{props.user.fullName}</h4>
-      <p className="user-major">{props.user.major}</p>
+      <h4 className="user-full-name">{props.user.name}</h4>
+      <p className="user-major">{props.user.pref_subject}</p>
       <div className="rating d-flex justify-content-around">
         {stars()}
       </div>

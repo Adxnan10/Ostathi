@@ -40,7 +40,39 @@ const getAllPostedSessions = async (searchKeyword, subject, limit, offset) => {
   await db.close()
   return sessions
 }
-
+const getAllUsers = async (searchKeyword, subject, limit, offset) => {
+  const db = await getDbConnection();
+  let checksubj = ''
+  if (subject)
+    checksubj = `
+   AND pref_subject = '${subject}'
+  `
+  const users = await db.all(`
+    SELECT * FROM USER  WHERE name LIKE '%${searchKeyword}%' ${checksubj} ORDER BY rating DESC LIMIT ${limit} OFFSET ${offset}
+  `)
+  await db.close()
+  return users
+}
+const getUserImgAndName = async (userId) => {
+  const db = await getDbConnection();
+  const users = await db.all(`
+    SELECT name, profilePicture FROM USER WHERE id = ${userId}
+  `)
+  await db.close()
+  return users
+}
+const getSessionSubjects = async (session_id, session_type) => {
+  const db = await getDbConnection();
+  let sql = '';
+  if (session_type == 'post') {
+    sql = `SELECT name FROM  SUBJECT subj JOIN SESSION_SUBJECT ses_subj WHERE subj.id =  ses_subj.subject_id AND ses_subj.session_id = '${session_id}' GROUP BY name`
+  } else if (session_type == 'requested') {
+    sql = `SELECT name FROM  SUBJECT subj JOIN SESSION_SUBJECT ses_subj WHERE subj.id =  ses_subj.subject_id AND ses_subj.request_session_id = '${session_id}' GROUP BY name`
+  }
+  const subjects = await db.all(sql)
+  await db.close()
+  return subjects
+}
 // query the database to return one object holding all the details of the session with the id given. Return data from the sessions table.
 const getSessionDetails = async (session_id) => {
   const db = await getDbConnection();
@@ -84,6 +116,9 @@ const deletesession = async (session_id) => {
 export default {
   getAllRequestedSessions,
   getAllPostedSessions,
+  getAllUsers,
+  getUserImgAndName,
+  getSessionSubjects,
   getSessionDetails,
   addSession,
   updateSession,
