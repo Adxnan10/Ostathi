@@ -76,11 +76,11 @@ const getSessionSubjects = async (session_id, session_type) => {
 
 // AHMAD ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// Get user's details from the database. Do not return the password. Return data from the user table.
+// Get a user's details from the database. Do not return the password. Return data from the user table.
 const getUserDetails = async (user_id) => {
   const db = await getDbConnection();
   // get all columns except password
-  const user = await db.get('SELECT id, email, username, name, rating, dob, bio, profilePicture, pref_subject FROM USER WHERE id = ?', [user_id])
+  const user = await db.get('SELECT id, email, username, name, rating, dob, bio, profilePicture, pref_subject FROM user WHERE id = ?', [user_id])
   await db.close()
   return user
 }
@@ -99,10 +99,16 @@ const getSessionDetails = async (session_id, session_type) => {
   return session
 }
 
-// Query the database to return information about the attendees of the session with the id given. Return data from the session_attendee table.
+// Query the database to return the details of the attendees of the session with the id given. Return data from the session_attendee table.
 const getSessionAttendees = async (session_id) => {
+  let attendees = []
   const db = await getDbConnection();
-  const attendees = await db.all('SELECT * FROM user WHERE id IN (SELECT user_id FROM session_attendee WHERE session_id = ?)', [session_id])
+  const attendees_ids = await db.all('SELECT user_id FROM session_attendee WHERE session_id = ?', [session_id])
+  for (const element of attendees_ids) {
+    // get attenedee details using getUserDetails function
+    const attendee = await getUserDetails(element.user_id)
+    attendees.push(attendee)
+  }
   await db.close()
   return attendees
 }
