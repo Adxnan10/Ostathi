@@ -73,13 +73,50 @@ const getSessionSubjects = async (session_id, session_type) => {
   await db.close()
   return subjects
 }
-// query the database to return one object holding all the details of the session with the id given. Return data from the sessions table.
-const getSessionDetails = async (session_id) => {
+
+// AHMAD ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Get user's details from the database. Do not return the password. Return data from the user table.
+const getUserDetails = async (user_id) => {
   const db = await getDbConnection();
-  const session = await db.get('SELECT * FROM session WHERE id = ?', [session_id])
+  // get all columns except password
+  const user = await db.get('SELECT id, email, username, name, rating, dob, bio, profilePicture, pref_subject FROM USER WHERE id = ?', [user_id])
+  await db.close()
+  return user
+}
+
+// Query the database to return one object holding all the details of the session with the id given. Return data from the session or request_session table.
+const getSessionDetails = async (session_id, session_type) => {
+  const db = await getDbConnection();
+  let query = '';
+  if (session_type == 'post') {
+    query = `SELECT * FROM SESSION WHERE id = '${session_id}'`
+  } else if (session_type == 'requested') {
+    query = `SELECT * FROM REQUEST_SESSION WHERE id = '${session_id}'`
+  }
+  const session = await db.get(query)
   await db.close()
   return session
 }
+
+// Query the database to return information about the attendees of the session with the id given. Return data from the session_attendee table.
+const getSessionAttendees = async (session_id) => {
+  const db = await getDbConnection();
+  const attendees = await db.all('SELECT * FROM user WHERE id IN (SELECT user_id FROM session_attendee WHERE session_id = ?)', [session_id])
+  await db.close()
+  return attendees
+}
+
+// Add a new attendee to the session_attendee table. Return metadata about the inserted row.
+const addSessionAttendee = async (session_id, user_id) => {
+  const db = await getDbConnection();
+  const meta = await db.run('INSERT INTO session_attendee(session_id, user_id) VALUES (?,?)', [session_id, user_id])
+  await db.close()
+  return meta
+}
+
+// AHMAD END ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 // inserts in the sessions table the session_data given. Note the session_data parameter is an object that holds the session columns like the author and the content.
 // returns metadata about the inserted row
 const addSession = async (session_data) => {
@@ -119,7 +156,10 @@ export default {
   getAllUsers,
   getUserImgAndName,
   getSessionSubjects,
+  getUserDetails,
   getSessionDetails,
+  getSessionAttendees,
+  addSessionAttendee,
   addSession,
   updateSession,
   deletesession,
