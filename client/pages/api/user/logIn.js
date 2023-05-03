@@ -11,12 +11,12 @@ export default async function handler(req, res) {
     const validPass = await bcrypt.compare(req.body.password, user.password)
     if (validPass) {
       delete user['password']
-      res.status(200).send({ user: user })
+      res.status(200).send({ ...user })
     } else {
-      res.status(500).send(null)
+      res.status(500).send({})
     }
   } else {
-    res.status(500).send(null)
+    res.status(500).send({})
   }
 
 }

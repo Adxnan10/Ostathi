@@ -1,8 +1,9 @@
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import { useState, useRef, useEffect } from "react"
 import { Container, Row, Col } from 'react-bootstrap'
 import { useRouter } from "next/router"
 export default function Login() {
+    const { data: session } = useSession()
     const router = useRouter()
     // console.log(router?.query?.error?)
     /* The following refs for login */
@@ -15,6 +16,11 @@ export default function Login() {
     const [showMessage, setShowMessage] = useState(false)
     const [message, setMessage] = useState('')
     const [login, setLogin] = useState(true)
+    if (session) {
+        return (
+            <h1 style={{ textAlign: 'center', height: '40vh', color: "#023047" }}>Ostathi {session.user?.name}, you logged in...</h1>
+        )
+    }
     const register = (e) => {
         setLogin(false)
     }
