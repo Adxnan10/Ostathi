@@ -43,25 +43,25 @@ export default function PostSession() {
                             <option value="Lecture"> General lecture </option>
 =======
                 <div className="container">
-                    <form className="form-post" method="POST">
+                    <form className="form-post" method="POST" action="/api/sessions/postSession">
                         <label className="row" htmlFor="Subject"> Session Subject </label>
                         <select className="row full-width" name="Subject" placeholder="Software Engineering">
-                            <option value="Software Engineering" selected> Software Engineering </option>
+                            <option value="Software Engineering" defaultValue> Software Engineering </option>
                             <option value="Mathematics"> Mathematics </option>
                             <option value="Physics"> Physics </option>
                             <option value="Chemistry"> Chemistry </option>
 >>>>>>> main
                         </select>
-                        <label className="row" htmlFor="Title"> Session Title </label>
-                        <input className="row full-width" type="text" name="Title" placeholder="Introduction to Web Development and Engineering" />
+                        <label className="row" htmlFor="title"> Session Title </label>
+                        <input className="row full-width" type="text" name="title" placeholder="Introduction to Web Development and Engineering" />
                         <section className="row d-flex justify-content-between">
                             <div className="col">
-                                <label className="row" htmlFor="StartDate"> Start Date / Time </label>
-                                <input className="row half-width" type="datetime-local" name="StartDate" />
+                                <label className="row" htmlFor="Date"> Start Date / Time </label>
+                                <input className="row half-width" type="date" name="Date" />
                             </div>
                             <div className="col">
-                                <label className="row" htmlFor="EndDate"> End Date / Time </label>
-                                <input className="row half-width" type="datetime-local" name="EndDate" />
+                                <label className="row" htmlFor="Duration"> Duration </label>
+                                <input className="row half-width" type="text" name="Duration" placeholder="Enter in minutes"/>
                             </div>
                         </section>
                         <section className="row d-flex justify-content-between">

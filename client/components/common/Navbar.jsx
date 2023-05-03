@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-
+import LoginButton from './LoginButton';
 
 export default function navbar() {
 
@@ -43,21 +43,7 @@ export default function navbar() {
               <Link href="/how" className="nav-item navButton">
                 How it works
               </Link>
-              {/* <button id="profileSignedIn" className="nav-item btn">
-                    <img src={"../../public/Model.jpeg"} alt="Profile Pic" id="navProfilePic"/>
-                    <p id="navProfileName">Yazeed</p>
-                 </button> */}
-              <Link href="/login">
-                <input type="button" className="nav-item btn" id="login" value="Login" />
-              </Link>
-              {/* All links in the navbar are temp for testing.
-                The next href should navigate to dashboard
-              */}
-              <Link href="/dashboard">
-                <input type="button" className="nav-item btn" id="signup" value="SignUp" />
-              </Link>
-
-
+              <LoginButton />
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>

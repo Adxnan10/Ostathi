@@ -5,12 +5,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Head from "next/head";
 import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
+import { SessionProvider } from "next-auth/react"
+
 /**
  *
  * @WARNING This file exists to only apply globals assets and context for all pages
  */
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
       <Head>
@@ -20,8 +22,10 @@ function MyApp({ Component, pageProps }) {
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
         />
       </Head>
-      <Navbar />
-      <Component {...pageProps} />
+      <SessionProvider session={session}>
+        <Navbar />
+        <Component {...pageProps} />
+      </SessionProvider>
       <Footer />
     </>
   );
