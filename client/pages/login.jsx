@@ -1,7 +1,10 @@
 import { signIn } from "next-auth/react"
 import { useState, useRef, useEffect } from "react"
 import { Container, Row, Col } from 'react-bootstrap'
+import { useRouter } from "next/router"
 export default function Login() {
+    const router = useRouter()
+    // console.log(router?.query?.error?)
     /* The following refs for login */
     const username = useRef('')
     const password = useRef('')
@@ -24,8 +27,16 @@ export default function Login() {
             const result = await signIn('credentials', {
                 username: username.current.value,
                 password: password.current.value,
-                redirect: true,
-                callbackUrl: '/'
+                redirect: false
+            }
+            ).then(({ ok, error }) => {
+                if (ok) {
+                    router.push("/");
+                } else {
+                    console.log(error)
+                    setMessage("Credentials do not match!");
+                    setShowMessage('true')
+                }
             }
             )
         } else {
@@ -67,13 +78,13 @@ export default function Login() {
                         <div className="login-sides">
                             {login ?
                                 <div className="login-form-box">
-                                    {showMessage && <div style={{ color: 'white', backgroundColor: '#F48C06', opacity: 1, padding: '10px' }}>{message}</div>}
                                     <div className="login-button-box">
                                         <div id="login-btn-highlight">
                                         </div>
                                         <button type="button" className="login-toggle-btn active-btn-login" onClick={loginfunc}>Login</button>
                                         <button type="button" className="login-toggle-btn active-btn-login" onClick={register}>Register</button>
                                     </div>
+                                    {showMessage && <div style={{ color: 'white', backgroundColor: '#F48C06', opacity: 1, padding: '10px' }}>{message}</div>}
                                     <form className="login-input-group" id="login-form" onSubmit={(e) => submitForm(e, "login")}>
                                         <label htmlFor="username" className="login-form-label">Username</label>
                                         <input type="text" className="login-input-field" placeholder="Enter your username" requiered ref={username} />
@@ -83,7 +94,6 @@ export default function Login() {
                                         <div className="login-submit-container">
                                             <button type="submit" className="login-submit-btn">Login</button>
                                         </div>
-                                        {showMessage && <div style={{ color: 'white', backgroundColor: '#F48C06', opacity: 1, padding: '10px' }}>{message}</div>}
                                     </form>
                                 </div>
                                 :

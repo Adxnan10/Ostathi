@@ -5,18 +5,18 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     const user = await db_model.getUser(req.body.username)
     if (user.length == 0) {
-      console.log("user is not found")
-      res.status(404).send(null)
+      res.status(500).send(null)
       return;
     }
-    const validPass = await bcrypt.compare(req.body.password, user[0].password)
+    const validPass = await bcrypt.compare(req.body.password, user.password)
     if (validPass) {
-      res.status(200).send({ user: user[0] })
+      delete user['password']
+      res.status(200).send({ user: user })
     } else {
-      console.log("incorrect password")
-      res.status(404).send(null)
+      res.status(500).send(null)
     }
+  } else {
+    res.status(500).send(null)
   }
 
-  res.status(404).send(null)
 }

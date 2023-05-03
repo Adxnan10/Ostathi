@@ -63,7 +63,7 @@ const getUserImgAndName = async (userId) => {
 }
 const getUser = async (username) => {
   const db = await getDbConnection();
-  const user = await db.all(`
+  const user = await db.get(`
     SELECT * FROM USER WHERE username = '${username}'
   `)
   await db.close()
