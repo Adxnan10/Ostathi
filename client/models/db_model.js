@@ -61,6 +61,28 @@ const getUserImgAndName = async (userId) => {
   await db.close()
   return users
 }
+const getUser = async (username) => {
+  const db = await getDbConnection();
+  const user = await db.get(`
+    SELECT * FROM USER WHERE username = '${username}'
+  `)
+  await db.close()
+  return user
+}
+const addUser = async (email, username, passwrod) => {
+  const db = await getDbConnection();
+  let meta = '';
+  try {
+    meta = await db.run(`INSERT INTO USER('email', 'name', 'username', 'password', 'rating') 
+  values (?,?,?,?,0)`, [email, username, username, passwrod])
+
+  } catch (e) {
+    meta = { msg: 'either the email or username is used already.', changes: 0 }
+  } finally {
+    await db.close()
+  }
+  return meta
+}
 const getSessionSubjects = async (session_id, session_type) => {
   const db = await getDbConnection();
   let sql = '';
@@ -125,6 +147,8 @@ export default {
   getAllRequestedSessions,
   getAllPostedSessions,
   getAllUsers,
+  getUser,
+  addUser,
   getUserImgAndName,
   getSessionSubjects,
   getSessionDetails,

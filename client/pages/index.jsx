@@ -66,11 +66,11 @@ export default function HomePage() {
         <div className='landingText'> Explore our upcoming <span style={{ color: "#F48C06" }}> sessions </span></div>
       </Row>
       <Row id='landingCards'>
-        {generateSession().map((value, index) => <>{
+        {/* {generateSession().map((value, index) => <>{
           <Col key={index} xxl={3} xl={4} lg={6} sm={12} >
             <SessionCardFactory session={value}></SessionCardFactory>
           </Col>
-        }</>)}
+        }</>)} */}
         <Button id='moreSessions' onClick={goTosearch}>See more</Button>
       </Row>
       <Row>
