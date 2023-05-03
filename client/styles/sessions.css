@@ -25,11 +25,24 @@
 
 .session-card-posted .indicator {
   background-color: #198754;
-  
+
 }
 
 .session-card-requested .indicator {
   background-color: rgb(244, 82, 82);
+}
+
+.session-card .indicator-edit-btn,
+.session-card .indicator-delete-btn {
+  background-color: var(--orangeColor);
+  color: white;
+  margin: auto 10px;
+}
+
+.session-card .indicator-edit-btn:hover,
+.session-card .indicator-delete-btn:hover {
+  background-color: var(--orangeColor);
+  opacity: 0.8;
 }
 
 .session-card .indicator.session-type {

@@ -1,7 +1,9 @@
 import { BsClockHistory, BsGrid } from 'react-icons/bs'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import Router from 'next/router';
+import Router from 'next/router'
+import { FaEdit } from 'react-icons/fa'
+import { MdDeleteForever } from 'react-icons/md'
 export default function SessionCardR({ ...props }) {
   /**
    * you should pass a session as an object
@@ -19,6 +21,13 @@ export default function SessionCardR({ ...props }) {
   const data = props.data
   const description = " " + props.session.description
   const subjects = data.subjects.map((value) => value.name).join(", ").substring(0, 15) + "..."
+  const deleteSession = () => {
+    // TODO implement
+    // for now.. 
+    const answer = confirm('Are you sure you want to delete this session?')
+    if (answer)
+      Router.push(`/session/delete/${props.session.id}`)
+  }
   return (
     <Card onClick={() => Router.push(`/session/${props.session.id}`)} className="session-card session-card-requested" style={{ width: '20rem', borderRadius: '1rem' }}>
       <div className="indicator">requested</div>
@@ -38,7 +47,10 @@ export default function SessionCardR({ ...props }) {
         <Card.Text style={{ color: "#666976" }}>
           {description.substring(0, 100)} <span style={{ color: '#6E7BAF' }}>...Read more</span>
         </Card.Text>
-        <div className="d-flex justify-content-between align-items-center">
+        {props.owner ? <>
+          <Button variant='none' className="indicator-edit-btn" onClick={() => Router.push(`/session/edit/${props.session.id}`)}>Edit <FaEdit /></Button>
+          <Button variant='none' className="indicator-delete-btn" onClick={() => deleteSession()}>Delete <MdDeleteForever /></Button>
+        </> : <div className="d-flex justify-content-between align-items-center">
           <div className='user-info'>
             <img src={data.user[0].profilePicture} alt="student pic" className='user-pic rounded-pic' />
             <span>{data.user[0].name}</span>
@@ -48,6 +60,7 @@ export default function SessionCardR({ ...props }) {
             <span>Bids starts at: {props.session.startBid} SAR</span>
           </div>
         </div>
+        }
       </Card.Body>
     </Card>
   )
