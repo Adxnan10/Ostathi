@@ -82,12 +82,20 @@ const getSessionDetails = async (session_id) => {
 }
 // inserts in the sessions table the session_data given. Note the session_data parameter is an object that holds the session columns like the author and the content.
 // returns metadata about the inserted row
-const addSession = async (session_data) => {
-  // const db = await getDbConnection();
-  // const meta = await db.run(`insert into sessions('title', 'description', 'content', 'author', 'likes', 'arabicContent') 
-  // values (?,?,?,?,0,?)`, [session_data.title, session_data.description, session_data.content, session_data.author, session_data.arabicContent])
-  // await db.close()
-  return meta
+const addSession = async (session_data, post) => {
+  const db = await getDbConnection();
+  if (!post){
+    const meta = await db.run(`insert into request_session('requester_id', 'title', 'description', 'Duration','Date','startBid','currentBid') 
+    values (1,'${session_data.title}','${session_data.description}','${session_data.Duration}','${session_data.Date}','${session_data.startBid}','${session_data.startBid}')`);
+    await db.close()
+    return meta
+  } else {
+    const meta = await db.run(`insert into session('title', 'description', 'Date', 'Duration','Type', 'price') 
+    values ('${session_data.title}','${session_data.Description}','${session_data.Date}','${session_data.Duration}','${session_data.Type}','${session_data.Price}')`);
+    await db.close()
+    return meta
+  }
+  
 }
 // updates the sessions table with the data given. 
 // Note that the data parameter is an object that holds the session columns like the author and the content 
