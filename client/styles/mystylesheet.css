@@ -893,6 +893,16 @@ h4 {
     box-sizing: border-box;
     color: #9D9B9B;
 }
+.form-post .quarter-width {
+    display: block;
+    width: 25%;
+    max-width: 49vw;
+    padding: 0.85rem;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #9D9B9B;
+}
 
 .form-post .quarter-width {
     display: block;

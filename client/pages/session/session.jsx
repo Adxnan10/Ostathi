@@ -10,24 +10,39 @@ import { useRouter } from 'next/router'
 import Router from 'next/router'
 import Error from '../error'
 import { dummyUsers, dummySessions, sessionRating } from '/public/fakeDataBase.json'
+import useSWR from 'swr'
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json()) // To be called by useSWR
 
 //Provide Rating, Pics, Session Details, Dates, Names, etc.
 
 export default function SessionDetails() {
+
+  const [rate, setRate] = useState("none");
+  const [overview, setOverview] = useState('block')
+  const [OVB, setOVB] = useState("")
+
   const router = useRouter()
-  const { session_id } = router.query
+  const { session_id, session_type } = router.query
+  const { data, error, isLoading } = useSWR(`/api/sessions/loadSession?session_id=${session_id}&session_type=${session_type}`, fetcher) // Fetches data from the API
+  let user_id = session_type == "post" ? data?.session.tutor_id : data?.session.requester_id
+  const { data: sessionInfo, isLoading: LoadingSessionInfo } = useSWR(`/api/sessions/loadSessionInfo?session_id=${session_id}&session_type=${session_type}&user_id=${user_id}`, fetcher) // Fetches data from the API
   const [sessions, setSessions] = useState([...dummySessions]);
   const [ratings, setRatings] = useState([...sessionRating]);
-  const [session, setSession] = useState([...sessions.filter((session) => {
-    return (
-      session.session_id == session_id
-    );
-  })]);
   const [rating, setRating] = useState([...ratings.filter((rating) => {
     return (
       rating.session_id == session_id
     );
   })]);
+
+  if (isLoading || LoadingSessionInfo) {
+    console.log(data)
+    return <h1> Loading . </h1>
+  }
+  console.log(sessionInfo)
+
+  const session = data.session 
+
 
   function calcRates() {
     const totalRating = [0, 0, 0, 0, 0];
@@ -78,9 +93,6 @@ export default function SessionDetails() {
   }
 
 
-  const [rate, setRate] = useState("none");
-  const [overview, setOverview] = useState('block')
-  const [OVB, setOVB] = useState("")
   const rateView = (e) => {
     total();
     setRate("block");
@@ -94,7 +106,7 @@ export default function SessionDetails() {
     e.currentTarget.classList.add("activeButtonDS");
     e.currentTarget.nextSibling.classList.remove("activeButtonDS")
   }
-  try{
+  try{  
   return (<>
     <div className="sessionBackGrnd" />
     <Container>
@@ -117,9 +129,9 @@ export default function SessionDetails() {
                 <Row>
                   <div className='datailsSession'>
                     <div className='datailsSession'>
-                      <img src={session[0].img} alt="Model" id='sessionPics' />
-                      <p id='nameSessionDet'>{session[0].userName}</p >
-                    </div>
+                      <img src={sessionInfo.user[0].profilePicture} alt="Model" id='sessionPics' />
+                      {<p id='nameSessionDet'>{sessionInfo.user[0].name}</p >}
+                    </div>  
                     <div className='datailsSession'>
                       <BsGrid className='BsGrid' />
                       <p>&ensp;4th of May 2022</p>
@@ -127,7 +139,7 @@ export default function SessionDetails() {
                   </div>
                 </Row>
                 <Row className='datailsSession'>
-                  <p>{session[0].text}</p>
+                  <p>{session.description}</p>
                 </Row>
               </div>
               <div className='sessionRating' style={{ display: rate }}>
@@ -162,7 +174,7 @@ export default function SessionDetails() {
                     <><Row>
                       <div className='datailsSession'>
                         <div className='datailsSession'>
-                          <img src={session[0].img} alt="Model" id='sessionPics' />
+                          <img src={session.img} alt="Model" id='sessionPics' />
                           <p id='nameSessionDet'>{value.userName}</p >
                         </div>
                         <div className='datailsSession'>
@@ -187,24 +199,28 @@ export default function SessionDetails() {
           <Card id='floatingCard'>
             <Card.Img variant="top" src="/Model.jpeg" id='tutorPicSD' />
             <Card.Title className='cardHeader'>
-              <h2 >{session[0].price} SAR</h2>
-              <p>{session[0].duration} left</p>
+              <h2 >{session.price} SAR</h2>
+              <p>{data.attendees.length} joined! </p>
               <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => Router.push(`/payment/${session_id}`)}>
-                Register Now
+                {/* TODO: Check if the user is an attendee Register Now  */}
               </Button>
             </Card.Title>
             <hr />
             <Card.Body>
-              <h4 id='titleSesDet'><b>{session[0].title}</b></h4>
+              <h4 id='titleSesDet'><b>{session.title}</b></h4>
               <div id='greyGuarnt'>
                 <div>
-                  <p><BsGrid className='BsGrid' />{session[0].topic}</p>
+                  <p><BsGrid className='BsGrid' />{sessionInfo.subjects.map((value, index) => {
+                    return (<span>
+                      {value.name}{sessionInfo.subjects.length - index - 1 == 0 ? <></> : <span>, </span>}
+                    </span>)
+                  })}</p>
                 </div>
                 <div>
-                  <p><BsGrid className='BsGrid' />{session[0].session_type}</p>
+                  <p><BsGrid className='BsGrid' />{session.type}</p>
                 </div>
                 <div>
-                  <p><BsGrid className='BsGrid' />{session[0].duration}</p>
+                  <p><BsGrid className='BsGrid' />{session.duration}</p>
                 </div>
               </div>
 
@@ -213,7 +229,7 @@ export default function SessionDetails() {
         </Col>
       </Row>
     </Container>
-  </>);} catch {
-    return(<Error/>)
+  </>);} catch (e) {
+    return(<>{e.message}</>)
   }
 }

@@ -12,6 +12,36 @@ export default function PostSession() {
                     <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodadipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
                 </div>
 
+<<<<<<< HEAD
+        <div className="container">
+            <form className="form-post" method="POST">
+                <label class="row" htmlFor="Subject"> Session Subject </label>
+                <select class="row full-width" name="Subject" placeholder="Software Engineering">
+                    <option value="Software Engineering" selected> Software Engineering </option>
+                    <option value="Mathematics"> Mathematics </option>
+                    <option value="Physics"> Physics </option>
+                    <option value="Chemistry"> Chemistry </option>
+                </select>
+                <label class="row" htmlFor="Title"> Session Title </label>
+                <input class="row full-width" type="text" name="Title" placeholder="Introduction to Web Development and Engineering" />
+                <section class="row d-flex justify-content-between">
+                    <div className="col">
+                        <label class="row" htmlFor="StartDate"> Start Date / Time </label>
+                        <input class="row half-width" type="datetime-local" name="StartDate"/>
+                    </div>
+                    <div className="col">
+                        <label class="row" htmlFor="EndDate"> End Date / Time </label>
+                        <input class="row half-width" type="datetime-local" name="EndDate"/>
+                    </div>
+                </section>
+                <section class="row d-flex justify-content-between">
+                    <div className="col">
+                        <label class="row" htmlFor="Type"> Type </label>
+                        <select class="row half-width" name="Type"  >
+                            <option value="Tutoring" selected> One-to-one session </option>
+                            <option value="Group"> Group session </option>
+                            <option value="Lecture"> General lecture </option>
+=======
                 <div className="container">
                     <form className="form-post" method="POST" action="/api/sessions/postSession">
                         <label className="row" htmlFor="Subject"> Session Subject </label>
@@ -20,6 +50,7 @@ export default function PostSession() {
                             <option value="Mathematics"> Mathematics </option>
                             <option value="Physics"> Physics </option>
                             <option value="Chemistry"> Chemistry </option>
+>>>>>>> main
                         </select>
                         <label className="row" htmlFor="title"> Session Title </label>
                         <input className="row full-width" type="text" name="title" placeholder="Introduction to Web Development and Engineering" />
