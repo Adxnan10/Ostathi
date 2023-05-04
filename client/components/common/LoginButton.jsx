@@ -19,6 +19,6 @@ export default function LoginButton() {
     )
   }
   return (
-    <button onClick={() => Router.push(`/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F`)} className="nav-item btn" id="login"> Login | signUp </button>
+    <button onClick={() => Router.push(`/login`)} className="nav-item btn" id="login"> Login | signUp </button>
   )
 }

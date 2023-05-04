@@ -57,7 +57,7 @@ const getAllUsers = async (searchKeyword, subject, limit, offset) => {
 const getUserImgAndName = async (userId) => {
   const db = await getDbConnection();
   const users = await db.all(`
-    SELECT id, name, profilePicture FROM USER WHERE id = ${userId}
+    SELECT id, name, profilePicture FROM USER WHERE id = '${userId}'
   `)
   await db.close()
   return users
@@ -157,6 +157,7 @@ const updateProfile = async (body) => {
     SET name = '${body.Name}', email = '${email}'
     WHERE id = '${body.id}'`)
   }
+  await db.close()
   return meta
 }
 
@@ -173,9 +174,15 @@ const getSessionSubjects = async (session_id, session_type) => {
   return subjects
 }
 // query the database to return one object holding all the details of the session with the id given. Return data from the sessions table.
-const getSessionDetails = async (session_id) => {
+const getSessionDetails = async (session_id, session_type) => {
   const db = await getDbConnection();
-  const session = await db.get('SELECT * FROM session WHERE id = ?', [session_id])
+  let query = '';
+  if (session_type == 'post') {
+    query = `SELECT * FROM SESSION WHERE id = '${session_id}'`
+  } else if (session_type == 'requested') {
+    query = `SELECT * FROM REQUEST_SESSION WHERE id = '${session_id}'`
+  }
+  const session = await db.get(query)
   await db.close()
   return session
 }

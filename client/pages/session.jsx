@@ -47,7 +47,6 @@ export default function SessionDetails() {
 
 
   const session = data.session
-  console.log("HERE")
   data.attendees.map((att) => {
     if (att.id == userSession.id)
       setIsAttendee(true)
@@ -208,10 +207,10 @@ export default function SessionDetails() {
               <Card id='floatingCard'>
                 <Card.Img variant="top" src="/Model.jpeg" id='tutorPicSD' />
                 <Card.Title className='cardHeader'>
-                  <h2 >{session.price} SAR</h2>
+                  <h2 >{session_type == "post" ? session.price : session.startBid} SAR</h2>
                   <p>{data.attendees.length} joined! </p>
                   <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => Router.push(`/payment/${session_id}`)}>
-                    {isAttendee ? 'register' : 'enter session'}
+                    {isAttendee ? 'enter session' : session_type == "post" ? 'register' : 'bid'}
                     {/* TODO: Check if the user is an attendee Register Now  */}
                   </Button>
                 </Card.Title>
@@ -227,10 +226,10 @@ export default function SessionDetails() {
                       })}</p>
                     </div>
                     <div>
-                      <p><BsGrid className='BsGrid' />{session.type}</p>
+                      <p><BsGrid className='BsGrid' />{session.type || 'one-one'}</p>
                     </div>
                     <div>
-                      <p><BsGrid className='BsGrid' />{session.duration}</p>
+                      <p><BsGrid className='BsGrid' />{session.duration} mins</p>
                     </div>
                   </div>
 
