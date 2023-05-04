@@ -20,7 +20,7 @@ export default function SessionCardR({ ...props }) {
   const description = " " + props.session.description
   const subjects = data.subjects.map((value) => value.name).join(", ").substring(0, 15) + "..."
   return (
-    <Card onClick={() => Router.push(`/session/${props.session.id}`)} className="session-card session-card-requested" style={{ width: '20rem', borderRadius: '1rem' }}>
+    <Card onClick={() => Router.push(`/session?session_id=${props.session.id}&session_type=requested&user_id=${data.user[0].id}`)} className="session-card session-card-posted" style={{ width: '20rem', borderRadius: '1rem' }}>
       <div className="indicator">requested</div>
       <div className={`indicator session-type`}>one-one</div>
       <Card.Img className="session-card-img" variant="top" src={/* props.session.img */ "/Model.jpeg"} />
