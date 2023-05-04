@@ -233,7 +233,6 @@ const deletesession = async (session_id) => {
 //   await db.close()
 //   return meta
 // }
-// AHMAD ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Get a user's details from the database. Do not return the password. Return data from the user table.
 const getUserDetails = async (user_id) => {
@@ -267,8 +266,6 @@ const addSessionAttendee = async (session_id, user_id) => {
   await db.close()
   return meta
 }
-
-// AHMAD END ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 export default {
   getUserDetails,
