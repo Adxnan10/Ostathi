@@ -82,6 +82,15 @@ await db.close()
 return sessions
 }
 
+const registerSession = async (id, user_id) => {
+  const db = await getDbConnection();
+  let meta = '';
+  meta = await db.run(`INSERT INTO Session_Attendee ('user_id', 'session_id') 
+  values ('${user_id}','${id}')`)
+await db.close()
+return meta
+}
+
 const getUserSessionsRequested = async (user_id) => {
   const db = await getDbConnection();
   const sessions = await db.all(`
@@ -229,4 +238,5 @@ export default {
   getOwnerPosted,
   getOwnerRequested,
   updateProfile,
+  registerSession,
 }

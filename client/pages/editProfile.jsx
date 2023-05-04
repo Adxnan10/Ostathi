@@ -2,6 +2,7 @@ import Router from 'next/router'
 import useSWR from 'swr'
 import { useSession } from "next-auth/react"
 
+
 const fetcher = (...args) => fetch(...args, {method: "GET"}).then((res) => res.json())
 
 export default function EditProfile() {
@@ -69,7 +70,7 @@ export default function EditProfile() {
                             </button>
                         </div>
                         <div className="row">
-                            <button className="btn btn-primary dis" onClick={() => Router.push(`/session/1`) }>
+                            <button className="btn btn-primary dis"  onClick={() => Router.push(`/dashboard?username=${session?.user?.username}&id=${session?.user?.id}`)}>
                                 Preview
                             </button>
                         </div>

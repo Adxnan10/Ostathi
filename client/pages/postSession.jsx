@@ -66,6 +66,6 @@ export default function PostSession() {
         </>
     );} else {
     const router = useRouter()
-        router.push('/login')
+        router.push('/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F')
     } 
 }

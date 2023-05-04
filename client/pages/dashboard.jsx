@@ -66,7 +66,7 @@ export default function DashBoard() {
       overallRating += element.rating == undefined ? 0 : element.rating;
       overallReviews += element.comment == undefined ? 0 : 1;
     });
-    return [Math.round(overallRating / data.rating.length), overallReviews]
+    return [Math.round((overallRating / data.rating.length) * 10)/ 10, overallReviews]
   }
 
   const stars = (rating) => {

@@ -1,5 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/react"
 import { useRouter } from "next/router"
+import Router from 'next/router'
 import { BiLogOut } from 'react-icons/bi'
 import Button from 'react-bootstrap/Button'
 export default function LoginButton() {
@@ -18,6 +19,6 @@ export default function LoginButton() {
     )
   }
   return (
-    <button onClick={() => signIn('Credentials')} className="nav-item btn" id="login">Login / signUp</button>
+    <button onClick={() => Router.push(`/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F`)} className="nav-item btn" id="login"> Login | signUp </button>
   )
 }

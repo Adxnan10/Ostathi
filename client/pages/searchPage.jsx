@@ -10,11 +10,13 @@ import Col from 'react-bootstrap/Col'
 import SessionCardFactory from '../components/session/SessionCardFactory'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
+import Error from './error'
 
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function searchPage() {
+  try {
   // const router = useRouter()
   // const { , , , searchKeyword, offset } = { ...router.query }
 
@@ -69,6 +71,7 @@ export default function searchPage() {
   const changeSearchType = (e) => {
     setSearchType(e.currentTarget.value)
   };
+  
   return (
     <>
       <Form onSubmit={search} className="search-box">
@@ -121,5 +124,7 @@ export default function searchPage() {
         </Container>
       </div>
     </>
-  )
+  );} catch {
+    <Error/>
+  }
 }
