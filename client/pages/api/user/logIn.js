@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     const user = await db_model.getUser(req.body.username)
     if (user.length == 0) {
-      res.status(500).send(null)
+      res.status(500).send({})
       return;
     }
     const validPass = await bcrypt.compare(req.body.password, user.password)

@@ -17,8 +17,9 @@ export default function Login() {
     const [message, setMessage] = useState('')
     const [login, setLogin] = useState(true)
     if (session) {
-        return (
-            <h1 style={{ textAlign: 'center', height: '40vh', color: "#023047" }}>Ostathi {session.user?.name}, you logged in...</h1>
+        return (<div className="404-block d-flex justify-content-center align-items-center" style={{ height: '60vh' }}>
+        <h1 style={{ color: "#023047" }}><span style={{ color: "#F48C06" }}> Ostathi, </span>you logged in...</h1>
+        </div>
         )
     }
     const register = (e) => {

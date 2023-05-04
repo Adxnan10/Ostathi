@@ -43,7 +43,7 @@ export default function HomePage() {
         <img id='landingBCKGRN' src="/landingPage.png" alt="Page" />
         <div id='welcoming'>
           <span style={{ color: "#F48C06" }}> Studying </span> online is now much easier
-          <p style={{ fontSize: "1vw" }}>Ostathi is an interesting platform that will teach you in more an interactive way</p>
+          <p style={{ fontSize: "1vw" }}>Ostathi is an interesting platform that will teach you in more interactive way</p>
         </div>
       </Row>
       <Row style={{ padding: "8vw 1vw", justifyContent: 'center', alignItems: 'center' }}>

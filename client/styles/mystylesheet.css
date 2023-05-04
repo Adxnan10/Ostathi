@@ -271,6 +271,16 @@ button.profileButton:hover {
     width: 25rem;
 }
 
+button.dis{
+    cursor: not-allowed;
+    pointer-events: none;
+    margin: 1rem auto 0 auto;
+    background-color: #d7c2a9;
+    border: none;
+    height: 3rem;
+    width: 25rem;
+}
+
 .profileScndClmn {
     margin-left: 5rem;
 }

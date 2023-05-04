@@ -4,8 +4,11 @@ import { useState } from 'react'
 import Error from '../error'
 import Router from 'next/router'
 import { dummySessions } from '/public/fakeDataBase.json'
+import { useSession } from "next-auth/react"
+
 
 export default function Payment() {
+    const { data: data, status } = useSession()
     const router = useRouter()
     const session_id = router.query.payment_id
     const [sessions, setSessions] = useState([...dummySessions]);
@@ -15,6 +18,7 @@ export default function Payment() {
         );
     })]);
     try {
+        if(status === "authenticated") {
         return (
             <>
                 <Card className="paymentCard">
@@ -35,7 +39,9 @@ export default function Payment() {
                                 <img src="/mstrcard.svg" alt="Mastercard" className="col paymenyMethod" />
                             </div>
 
-                            <form>
+                            <form method='POST' action='/api/sessions/registerForSession'>
+                                <input value={data?.user?.id} name="user_id" style={{display: "none"}}/>
+                                <input value={session_id} name="id" style={{display: "none"}}/>
                                 <div className="row">
                                     <label for="Name" className="Labels">
                                         Name on Card
@@ -65,7 +71,7 @@ export default function Payment() {
                                     <input type="text" name="CVC" className="col paymenyButtons" placeholder="Enter the CVC" />
                                 </div>
                                 <div className="row">
-                                    <button className="btn btn-danger col paymenyButtons">
+                                    <button className="btn btn-danger col paymenyButtons" type='submit'>
                                         Pay Now
                                     </button>
                                 </div>
@@ -79,7 +85,12 @@ export default function Payment() {
                     </Card.Body>
                 </Card>
             </>
-        );
+        ); }
+        else {
+            return(<div className="404-block d-flex justify-content-center align-items-center" style={{ height: '60vh' }}>
+            <h1 style={{ color: "#023047" }}>You Are not Signed in<span style={{ color: "#F48C06" }}> Ostathi!</span>.</h1>
+            </div>)
+          }
     } catch (e) {
         return (
             <>

@@ -40,7 +40,7 @@ export default function SessionCardR({ ...props }) {
         </Card.Text>
         <div className="d-flex justify-content-between align-items-center">
           <div className='user-info'>
-            <img src={data.user[0].profilePicture} alt="student pic" className='user-pic rounded-pic' />
+            <img src={data.user[0].profilePicture == undefined ?"Profile.png" : data.user[0].profilePicture} alt="student pic" className='user-pic rounded-pic' />
             <span>{data.user[0].name}</span>
           </div>
           <div className='session-bid' style={{ color: "#F5931C" }} >
