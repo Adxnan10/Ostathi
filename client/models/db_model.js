@@ -1,5 +1,6 @@
 import { Database } from 'sqlite3'
 import { open } from 'sqlite'
+
 // open the database
 const getDbConnection = async () => {
   return await open({
@@ -69,6 +70,54 @@ const getUser = async (username) => {
   await db.close()
   return user
 }
+const getUserSessions = async (user_id) => {
+  const db = await getDbConnection();
+  const sessions = await db.all(`
+  SELECT * FROM SESSION ses WHERE EXISTS(
+  SELECT * FROM SESSION_ATTENDEE WHERE ses.id = session_id AND user_id = '${user_id}'
+  )
+  `
+  )
+await db.close()
+return sessions
+}
+
+const getUserSessionsRequested = async (user_id) => {
+  const db = await getDbConnection();
+  const sessions = await db.all(`
+  SELECT * FROM REQUEST_SESSION WHERE requester_id = '${user_id}'`
+  )
+await db.close()
+return sessions
+}
+
+const getOwnerPosted = async (user_id) => {
+  const db = await getDbConnection();
+  const sessions = await db.all(`
+  SELECT * FROM Session WHERE tutor_id = '${user_id}'`
+  )
+await db.close()
+return sessions
+}
+
+const getOwnerRequested = async (user_id) => {
+  const db = await getDbConnection();
+  const sessions = await db.all(`
+  SELECT * FROM Request_Session WHERE tutor_id = '${user_id}'`
+  )
+await db.close()
+return sessions
+}
+
+const getUserRating = async (user_id) => {
+  const db = await getDbConnection();
+  const sessions = await db.all(`
+  SELECT * FROM Rating WHERE tutor_id = '${user_id}'`
+  )
+await db.close()
+return sessions
+}
+
 const addUser = async (email, username, passwrod) => {
   const db = await getDbConnection();
   let meta = '';
@@ -83,6 +132,25 @@ const addUser = async (email, username, passwrod) => {
   }
   return meta
 }
+
+const updateProfile = async (body) => {
+  const db = await getDbConnection();
+  let meta = '';
+  let email = body.Email; 
+  if (email == ""){
+    meta = await db.run(`
+    UPDATE USER
+    SET name = '${body.Name}'
+    WHERE id = '${body.id}'`)
+  } else {
+    meta = await db.run(`
+    UPDATE USER
+    SET name = '${body.Name}', email = '${email}'
+    WHERE id = '${body.id}'`)
+  }
+  return meta
+}
+
 const getSessionSubjects = async (session_id, session_type) => {
   const db = await getDbConnection();
   let sql = '';
@@ -104,16 +172,16 @@ const getSessionDetails = async (session_id) => {
 }
 // inserts in the sessions table the session_data given. Note the session_data parameter is an object that holds the session columns like the author and the content.
 // returns metadata about the inserted row
-const addSession = async (session_data, post) => {
+const addSession = async (session_data,post) => {
   const db = await getDbConnection();
   if (!post){
     const meta = await db.run(`insert into request_session('requester_id', 'title', 'description', 'Duration','Date','startBid','currentBid') 
-    values (1,'${session_data.title}','${session_data.description}','${session_data.Duration}','${session_data.Date}','${session_data.startBid}','${session_data.startBid}')`);
+    values ('${session_data.id}','${session_data.title}','${session_data.description}','${session_data.Duration}','${session_data.Date}','${session_data.startBid}','${session_data.startBid}')`);
     await db.close()
     return meta
   } else {
-    const meta = await db.run(`insert into session('title', 'description', 'Date', 'Duration','Type', 'price') 
-    values ('${session_data.title}','${session_data.Description}','${session_data.Date}','${session_data.Duration}','${session_data.Type}','${session_data.Price}')`);
+    const meta = await db.run(`insert into session('title', 'description', 'Date', 'Duration','Type', 'price', 'tutor_id') 
+    values ('${session_data.title}','${session_data.Description}','${session_data.Date}','${session_data.Duration}','${session_data.Type}','${session_data.Price}','${session_data.id}')`);
     await db.close()
     return meta
   }
@@ -145,6 +213,7 @@ const deletesession = async (session_id) => {
 // }
 export default {
   getAllRequestedSessions,
+  getUserSessions,
   getAllPostedSessions,
   getAllUsers,
   getUser,
@@ -155,5 +224,9 @@ export default {
   addSession,
   updateSession,
   deletesession,
-  // likesession
+  getUserSessionsRequested,
+  getUserRating,
+  getOwnerPosted,
+  getOwnerRequested,
+  updateProfile,
 }
