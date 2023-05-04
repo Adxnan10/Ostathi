@@ -1,19 +1,26 @@
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import UserCard from '../components/user/UserCard'
 import Button from 'react-bootstrap/Button'
 import SessionCardFactory from '../components/session/SessionCardFactory'
 import { BsStar, BsStarFill } from "react-icons/bs";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Router from 'next/router'
-import { dummySessions, dummyUsers } from '../public/fakeDataBase.json'
+import useSWR from 'swr'
+import { useSession } from "next-auth/react"
+import Error from "./error"
+
+
+const fetcher = (...args) => fetch(...args, {method: "GET"}).then((res) => res.json())
 
 export default function DashBoard() {
+  const { data: session, status } = useSession()
+  if(status === "authenticated") {
+  const { data, error, isLoading } = useSWR([`/api/user/dashboard?username=${session?.user?.username}&id=${session?.user?.id}`], fetcher);
+
   var cond = true;
-  const [sessions, setSessions] = useState([...dummySessions]);
-  const [users, setUsers] = useState([...dummyUsers]);
+  var cond2 = true;
   const goToEditPage = () => {
-    Router.push('/editProfile')
+    Router.push(`/editProfile?username=${session?.user?.username}`)
   }
 
   const [toggle, setToggle] = useState(true);
@@ -33,6 +40,34 @@ export default function DashBoard() {
       setToggle(true);
     }
   });
+
+  const [toggle2, setToggle2] = useState(true);
+  const [moreSessions2, setMoreSessions2] = useState("none");
+  const [lessButton2, setLessButton2] = useState("none");
+  const [moreButton2, setMoreButton2] = useState("block");
+  const showMoreSessions2 = (() => {
+    if (toggle2) {
+      setToggle2(false);
+      setMoreSessions2("block");
+      setMoreButton2("none");
+      setLessButton2("block");
+    } else {
+      setMoreSessions2("none");
+      setMoreButton2("block");
+      setLessButton2("none");
+      setToggle2(true);
+    }
+  });
+
+  const ratings = (data) => {
+    let overallRating = 0;
+    let overallReviews = 0;
+    data.rating.forEach(element => {
+      overallRating += element.rating == undefined ? 0 : element.rating;
+      overallReviews += element.comment == undefined ? 0 : 1;
+    });
+    return [Math.round((overallRating / data.rating.length) * 10)/ 10, overallReviews]
+  }
 
   const stars = (rating) => {
     const starsTags = [];
@@ -54,28 +89,32 @@ export default function DashBoard() {
           <h4>My Sessions</h4>
         </Row>
         <Row className='cardsArea' >
-          {sessions.map((value, index) => <>
+          {data != undefined ? (data.hostSessions.length == 0 ? 
+          <div className="404-block d-flex justify-content-center align-items-center" style={{ height: '30vh' }}>
+    <h1 style={{ color: "#023047" }}>You don't host any session<span style={{ color: "#F48C06" }}> Ostathi!</span>.</h1>
+    </div>
+            :data.sessions.map((value, index) => <>
             {index <= 2 ?
-              <Col className='cardMargin' lg="4">
-                <SessionCardFactory session={value} />
+              <Col className='cardMargin' sm="12" md="6" lg="6" xl="4">
+                <SessionCardFactory session={value} post={value.requester_id ? "requested": 'post'} />
               </Col>
               :
-              sessions.length > 3 && cond ?
+              data.sessions.length > 3 && cond ?
                 <>
                   <Button id='moreSessions' style={{ display: moreButton }} onClick={showMoreSessions}>
                     More Session
                   </Button>
                   {cond = false}
-                  <Col lg="4" style={{ display: moreSessions }} className='cardMargin'>
-                    <SessionCardFactory session={value} />
+                  <Col sm="12" md="6" lg="6" xl="4" style={{ display: moreSessions }} className='cardMargin'>
+                    <SessionCardFactory session={value} post={value.requester_id ? "requested": 'post'} />
                   </Col>
-                </> : <Col lg="4" style={{ display: moreSessions }} className='cardMargin'>
-                  <SessionCardFactory session={value} />
+                </> : <Col sm="12" md="6" lg="6" xl="4"style={{ display: moreSessions }} className='cardMargin'>
+                  <SessionCardFactory session={value} post={value.requester_id ? "requested": 'post'} />
                 </Col>
 
             }
           </>
-          )}
+          )) : "Loading.gif"}
           <Row>
             <Col> <Button id='moreSessions' style={{ display: lessButton }} onClick={showMoreSessions}>
               Show Less
@@ -86,12 +125,40 @@ export default function DashBoard() {
         </Row>
         <Row id='tutorsArea'>
           <Row>
-            <h4>Starred Tutors</h4>
+            <h4>My Hosted  Sessions</h4>
           </Row>
           <Row>
-            <Col>
-              <UserCard user={users[0]} />
-            </Col>
+          {data != undefined ? (data.hostSessions.length == 0 ? 
+          <div className="404-block d-flex justify-content-center align-items-center" style={{ height: '30vh' }}>
+    <h1 style={{ color: "#023047" }}>You don't host any session<span style={{ color: "#F48C06" }}> Ostathi!</span>.</h1>
+    </div>
+            : data.hostSessions.map((value, index) => <>
+            {index <= 2 ?
+              <Col className='cardMargin' sm="12" md="6" lg="6" xl="4">
+                <SessionCardFactory session={value} post={value.requester_id ? "requested": 'post'} />
+              </Col>
+              :
+              data.sessions.length > 3 && cond2 ?
+                <>
+                  <Button id='moreSessions' style={{ display: moreButton2 }} onClick={showMoreSessions2}>
+                    More Session
+                  </Button>
+                  {cond2 = false}
+                  <Col sm="12" md="6" lg="6" xl="4" style={{ display: moreSessions2 }} className='cardMargin'>
+                    <SessionCardFactory session={value} post={value.requester_id ? "requested": 'post'} />
+                  </Col>
+                </> : <Col sm="12" md="6" lg="6" xl="4"style={{ display: moreSessions2 }} className='cardMargin'>
+                  <SessionCardFactory session={value} post={value.requester_id ? "requested": 'post'} />
+                </Col>
+
+            }
+          </>
+          )) : "Loading.gif"}
+          <Row>
+            <Col> <Button id='moreSessions' style={{ display: lessButton2 }} onClick={showMoreSessions2}>
+              Show Less
+            </Button></Col>
+          </Row>
 
           </Row>
           <Row>
@@ -100,10 +167,10 @@ export default function DashBoard() {
       </Col>
       <Col>
         <Row>
-          <img src="Model.jpeg" alt="Model" id='dashPic' />
+          <img src={data?.user?.profilePicture == undefined ? "Profile.png" : data.user?.profilePicture} alt="Model" id='dashPic' />
         </Row>
         <Row>
-          <h5>Adnan</h5>
+          <h5>{data == undefined ? "loading" : data.user?.name}</h5>
         </Row>
         <Row>
           <Button id="dashButton" onClick={goToEditPage}>
@@ -112,13 +179,18 @@ export default function DashBoard() {
         </Row>
         <Row>
           <div className='ratingBox'>
-            <h4>4 out of 5</h4>
-            {stars(4)}
-            <div>3450 review</div>
+            <h4>{data == undefined ? "..." : ratings(data)[0]} out of 5</h4>
+            {data == undefined ? stars(0) : stars(ratings(data)[0])}
+            <div>{data == undefined ? "..." : ratings(data)[1]} review</div>
           </div>
 
         </Row>
       </Col>
     </Row>
-  </>);
+  </>);}
+  else {
+    return(<div className="404-block d-flex justify-content-center align-items-center" style={{ height: '60vh' }}>
+    <h1 style={{ color: "#023047" }}>You Are not Signed in<span style={{ color: "#F48C06" }}> Ostathi!</span>.</h1>
+    </div>)
+  }
 }

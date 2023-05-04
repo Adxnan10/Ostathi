@@ -4,8 +4,10 @@ import SessionCardR from "./SessionCardR";
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function SessionCardFactory({ ...props }) {
+  
   const sessionPassed = props.session
   const userId = props.post == 'post' ? sessionPassed.tutor_id : sessionPassed.requester_id
+  //const userId = 69
   const fetchedURL = `/api/sessions/loadSessionInfo?session_id=${sessionPassed.id}&session_type=${props.post}&user_id=${userId}`
   const { data, error, isLoading } = useSWR(fetchedURL, fetcher)
 
@@ -14,7 +16,7 @@ export default function SessionCardFactory({ ...props }) {
     </>
   }
   if (error) {
-    return <>failed to fetch session info
+    return <>failed to fetch session info {}
     </>
   }
   return (

@@ -43,7 +43,7 @@ export default function HomePage() {
         <img id='landingBCKGRN' src="/landingPage.png" alt="Page" />
         <div id='welcoming'>
           <span style={{ color: "#F48C06" }}> Studying </span> online is now much easier
-          <p style={{ fontSize: "1vw" }}>Ostathi is an interesting platform that will teach you in more an interactive way</p>
+          <p style={{ fontSize: "1vw" }}>Ostathi is an interesting platform that will teach you in more interactive way</p>
         </div>
       </Row>
       <Row style={{ padding: "8vw 1vw", justifyContent: 'center', alignItems: 'center' }}>
@@ -66,11 +66,11 @@ export default function HomePage() {
         <div className='landingText'> Explore our upcoming <span style={{ color: "#F48C06" }}> sessions </span></div>
       </Row>
       <Row id='landingCards'>
-        {generateSession().map((value, index) => <>{
+        {/* {generateSession().map((value, index) => <>{
           <Col key={index} xxl={3} xl={4} lg={6} sm={12} >
             <SessionCardFactory session={value}></SessionCardFactory>
           </Col>
-        }</>)}
+        }</>)} */}
         <Button id='moreSessions' onClick={goTosearch}>See more</Button>
       </Row>
       <Row>

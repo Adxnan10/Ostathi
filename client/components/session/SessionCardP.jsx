@@ -15,14 +15,18 @@ export default function SessionCardP({ ...props }) {
     userImg: "/logo.svg",
     price: 20
    */
+    // const classes = {"Linear Algebra" : "/algebra.png" , "Calclus" : "/Calclus.png" , "Programming" : "/programming.png",
+    // "Project Managment" : "/managmanet.png", "Physics" : "/physics.png" , "Science" : "/science.png"  , "Art" : "/art.png" }
+    const classes = ["/algebra.png","/Calclus.png" , "/programming.png",
+     "/managmanet.png", "/physics.png" , "/science.png"  ,  "/art.png" ]
   const data = props.data
   const description = " " + props.session.description
   const subjects = data.subjects.map((value) => value.name).join(", ").substring(0, 15) + "..."
   return (
-    <Card onClick={() => Router.push(`/session/${props.session.id}`)} className="session-card session-card-posted" style={{ width: '20rem', borderRadius: '1rem' }}>
+    <Card onClick={() => Router.push(`/session?session_id=${props.session.id}&session_type=post&user_id=${data.user[0].id}`)} className="session-card session-card-posted" style={{ width: '20rem', borderRadius: '1rem' }}>
       <div className="indicator">posted</div>
       <div className={`indicator session-type`}>{props.session.type}</div>
-      <Card.Img className="session-card-img" variant="top" src={"/Model.jpeg"} />
+      <Card.Img className="session-card-img" variant="top" src={classes[Math.floor(Math.random() * 6)]} />
       <Card.Body>
         <div className="session-info d-flex justify-content-around" style={{ color: "#666976" }}>
           <div className="topic">
@@ -39,7 +43,7 @@ export default function SessionCardP({ ...props }) {
         </Card.Text>
         <div className="d-flex justify-content-between align-items-center">
           <div className='user-info'>
-            <img src={data.user[0].profilePicture} alt="user pic" className='user-pic rounded-pic' />
+            <img src={data.user[0].profilePicture == undefined ?"Profile.png" : data.user[0].profilePicture} alt="user pic" className='user-pic rounded-pic' />
             <span>{data.user[0].name}</span>
           </div>
           <div className='session-price' style={{ color: "#F5931C" }} >

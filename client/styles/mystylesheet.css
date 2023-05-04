@@ -163,15 +163,16 @@ img {
 }
 
 #navProfilePic {
-    height: 4rem;
+    padding: 0px;
+    height: 48px;
+    width: 48px;
     object-fit: cover;
     border-radius: 50%;
-    margin: 0;
 }
 
 #profileSignedIn {
     display: flex;
-    margin: auto 1rem auto 0;
+    margin: auto 1rem auto 10px;
 }
 
 #navProfileName {
@@ -265,6 +266,16 @@ button.profileButton {
 button.profileButton:hover {
     margin: 1rem auto 0 auto;
     background-color: #c27106;
+    border: none;
+    height: 3rem;
+    width: 25rem;
+}
+
+button.dis{
+    cursor: not-allowed;
+    pointer-events: none;
+    margin: 1rem auto 0 auto;
+    background-color: #d7c2a9;
     border: none;
     height: 3rem;
     width: 25rem;
@@ -461,7 +472,7 @@ button.profileButton:hover {
     width: 80%;
     padding: 1rem;
     border-radius: 30px;
-    box-shadow: 0 0 10px gray;  
+    box-shadow: 0 0 10px gray;
 }
 
 .session-detail {
@@ -479,7 +490,7 @@ button.profileButton:hover {
     width: 80%;
     padding: 1rem;
     border-radius: 10px;
-    box-shadow: 0 0 10px gray;  
+    box-shadow: 0 0 10px gray;
 }
 
 /* ----------- Mubarak ----------------------- */
