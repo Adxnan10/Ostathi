@@ -23,6 +23,7 @@ export default function SessionDetails() {
   const [rate, setRate] = useState("none");
   const [overview, setOverview] = useState('block')
   const [OVB, setOVB] = useState("")
+  const [biddersBlock, setBiddersBlock] = useState("none")
 
   const router = useRouter()
   const { session_id, session_type } = router.query
@@ -31,6 +32,7 @@ export default function SessionDetails() {
   const { data: sessionInfo, isLoading: LoadingSessionInfo } = useSWR(`/api/sessions/loadSessionInfo?session_id=${session_id}&session_type=${session_type}&user_id=${user_id}`, fetcher) // Fetches data from the API
   const [sessions, setSessions] = useState([...dummySessions]);
   //const [ratings, setRatings] = useState([...sessionRating]);
+  const { data: biddersData } = useSWR(`/api/sessions/biddingHandler?session_id=${session_id}`, fetcher) // Fetches data from the API
 
   if (isLoading || LoadingSessionInfo) {
     console.log(data)
@@ -44,7 +46,9 @@ export default function SessionDetails() {
 
   const session = data.session
   const ratings = data?.rating
-
+  const bidderData = (user_id) => {
+    
+  }
   function calcRates() {
     const totalRating = [0, 0, 0, 0, 0];
     ratings.forEach((e) => {
@@ -88,20 +92,62 @@ export default function SessionDetails() {
     );
   }
 
-
+  const owner = session?.requester_id == userSession?.user?.id 
   const rateView = (e) => {
     total();
     setRate("block");
     setOverview("none");
+    setBiddersBlock("none")
+    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) //previousSibling.classList.remove("activeButtonDS")
     e.currentTarget.classList.add("activeButtonDS");
-    e.currentTarget.previousSibling.classList.remove("activeButtonDS")
+    
   }
   const overViewView = (e) => {
     setOverview("block");
     setRate("none");
+    setBiddersBlock("none")
+    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) //previousSibling.classList.remove("activeButtonDS")
     e.currentTarget.classList.add("activeButtonDS");
-    e.currentTarget.nextSibling.classList.remove("activeButtonDS")
   }
+
+  const biddersView = (e) => {
+    setOverview("none");
+    setRate("none");
+    setBiddersBlock("block")
+    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) //previousSibling.classList.remove("activeButtonDS")
+    e.currentTarget.classList.add("activeButtonDS");
+  }
+
+  const chooseBid = (user_id, session_id) => {
+    fetch(`/api/sessions/chooseBidder?user_id=${user_id}&session_id=${session_id}`, {
+      method: 'PUT',
+    }).then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          alert(data.error)
+        } else {
+          alert("Bidder has been chosen")
+          Router.reload(window.location.pathname)
+        }
+      })
+  }
+  const placeBid = () => {
+    const price = prompt("Please enter your bid price")
+    if (price != null) {
+      fetch(`/api/sessions/placeBid?session_id=${session.id}&price=${price}&user_id=${userSession.user.id}`, {
+        method: 'PUT',
+      }).then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            alert(data.error)
+          } else {
+            alert("Bid has been placed")
+            Router.reload(window.location.pathname)
+          }
+        })
+    }
+  }
+
   try {
     return (
       <>
@@ -117,6 +163,10 @@ export default function SessionDetails() {
                   <Button className="optionSessionPage" onClick={rateView}>
                     Rating
                   </Button>
+                  {session_type == "requested" && <Button className="optionSessionPage" onClick={biddersView}>
+                    Bidders
+                  </Button>}
+                  
                 </Col>
 
               </Row>
@@ -189,6 +239,34 @@ export default function SessionDetails() {
                       );
                     })}
                   </div>
+                  <div className='biddersView' style={{ display: biddersBlock }}>
+                   
+                    {biddersData?.bidders?.map((value, index) => {
+                      return (
+                        <>
+                        <Row>
+                          <div className='datailsSession'>
+                            <div className='datailsSession'>
+                              <img src={value.profilePicture} alt="Model" id='sessionPics' />
+                              <p id='nameSessionDet'>{value.name}</p >
+                            </div>
+                            <div className='datailsSession'>
+                              {!session.currentBid && owner && 
+                              <Button variant='success' onClick={() => chooseBid(value.id, value.session_id)}>Choose</Button> 
+                    }
+                          {session.tutor_id == value.id && <Button variant='success' disabled="true">CHOSEN TUTOR</Button>}
+                            </div>
+                          </div>
+                        </Row>
+                          <Row className='datailsSession'>
+                            <p> Bid Value: {value.bid}
+                            </p>
+                          </Row>
+                          {ratings.length - index - 1 == 0 ? <></> : <hr />}
+                        </>
+                      );
+                    })}
+                  </div>
                 </div>
               </Row>
             </Col>
@@ -199,13 +277,20 @@ export default function SessionDetails() {
                   <h2 >{session_type == "post" ? session.price : session.startBid} SAR</h2>
                   <p>{data.attendees.length} joined! </p>
                   <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => {
+                    if (session.sessionType == "post")
                     Router.push(data?.attendees?.filter((att) =>
                       att.id == userSession?.user?.id
                     ).length == 1 ? `session/room/session_room?session_id=${session_id}&session_type=${session_type}` : `/payment/${session_id}`)
-                  }}>
+                    else 
+                    if (session?.tutor_id == userSession?.user?.id || session?.requester_id == userSession?.user?.id) 
+                    Router.push(
+                       `session/room/${session_id}`)
+                       else
+                       placeBid()
+                  }} disabled = {userSession && session?.currentBid} >
                     {data?.attendees?.filter((att) =>
                       att.id == userSession?.user?.id
-                    ).length == 1 ? 'Enter session' : session_type == "post" ? 'Register' : 'Bid'}
+                    ).length == 1 ? 'Enter session' : session_type == "post" ? 'Register' : session?.currentBid ? 'Bidding Ended' : 'Bid'}
                   </Button>
                 </Card.Title>
                 <hr />
