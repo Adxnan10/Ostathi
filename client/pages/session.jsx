@@ -1,5 +1,5 @@
 import Container from 'react-bootstrap/Container';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
@@ -19,7 +19,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json()) // To be c
 
 export default function SessionDetails() {
   const { data: userSession } = useSession()
-  const { isAttendee, setIsAttendee } = useState()
+  const [isAttendee, setIsAttendee] = useState(false)
   const [rate, setRate] = useState("none");
   const [overview, setOverview] = useState('block')
   const [OVB, setOVB] = useState("")
@@ -30,30 +30,24 @@ export default function SessionDetails() {
   let user_id = session_type == "post" ? data?.session.tutor_id : data?.session.requester_id
   const { data: sessionInfo, isLoading: LoadingSessionInfo } = useSWR(`/api/sessions/loadSessionInfo?session_id=${session_id}&session_type=${session_type}&user_id=${user_id}`, fetcher) // Fetches data from the API
   const [sessions, setSessions] = useState([...dummySessions]);
-  const [ratings, setRatings] = useState([...sessionRating]);
-  const [rating, setRating] = useState([...ratings.filter((rating) => {
-    return (
-      rating.session_id == session_id
-    );
-  })]);
+  //const [ratings, setRatings] = useState([...sessionRating]);
 
   if (isLoading || LoadingSessionInfo) {
     console.log(data)
     return <h1> Loading . </h1>
   }
   if (error) {
+    console.log(error)
     return <h1> something went wrong . </h1>
   }
 
 
   const session = data.session
-  data.attendees.map((att) => {
-    if (att.id == userSession.id)
-      setIsAttendee(true)
-  })
+  const ratings = data?.rating
+
   function calcRates() {
     const totalRating = [0, 0, 0, 0, 0];
-    rating.forEach((e) => {
+    ratings.forEach((e) => {
       if (e.rating == 1) {
         totalRating[0] = totalRating[0] + 1
       } else if (e.rating == 2) {
@@ -70,20 +64,15 @@ export default function SessionDetails() {
   }
   const totalRating = calcRates();
 
-  function total(a) {
+  function total() {
 
     var total = 0;
-    var totalReviewres = 0;
-    for (let index = 0; index < totalRating.length; index++) {
-      total += totalRating[index] * (index + 1);
-      totalReviewres += totalRating[index];
+    for (let index = 0; index < ratings.length; index++) {
+      total += ratings[index].rating;
     }
-    if (a == 0) {
-      return (totalReviewres == 0 ? 0 : total / (totalReviewres * 5) * 5)
-    } else {
-      return (totalReviewres)
-    }
+    return (ratings.length == 0 ? 0 : total / (ratings.length))
   }
+
 
   const stars = (rating) => {
     const starsTags = [];
@@ -137,7 +126,7 @@ export default function SessionDetails() {
                     <Row>
                       <div className='datailsSession'>
                         <div className='datailsSession'>
-                          <img src={sessionInfo.user[0].profilePicture} alt="Model" id='sessionPics' />
+                          <img src={sessionInfo.user[0].profilePicture == undefined ? "Profile.png" : sessionInfo.user[0].profilePicture} alt="Model" id='sessionPics' />
                           {<p id='nameSessionDet'>{sessionInfo.user[0].name}</p >}
                         </div>
                         <div className='datailsSession'>
@@ -154,9 +143,9 @@ export default function SessionDetails() {
                     <Row>
                       <Col sm="12" md="6" lg="4" xlg="4">
                         <div className='ratingBox'>
-                          <h4>{Math.round(total(0))} out of 5</h4>
-                          {stars(total(0))}
-                          <p>{rating.length} reviews</p>
+                          <h4>{Math.round(total() / ratings.length * 10) / 10} out of 5</h4>
+                          {stars(total())}
+                          <p>{ratings.length} reviews</p>
                         </div>
                       </Col>
                       <Col>
@@ -168,7 +157,7 @@ export default function SessionDetails() {
                                   <p>{index + 1} stars</p>
                                 </Col>
                                 <Col>
-                                  <div className='ratingBar'><ProgressBar variant='warning' className='ratingBar' now={(value / total(1)) * 100} /></div>
+                                  <div className='ratingBar'><ProgressBar variant='warning' className='ratingBar' now={(value / ratings.length) * 100} /></div>
                                 </Col>
                               </Row>
                             );
@@ -177,13 +166,13 @@ export default function SessionDetails() {
                         </div>
                       </Col>
                     </Row>
-                    {rating.map((value, index) => {
+                    {ratings.map((value, index) => {
                       return (
                         <><Row>
                           <div className='datailsSession'>
                             <div className='datailsSession'>
-                              <img src={session.img} alt="Model" id='sessionPics' />
-                              <p id='nameSessionDet'>{value.userName}</p >
+                              <img src={sessionInfo.user[0].profilePicture == undefined ? "Profile.png" : sessionInfo.user[0].profilePicture} alt="Model" id='sessionPics' />
+                              <p id='nameSessionDet'>{value.name}</p >
                             </div>
                             <div className='datailsSession'>
                               <BsGrid className='BsGrid' />
@@ -195,7 +184,7 @@ export default function SessionDetails() {
                             <p>{value.comment}
                             </p>
                           </Row>
-                          {rating.length - index - 1 == 0 ? <></> : <hr />}
+                          {ratings.length - index - 1 == 0 ? <></> : <hr />}
                         </>
                       );
                     })}
@@ -209,9 +198,14 @@ export default function SessionDetails() {
                 <Card.Title className='cardHeader'>
                   <h2 >{session_type == "post" ? session.price : session.startBid} SAR</h2>
                   <p>{data.attendees.length} joined! </p>
-                  <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => Router.push(`/payment/${session_id}`)}>
-                    {isAttendee ? 'enter session' : session_type == "post" ? 'register' : 'bid'}
-                    {/* TODO: Check if the user is an attendee Register Now  */}
+                  <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => {
+                    Router.push(data?.attendees?.filter((att) =>
+                      att.id == userSession?.user?.id
+                    ).length == 1 ? `session/room/${session_id}` : `/payment/${session_id}`)
+                  }}>
+                    {data?.attendees?.filter((att) =>
+                      att.id == userSession?.user?.id
+                    ).length == 1 ? 'Enter session' : session_type == "post" ? 'Register' : 'Bid'}
                   </Button>
                 </Card.Title>
                 <hr />
@@ -219,9 +213,9 @@ export default function SessionDetails() {
                   <h4 id='titleSesDet'><b>{session.title}</b></h4>
                   <div id='greyGuarnt'>
                     <div>
-                      <p><BsGrid className='BsGrid' />{sessionInfo.subjects.map((value, index) => {
-                        return (<span>
-                          {value.name}{sessionInfo.subjects.length - index - 1 == 0 ? <></> : <span>, </span>}
+                      <p><BsGrid className='BsGrid' />{sessionInfo.subjects.map((subject, index) => {
+                        return (<span key={subject.id}>
+                          {subject.name}{sessionInfo.subjects.length - index - 1 == 0 ? <></> : <span>, </span>}
                         </span>)
                       })}</p>
                     </div>

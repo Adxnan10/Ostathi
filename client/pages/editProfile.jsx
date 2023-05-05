@@ -9,6 +9,9 @@ export default function EditProfile() {
     const { data: session, status } = useSession()
     const { data, error, isLoading } = useSWR(`/api/user/editProfile?username=${session?.user?.username}`, fetcher)
     if (status === "authenticated") {
+        if (isLoading) {
+            return (<h1>We are bringing your info</h1>)
+        }
         return (
             <>
                 <div className="editHeader">
