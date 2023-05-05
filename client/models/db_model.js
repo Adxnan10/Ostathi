@@ -338,4 +338,5 @@ export default {
   chooseBidder,
   placeBid,
   getSessionRating,
+  getSubjects,
 }
