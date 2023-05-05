@@ -165,11 +165,17 @@ const getSessionSubjects = async (session_id, session_type) => {
   const db = await getDbConnection();
   let sql = '';
   if (session_type == 'post') {
-    sql = `SELECT name FROM  SUBJECT subj JOIN SESSION_SUBJECT ses_subj WHERE subj.id =  ses_subj.subject_id AND ses_subj.session_id = '${session_id}' GROUP BY name`
+    sql = `SELECT name, id FROM  SUBJECT subj JOIN SESSION_SUBJECT ses_subj WHERE subj.id =  ses_subj.subject_id AND ses_subj.session_id = '${session_id}' GROUP BY name`
   } else if (session_type == 'requested') {
-    sql = `SELECT name FROM  SUBJECT subj JOIN SESSION_SUBJECT ses_subj WHERE subj.id =  ses_subj.subject_id AND ses_subj.request_session_id = '${session_id}' GROUP BY name`
+    sql = `SELECT name, id FROM  SUBJECT subj JOIN SESSION_SUBJECT ses_subj WHERE subj.id =  ses_subj.subject_id AND ses_subj.request_session_id = '${session_id}' GROUP BY name`
   }
   const subjects = await db.all(sql)
+  await db.close()
+  return subjects
+}
+const getSubjects = async () => {
+  const db = await getDbConnection();
+  const subjects = await db.all(`SELECT * FROM SUBJECT`)
   await db.close()
   return subjects
 }
@@ -292,4 +298,5 @@ export default {
   getOwnerRequested,
   updateProfile,
   registerSession,
+  getSubjects,
 }

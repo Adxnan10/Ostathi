@@ -211,7 +211,6 @@ export default function SessionDetails() {
                   <p>{data.attendees.length} joined! </p>
                   <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => Router.push(`/payment/${session_id}`)}>
                     {isAttendee ? 'enter session' : session_type == "post" ? 'register' : 'bid'}
-                    {/* TODO: Check if the user is an attendee Register Now  */}
                   </Button>
                 </Card.Title>
                 <hr />
@@ -219,9 +218,9 @@ export default function SessionDetails() {
                   <h4 id='titleSesDet'><b>{session.title}</b></h4>
                   <div id='greyGuarnt'>
                     <div>
-                      <p><BsGrid className='BsGrid' />{sessionInfo.subjects.map((value, index) => {
-                        return (<span>
-                          {value.name}{sessionInfo.subjects.length - index - 1 == 0 ? <></> : <span>, </span>}
+                      <p><BsGrid className='BsGrid' />{sessionInfo.subjects.map((subject, index) => {
+                        return (<span key={subject.id}>
+                          {subject.name}{sessionInfo.subjects.length - index - 1 == 0 ? <></> : <span>, </span>}
                         </span>)
                       })}</p>
                     </div>
