@@ -1,5 +1,5 @@
 import Container from 'react-bootstrap/Container';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
@@ -19,7 +19,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json()) // To be c
 
 export default function SessionDetails() {
   const { data: userSession } = useSession()
-  const { isAttendee, setIsAttendee } = useState()
+  const [isAttendee, setIsAttendee] = useState(false)
   const [rate, setRate] = useState("none");
   const [overview, setOverview] = useState('block')
   const [OVB, setOVB] = useState("")
@@ -43,13 +43,8 @@ export default function SessionDetails() {
 
 
   const session = data.session
-
   const ratings = data?.rating
-  
-  data.attendees.map((att) => {
-    if (att.id == userSession.id)
-      setIsAttendee(true)
-  })
+
   function calcRates() {
     const totalRating = [0, 0, 0, 0, 0];
     ratings.forEach((e) => {
@@ -69,28 +64,15 @@ export default function SessionDetails() {
   }
   const totalRating = calcRates();
 
-  // function total(a) {
-
-  //   var total = 0;
-  //   var totalReviewres = ratings.length;
-  //   for (let index = 0; index < totalRating.length; index++) {
-  //     total += totalRating[index] * (index + 1);
-  //   }
-  //   if (a == 0) {
-  //     return (totalReviewres == 0 ? 0 : total / (totalReviewres * 5) * 5)
-  //   } else {
-  //     return (totalReviewres)
-  //   }
-  // }
   function total() {
 
     var total = 0;
     for (let index = 0; index < ratings.length; index++) {
       total += ratings[index].rating;
     }
-      return (ratings.length == 0 ? 0 : total / (ratings.length))
-    }
-  
+    return (ratings.length == 0 ? 0 : total / (ratings.length))
+  }
+
 
   const stars = (rating) => {
     const starsTags = [];
@@ -216,8 +198,14 @@ export default function SessionDetails() {
                 <Card.Title className='cardHeader'>
                   <h2 >{session_type == "post" ? session.price : session.startBid} SAR</h2>
                   <p>{data.attendees.length} joined! </p>
-                  <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => Router.push(`/payment/${session_id}`)}>
-                    {isAttendee ? 'enter session' : session_type == "post" ? 'register' : 'bid'}
+                  <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => {
+                    Router.push(data?.attendees?.filter((att) =>
+                      att.id == userSession?.user?.id
+                    ).length == 1 ? `session/room/${session_id}` : `/payment/${session_id}`)
+                  }}>
+                    {data?.attendees?.filter((att) =>
+                      att.id == userSession?.user?.id
+                    ).length == 1 ? 'Enter session' : session_type == "post" ? 'Register' : 'Bid'}
                   </Button>
                 </Card.Title>
                 <hr />
