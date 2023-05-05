@@ -62,6 +62,7 @@ const getUserImgAndName = async (userId) => {
   await db.close()
   return users
 }
+
 const getUser = async (username) => {
   const db = await getDbConnection();
   const user = await db.get(`
@@ -70,6 +71,18 @@ const getUser = async (username) => {
   await db.close()
   return user
 }
+
+const getSessionRating = async (session_id) => {
+  const db = await getDbConnection();
+  const sessions = await db.all(`
+  SELECT * FROM RATING s JOIN User ss ON s.rater_id = ss.id WHERE EXISTS(
+  SELECT * FROM SESSION WHERE s.tutor_id = tutor_id AND id = '${session_id}'
+  )
+  `)
+await db.close()
+return sessions
+}
+
 const getUserSessions = async (user_id) => {
   const db = await getDbConnection();
   const sessions = await db.all(`
@@ -78,8 +91,8 @@ const getUserSessions = async (user_id) => {
   )
   `
   )
-  await db.close()
-  return sessions
+await db.close()
+return sessions
 }
 
 const registerSession = async (id, user_id) => {
@@ -87,8 +100,8 @@ const registerSession = async (id, user_id) => {
   let meta = '';
   meta = await db.run(`INSERT INTO Session_Attendee ('user_id', 'session_id') 
   values ('${user_id}','${id}')`)
-  await db.close()
-  return meta
+await db.close()
+return meta
 }
 
 const getUserSessionsRequested = async (user_id) => {
@@ -96,8 +109,8 @@ const getUserSessionsRequested = async (user_id) => {
   const sessions = await db.all(`
   SELECT * FROM REQUEST_SESSION WHERE requester_id = '${user_id}'`
   )
-  await db.close()
-  return sessions
+await db.close()
+return sessions
 }
 
 const getOwnerPosted = async (user_id) => {
@@ -105,8 +118,8 @@ const getOwnerPosted = async (user_id) => {
   const sessions = await db.all(`
   SELECT * FROM Session WHERE tutor_id = '${user_id}'`
   )
-  await db.close()
-  return sessions
+await db.close()
+return sessions
 }
 
 const getOwnerRequested = async (user_id) => {
@@ -114,8 +127,8 @@ const getOwnerRequested = async (user_id) => {
   const sessions = await db.all(`
   SELECT * FROM Request_Session WHERE tutor_id = '${user_id}'`
   )
-  await db.close()
-  return sessions
+await db.close()
+return sessions
 }
 
 const getUserRating = async (user_id) => {
@@ -123,30 +136,14 @@ const getUserRating = async (user_id) => {
   const sessions = await db.all(`
   SELECT * FROM Rating WHERE tutor_id = '${user_id}'`
   )
-  await db.close()
-  return sessions
+await db.close()
+return sessions
 }
-
-const addUser = async (email, username, passwrod) => {
-  const db = await getDbConnection();
-  let meta = '';
-  try {
-    meta = await db.run(`INSERT INTO USER('email', 'name', 'username', 'password', 'rating') 
-  values (?,?,?,?,0)`, [email, username, username, passwrod])
-
-  } catch (e) {
-    meta = { msg: 'either the email or username is used already.', changes: 0 }
-  } finally {
-    await db.close()
-  }
-  return meta
-}
-
 const updateProfile = async (body) => {
   const db = await getDbConnection();
   let meta = '';
-  let email = body.Email;
-  if (email == "") {
+  let email = body.Email; 
+  if (email == ""){
     meta = await db.run(`
     UPDATE USER
     SET name = '${body.Name}'
@@ -180,6 +177,7 @@ const getSubjects = async () => {
   return subjects
 }
 // query the database to return one object holding all the details of the session with the id given. Return data from the sessions table.
+
 const getSessionDetails = async (session_id, session_type) => {
   const db = await getDbConnection();
   let query = '';
@@ -194,9 +192,9 @@ const getSessionDetails = async (session_id, session_type) => {
 }
 // inserts in the sessions table the session_data given. Note the session_data parameter is an object that holds the session columns like the author and the content.
 // returns metadata about the inserted row
-const addSession = async (session_data, post) => {
+const addSession = async (session_data,post) => {
   const db = await getDbConnection();
-  if (!post) {
+  if (!post){
     const meta = await db.run(`insert into request_session('requester_id', 'title', 'description', 'Duration','Date','startBid','currentBid') 
     values ('${session_data.id}','${session_data.title}','${session_data.description}','${session_data.Duration}','${session_data.Date}','${session_data.startBid}','${session_data.startBid}')`);
     await db.close()
@@ -207,11 +205,90 @@ const addSession = async (session_data, post) => {
     await db.close()
     return meta
   }
-
+  
 }
-// deletes the session from the database. And returns metadata about the affected row.
+// updates the sessions table with the data given. 
+// Note that the data parameter is an object that holds the session columns like the author and the content 
+// And returns metadata about the updated row.
+// const likesession = async (session_id) => {
+//   const db = await getDbConnection();
+//   const meta = await db.run(`update sessions set likes = likes + 1 where id = ${session_id}`)
+//   await db.close()
+//   return meta
+// }
 
 
+// query the database to return an array of sessions from the sessions table.
+const getAllRequestedSessions = async (searchKeyword, subject, limit, offset) => {
+  const db = await getDbConnection();
+  let checksubj = ''
+  if (subject)
+    checksubj = `
+   AND EXISTS(
+    SELECT * FROM SUBJECT subj JOIN SESSION_SUBJECT ses_subj ON subj.id = ses_subj.subject_id
+    WHERE ses_subj.request_session_id = ses.id AND subj.name = '${subject}'
+  ) 
+  `
+  const sessions = await db.all(`
+  SELECT * FROM REQUEST_SESSION ses WHERE title LIKE '%${searchKeyword}%' ${checksubj} ORDER BY 'startDate' DESC LIMIT ${limit} OFFSET ${offset}
+  `)
+  await db.close()
+  return sessions
+}
+const getAllPostedSessions = async (searchKeyword, subject, limit, offset) => {
+  const db = await getDbConnection();
+  let checksubj = ''
+  if (subject)
+    checksubj = `
+   AND EXISTS(
+    SELECT * FROM SUBJECT subj JOIN SESSION_SUBJECT ses_subj ON subj.id = ses_subj.subject_id
+    WHERE ses_subj.session_id = ses.id AND subj.name = '${subject}'
+  ) 
+  `
+  const sessions = await db.all(`
+  SELECT * FROM SESSION ses WHERE title LIKE '%${searchKeyword}%' ${checksubj} ORDER BY 'startDate' DESC LIMIT ${limit} OFFSET ${offset}
+  `)
+  await db.close()
+  return sessions
+}
+const getAllUsers = async (searchKeyword, subject, limit, offset) => {
+  const db = await getDbConnection();
+  let checksubj = ''
+  if (subject)
+    checksubj = `
+   AND pref_subject = '${subject}'
+  `
+  const users = await db.all(`
+    SELECT * FROM USER  WHERE name LIKE '%${searchKeyword}%' ${checksubj} ORDER BY rating DESC LIMIT ${limit} OFFSET ${offset}
+  `)
+  await db.close()
+  return users
+}
+const getUserImgAndName = async (userId) => {
+  const db = await getDbConnection();
+  const users = await db.all(`
+    SELECT id, name, profilePicture FROM USER WHERE id = ${userId}
+  `)
+  await db.close()
+  return users
+}
+
+// query the database to return an array of sessions from the sessions table.
+
+const addUser = async (email, username, passwrod) => {
+  const db = await getDbConnection();
+  let meta = '';
+  try {
+    meta = await db.run(`INSERT INTO USER('email', 'name', 'username', 'password', 'rating') 
+  values (?,?,?,?,0)`, [email, username, username, passwrod])
+
+  } catch (e) {
+    meta = { msg: 'either the email or username is used already.', changes: 0 }
+  } finally {
+    await db.close()
+  }
+  return meta
+}
 
 // inserts in the sessions table the session_data given. Note the session_data parameter is an object that holds the session columns like the author and the content.
 // returns metadata about the inserted row
@@ -251,6 +328,18 @@ const getUserDetails = async (user_id) => {
 }
 
 // Query the database to return one object holding all the details of the session with the id given. Return data from the session or request_session table.
+const getSessionDetails = async (session_id, session_type) => {
+  const db = await getDbConnection();
+  let query = '';
+  if (session_type == 'post') {
+    query = `SELECT * FROM SESSION WHERE id = '${session_id}'`
+  } else if (session_type == 'requested') {
+    query = `SELECT * FROM REQUEST_SESSION WHERE id = '${session_id}'`
+  }
+  const session = await db.get(query)
+  await db.close()
+  return session
+}
 
 // Query the database to return the details of the attendees of the session with the id given. Return data from the session_attendee table.
 const getSessionAttendees = async (session_id) => {
@@ -274,13 +363,11 @@ const addSessionAttendee = async (session_id, user_id) => {
   return meta
 }
 
-// AHMAD END ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 export default {
-  getUserDetails,
   getSessionAttendees,
   addSessionAttendee,
   getAllRequestedSessions,
+  getUserSessions,
   getAllPostedSessions,
   getAllUsers,
   getUser,
@@ -291,12 +378,13 @@ export default {
   addSession,
   updateSession,
   deletesession,
-  getUserSessions,
   getUserSessionsRequested,
   getUserRating,
   getOwnerPosted,
   getOwnerRequested,
   updateProfile,
   registerSession,
+  getSessionRating,
   getSubjects,
+
 }
