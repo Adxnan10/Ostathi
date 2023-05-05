@@ -253,13 +253,7 @@ const deletesession = async (session_id) => {
   await db.close()
   return meta
 }
-// find the number of likes for the session, increment it, and save it back to the table.
-// const likesession = async (session_id) => {
-//   const db = await getDbConnection();
-//   const meta = await db.run(`update sessions set likes = likes + 1 where id = ${session_id}`)
-//   await db.close()
-//   return meta
-// }
+
 // AHMAD ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Get a user's details from the database. Do not return the password. Return data from the user table.
@@ -293,6 +287,31 @@ const addSessionAttendee = async (session_id, user_id) => {
   return meta
 }
 
+const getBidders = async (session_id) => {
+  const db = await getDbConnection();
+  const bidders = await db.all(`SELECT * FROM BIDDER bid JOIN USER ss ON bid.user_id = ss.id WHERE session_id = '${session_id}'`)
+  await db.close()
+  return bidders
+}
+
+// Choose bidder of a session --Mubarak
+const chooseBidder = async (session_id, user_id) => {
+  const db = await getDbConnection();
+  const meta = await db.run(`UPDATE REQUEST_SESSION SET tutor_id = '${user_id}', currentBid = (SELECT bid FROM BIDDER WHERE session_id='${session_id}' AND user_id='${user_id}') WHERE id = '${session_id}'`)
+  await db.close()
+  return meta
+}
+
+//Place a new bid on a session --Mubarak
+const placeBid = async (session_id, price, user_id) => {
+  const db = await getDbConnection();
+  const meta = await db.run(`INSERT INTO BIDDER('user_id', 'bid', 'session_id') 
+  values (?,?,?)`, [user_id, price, session_id])
+  await db.close()
+  return meta
+}
+
+
 export default {
   getSessionAttendees,
   addSessionAttendee,
@@ -314,7 +333,9 @@ export default {
   getOwnerRequested,
   updateProfile,
   registerSession,
-  getSessionRating,
   getSubjects,
-
+  getBidders,
+  chooseBidder,
+  placeBid,
+  getSessionRating
 }
