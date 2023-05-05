@@ -30,23 +30,27 @@ export default function SessionDetails() {
   let user_id = session_type == "post" ? data?.session.tutor_id : data?.session.requester_id
   const { data: sessionInfo, isLoading: LoadingSessionInfo } = useSWR(`/api/sessions/loadSessionInfo?session_id=${session_id}&session_type=${session_type}&user_id=${user_id}`, fetcher) // Fetches data from the API
   const [sessions, setSessions] = useState([...dummySessions]);
-  const [ratings, setRatings] = useState([...sessionRating]);
-  const [rating, setRating] = useState([...ratings.filter((rating) => {
-    return (
-      rating.session_id == session_id
-    );
-  })]);
+  //const [ratings, setRatings] = useState([...sessionRating]);
 
   if (isLoading || LoadingSessionInfo) {
     console.log(data)
     return <h1> Loading . </h1>
   }
   if (error) {
+    console.log(error)
     return <h1> something went wrong . </h1>
   }
 
 
   const session = data.session
+  const ratings = data?.rating
+
+  // const [rating, setRating] = useState([...ratings.filter((rating) => {
+  //   return (
+  //     rating.session_id == session.session_id
+  //   );
+  // })]);
+
   console.log("HERE")
   data.attendees.map((att) => {
     if (att.id == userSession.id)
@@ -54,7 +58,7 @@ export default function SessionDetails() {
   })
   function calcRates() {
     const totalRating = [0, 0, 0, 0, 0];
-    rating.forEach((e) => {
+    ratings.forEach((e) => {
       if (e.rating == 1) {
         totalRating[0] = totalRating[0] + 1
       } else if (e.rating == 2) {
@@ -71,20 +75,28 @@ export default function SessionDetails() {
   }
   const totalRating = calcRates();
 
-  function total(a) {
+  // function total(a) {
+
+  //   var total = 0;
+  //   var totalReviewres = ratings.length;
+  //   for (let index = 0; index < totalRating.length; index++) {
+  //     total += totalRating[index] * (index + 1);
+  //   }
+  //   if (a == 0) {
+  //     return (totalReviewres == 0 ? 0 : total / (totalReviewres * 5) * 5)
+  //   } else {
+  //     return (totalReviewres)
+  //   }
+  // }
+  function total() {
 
     var total = 0;
-    var totalReviewres = 0;
-    for (let index = 0; index < totalRating.length; index++) {
-      total += totalRating[index] * (index + 1);
-      totalReviewres += totalRating[index];
+    for (let index = 0; index < ratings.length; index++) {
+      total += ratings[index].rating;
     }
-    if (a == 0) {
-      return (totalReviewres == 0 ? 0 : total / (totalReviewres * 5) * 5)
-    } else {
-      return (totalReviewres)
+      return (ratings.length == 0 ? 0 : total / (ratings.length))
     }
-  }
+  
 
   const stars = (rating) => {
     const starsTags = [];
@@ -138,7 +150,7 @@ export default function SessionDetails() {
                     <Row>
                       <div className='datailsSession'>
                         <div className='datailsSession'>
-                          <img src={sessionInfo.user[0].profilePicture} alt="Model" id='sessionPics' />
+                          <img src={sessionInfo.user[0].profilePicture == undefined ? "Profile.png" : sessionInfo.user[0].profilePicture} alt="Model" id='sessionPics' />
                           {<p id='nameSessionDet'>{sessionInfo.user[0].name}</p >}
                         </div>
                         <div className='datailsSession'>
@@ -155,9 +167,9 @@ export default function SessionDetails() {
                     <Row>
                       <Col sm="12" md="6" lg="4" xlg="4">
                         <div className='ratingBox'>
-                          <h4>{Math.round(total(0))} out of 5</h4>
-                          {stars(total(0))}
-                          <p>{rating.length} reviews</p>
+                          <h4>{Math.round(total() / ratings.length * 10) / 10} out of 5</h4>
+                          {stars(total())}
+                          <p>{ratings.length} reviews</p>
                         </div>
                       </Col>
                       <Col>
@@ -169,7 +181,7 @@ export default function SessionDetails() {
                                   <p>{index + 1} stars</p>
                                 </Col>
                                 <Col>
-                                  <div className='ratingBar'><ProgressBar variant='warning' className='ratingBar' now={(value / total(1)) * 100} /></div>
+                                  <div className='ratingBar'><ProgressBar variant='warning' className='ratingBar' now={(value / ratings.length) * 100} /></div>
                                 </Col>
                               </Row>
                             );
@@ -178,13 +190,13 @@ export default function SessionDetails() {
                         </div>
                       </Col>
                     </Row>
-                    {rating.map((value, index) => {
+                    {ratings.map((value, index) => {
                       return (
                         <><Row>
                           <div className='datailsSession'>
                             <div className='datailsSession'>
-                              <img src={session.img} alt="Model" id='sessionPics' />
-                              <p id='nameSessionDet'>{value.userName}</p >
+                              <img src={sessionInfo.user[0].profilePicture == undefined ? "Profile.png" : sessionInfo.user[0].profilePicture} alt="Model" id='sessionPics' />
+                              <p id='nameSessionDet'>{value.name}</p >
                             </div>
                             <div className='datailsSession'>
                               <BsGrid className='BsGrid' />
@@ -196,7 +208,7 @@ export default function SessionDetails() {
                             <p>{value.comment}
                             </p>
                           </Row>
-                          {rating.length - index - 1 == 0 ? <></> : <hr />}
+                          {ratings.length - index - 1 == 0 ? <></> : <hr />}
                         </>
                       );
                     })}

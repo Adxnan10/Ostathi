@@ -35,7 +35,7 @@ export default function PostSession() {
                         <section className="row d-flex justify-content-between">
                             <div className="col">
                                 <label className="row" htmlFor="Date"> Start Date / Time </label>
-                                <input className="row half-width" type="date" name="Date" required/>
+                                <input className="row half-width" type="datetime-local" name="Date" required/>
                             </div>
                             <div className="col">
                                 <label className="row" htmlFor="Duration"> Duration </label>
@@ -46,9 +46,9 @@ export default function PostSession() {
                             <div className="col">
                                 <label className="row" htmlFor="Type"> Type </label>
                                 <select className="row half-width" name="Type"  >
-                                    <option value="Tutoring"> One-to-one session </option>
-                                    <option value="Group"> Group session </option>
-                                    <option value="Lecture" selected> General lecture </option>
+                                    <option value="one-to-one"> One-to-one session </option>
+                                    <option value="group"> Group session </option>
+                                    <option value="workshop" selected> Workshop </option>
                                 </select>
                             </div>
                             <div className="col">
@@ -66,6 +66,6 @@ export default function PostSession() {
         </>
     );} else {
     const router = useRouter()
-        router.push('/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F')
+        router.push('/login')
     } 
 }
