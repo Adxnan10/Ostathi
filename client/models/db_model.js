@@ -264,7 +264,7 @@ const deletesession = async (session_id) => {
 // Return all bidders of a session --Mubarak
 const getBidders = async (session_id) => {
   const db = await getDbConnection();
-  const bidders = await db.all(`SELECT * FROM BIDDER WHERE session_id = '${session_id}'`)
+  const bidders = await db.all(`SELECT * FROM BIDDER bid JOIN USER ss ON bid.user_id = ss.id WHERE session_id = '${session_id}'`)
   await db.close()
   return bidders
 }
@@ -276,6 +276,16 @@ const chooseBidder = async (session_id, user_id) => {
   await db.close()
   return meta
 }
+
+//Place a new bid on a session --Mubarak
+const placeBid = async (session_id, price, user_id) => {
+  const db = await getDbConnection();
+  const meta = await db.run(`INSERT INTO BIDDER('user_id', 'bid', 'session_id') 
+  values (?,?,?)`, [user_id, price, session_id])
+  await db.close()
+  return meta
+}
+
 // AHMAD ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Get a user's details from the database. Do not return the password. Return data from the user table.
@@ -326,5 +336,6 @@ export default {
   deletesession,
   getBidders,
   chooseBidder,
+  placeBid,
   getSessionRating,
 }

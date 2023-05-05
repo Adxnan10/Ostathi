@@ -4,7 +4,7 @@ import db_model from "../../../models/db_model"
 
 export default async function bettingHandler(req, res) {
   const { session_id, user_id } = { ...req.query }
-  if (req.method === 'GET') {
+  if (req.method === 'PUT') {
     
     await db_model.chooseBidder(session_id, user_id);
     
