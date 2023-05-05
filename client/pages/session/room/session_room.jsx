@@ -7,6 +7,7 @@ import useSWR from 'swr'
 import { useSession } from "next-auth/react"
 
 
+
 const fetcher = (...args) => fetch(...args).then((res) => res.json()) // To be called by useSWR
 
 export default function SessionRoom() {
@@ -22,12 +23,12 @@ export default function SessionRoom() {
     if (error) {
        Router.push(`/error?error=${error}`)
     }
-    
+
     // Put the session's details in the page
   return (
-    <div style={{padding: "20px", width: "100%", height: 800, display: 'flex',flexDirection:'column', alignItems : 'center', rowGap: '50px'}}>
+    <div style={{marginBottom:"4rem", marginTop:"1rem", padding: "20px", width: "100%", display: 'flex', flexDirection:'column', alignItems : 'center'}}>
         <div className='session-details-container'>
-            <h1> Session Details </h1>
+            <h1 style={{alignSelf:"center"}}> Session Details </h1>
             <div class="session-detail">
                 <IoMdCalendar /> {session.session.Date}
             </div>
@@ -39,10 +40,27 @@ export default function SessionRoom() {
             </div>
         </div>
 
-        <div className='chat-container'>
-            <h1> Chat </h1>
-        
+        <div className='chat-container' style={{marginTop: "2rem", width:"80%", justifyItems:"center", alignItems:"center"}}>
+            <h1 style={{textAlign:"center", marginBottom:"1rem"}}> Session Meeting </h1> 
+            
+                <img src="https://t3.ftcdn.net/jpg/03/78/19/34/360_F_378193453_hMzRmqmk3c8ce4jiR9bpPpte2kWncjQA.jpg" alt="zoom" style={{
+                    width: "95%",
+                    height: "95%",
+                    objectFit: "fill",
+                }}/>
+
+            <h6 style={
+                {
+                    fontSize: "1.3rem",
+                    fontWeight: "bold",
+                    marginBottom: "2rem",
+                    textAlign: "center",
+                }
+            }> Link to meeting: <a href = {session?.link||"https://zoom.com"}> Zoom meeting </a> </h6>
         </div>
+
+
+
 
     </div>
   )
