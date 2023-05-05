@@ -201,7 +201,7 @@ export default function SessionDetails() {
                   <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => {
                     Router.push(data?.attendees?.filter((att) =>
                       att.id == userSession?.user?.id
-                    ).length == 1 ? `session/room/session?session_id=${session_id}&session_type=${session_type}` : `/payment/${session_id}`)
+                    ).length == 1 ? `session/room/session_room?session_id=${session_id}&session_type=${session_type}` : `/payment/${session_id}`)
                   }}>
                     {data?.attendees?.filter((att) =>
                       att.id == userSession?.user?.id
