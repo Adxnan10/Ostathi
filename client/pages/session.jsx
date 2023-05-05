@@ -46,9 +46,6 @@ export default function SessionDetails() {
 
   const session = data.session
   const ratings = data?.rating
-  const bidderData = (user_id) => {
-
-  }
   function calcRates() {
     const totalRating = [0, 0, 0, 0, 0];
     ratings.forEach((e) => {
@@ -92,7 +89,7 @@ export default function SessionDetails() {
     );
   }
 
-  const owner = session?.requester_id == userSession?.user?.id
+  const owner = session?.requester_id == userSession?.user?.id 
   const checkAttendee = () => {
     if (!userSession)
       return false
@@ -108,14 +105,13 @@ export default function SessionDetails() {
     setOverview("none");
     setBiddersBlock("none")
     e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) //previousSibling.classList.remove("activeButtonDS")
-    e.currentTarget.classList.add("activeButtonDS");
-
+    e.currentTarget.classList.add("activeButtonDS");    
   }
   const overViewView = (e) => {
     setOverview("block");
     setRate("none");
     setBiddersBlock("none")
-    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) //previousSibling.classList.remove("activeButtonDS")
+    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) 
     e.currentTarget.classList.add("activeButtonDS");
   }
 
@@ -123,7 +119,7 @@ export default function SessionDetails() {
     setOverview("none");
     setRate("none");
     setBiddersBlock("block")
-    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) //previousSibling.classList.remove("activeButtonDS")
+    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) 
     e.currentTarget.classList.add("activeButtonDS");
   }
 
@@ -179,7 +175,6 @@ export default function SessionDetails() {
                   {session_type == "requested" && <Button className="optionSessionPage" onClick={biddersView}>
                     Bidders
                   </Button>}
-
                 </Col>
 
               </Row>
@@ -253,7 +248,6 @@ export default function SessionDetails() {
                     })}
                   </div>
                   <div className='biddersView' style={{ display: biddersBlock }}>
-
                     {biddersData?.bidders?.map((value, index) => {
                       return (
                         <>

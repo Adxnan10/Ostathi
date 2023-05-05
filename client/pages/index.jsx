@@ -4,10 +4,16 @@ import Button from 'react-bootstrap/Button'
 import { AiFillFileAdd } from 'react-icons/ai'
 import { MdGroups } from 'react-icons/md'
 import { TfiCreditCard } from 'react-icons/tfi'
-import React, { useState } from 'react';
+import React from 'react';
 import { dummySessions } from '/public/fakeDataBase.json'
 import Router from 'next/router'
 import SessionCardFactory from '../components/session/SessionCardFactory';
+import { useState, useRef, useEffect } from 'react'
+import useSWR from 'swr'
+import Error from './error'
+
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 
 function FeatureCard({ ...props }) {
@@ -19,18 +25,24 @@ function FeatureCard({ ...props }) {
   )
 }
 export default function HomePage() {
-  const [sessions, setSessoin] = useState([...dummySessions])
-  function generateSession() {
-    var list = [];
-    if (sessions.length > 4) {
-      for (let index = 0; index < 4; index++) {
-        list.push(sessions[index]);
-      }
+  const { data, error, isLoading } = useSWR(`/api/search?searchType=session&subject=&sessionType=post&searchKeyword=`, fetcher)
+  const [content, setContent] = useState('Content is loading')
+
+
+  
+  useEffect(() => {
+    if (error) {
+      setContent(<h1 style={{ textAlign: 'center', height: '40vh', color: "#023047" }}>Trying to load content...</h1>)
+    } else if (isLoading) {
+      setContent(<h1 style={{ textAlign: 'center', height: '40vh', color: "#023047" }}>Loading content...</h1>)
     } else {
-      list = [...sessions];
-    }
-    return (list)
-  }
+          setContent(data.result.map((value, index) => {
+            if (index < 4)
+              return <Col key={value.id} xxl={3} xl={4} lg={6} sm={12} ><SessionCardFactory session={value} post="post" /></Col>
+          }))
+        }
+  }, [data])
+
   function goTosearch() {
     Router.push("/searchPage")
   }
@@ -66,11 +78,8 @@ export default function HomePage() {
         <div className='landingText'> Explore our upcoming <span style={{ color: "#F48C06" }}> sessions </span></div>
       </Row>
       <Row id='landingCards'>
-        {/* {generateSession().map((value, index) => <>{
-          <Col key={index} xxl={3} xl={4} lg={6} sm={12} >
-            <SessionCardFactory session={value}></SessionCardFactory>
-          </Col>
-        }</>)} */}
+        {content}
+        
         <Button id='moreSessions' onClick={goTosearch}>See more</Button>
       </Row>
       <Row>
