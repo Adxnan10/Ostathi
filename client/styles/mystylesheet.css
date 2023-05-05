@@ -271,6 +271,16 @@ button.profileButton:hover {
     width: 25rem;
 }
 
+button.dis{
+    cursor: not-allowed;
+    pointer-events: none;
+    margin: 1rem auto 0 auto;
+    background-color: #d7c2a9;
+    border: none;
+    height: 3rem;
+    width: 25rem;
+}
+
 .profileScndClmn {
     margin-left: 5rem;
 }
@@ -886,6 +896,16 @@ h4 {
 .form-post .half-width {
     display: block;
     width: 100%;
+    max-width: 49vw;
+    padding: 0.85rem;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #9D9B9B;
+}
+.form-post .quarter-width {
+    display: block;
+    width: 25%;
     max-width: 49vw;
     padding: 0.85rem;
     border: 1px solid #D9D9D9;
