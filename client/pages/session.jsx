@@ -280,7 +280,7 @@ export default function SessionDetails() {
                     if (session.sessionType == "post")
                     Router.push(data?.attendees?.filter((att) =>
                       att.id == userSession?.user?.id
-                    ).length == 1 ? `session/room/${session_id}` : `/payment/${session_id}`)
+                    ).length == 1 ? `session/room/session_room?session_id=${session_id}&session_type=${session_type}` : `/payment/${session_id}`)
                     else 
                     if (session?.tutor_id == userSession?.user?.id || session?.requester_id == userSession?.user?.id) 
                     Router.push(
