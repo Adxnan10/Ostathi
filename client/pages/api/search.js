@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     else if (sessionType == 'post') {
       searchResult = await db_model.getAllPostedSessions(searchKeyword, subject, 10, 0)
     } else {
-      res.status(404).send("invalid request. make sure url sends the right query.")
+      res.status(400).send("invalid request. make sure url sends the right query.")
     }
   } else if (searchType == 'tutor') {
     searchResult = await db_model.getAllUsers(searchKeyword, subject, 10, 0)

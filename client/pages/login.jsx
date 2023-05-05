@@ -18,7 +18,7 @@ export default function Login() {
     const [login, setLogin] = useState(true)
     if (session) {
         return (<div className="404-block d-flex justify-content-center align-items-center" style={{ height: '60vh' }}>
-        <h1 style={{ color: "#023047" }}><span style={{ color: "#F48C06" }}> Ostathi, </span>you logged in...</h1>
+            <h1 style={{ color: "#023047" }}><span style={{ color: "#F48C06" }}> Ostathi, </span>you logged in...</h1>
         </div>
         )
     }
@@ -37,6 +37,7 @@ export default function Login() {
                 redirect: false
             }
             ).then(({ ok, error }) => {
+                console.log("Hi")
                 if (ok) {
                     router.push("/");
                 } else {

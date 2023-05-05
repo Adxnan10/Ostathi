@@ -43,15 +43,9 @@ export default function SessionDetails() {
 
 
   const session = data.session
+
   const ratings = data?.rating
-
-  // const [rating, setRating] = useState([...ratings.filter((rating) => {
-  //   return (
-  //     rating.session_id == session.session_id
-  //   );
-  // })]);
-
-  console.log("HERE")
+  
   data.attendees.map((att) => {
     if (att.id == userSession.id)
       setIsAttendee(true)
@@ -220,11 +214,10 @@ export default function SessionDetails() {
               <Card id='floatingCard'>
                 <Card.Img variant="top" src="/Model.jpeg" id='tutorPicSD' />
                 <Card.Title className='cardHeader'>
-                  <h2 >{session.price} SAR</h2>
+                  <h2 >{session_type == "post" ? session.price : session.startBid} SAR</h2>
                   <p>{data.attendees.length} joined! </p>
                   <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => Router.push(`/payment/${session_id}`)}>
-                    {isAttendee ? 'register' : 'enter session'}
-                    {/* TODO: Check if the user is an attendee Register Now  */}
+                    {isAttendee ? 'enter session' : session_type == "post" ? 'register' : 'bid'}
                   </Button>
                 </Card.Title>
                 <hr />
@@ -232,17 +225,17 @@ export default function SessionDetails() {
                   <h4 id='titleSesDet'><b>{session.title}</b></h4>
                   <div id='greyGuarnt'>
                     <div>
-                      <p><BsGrid className='BsGrid' />{sessionInfo.subjects.map((value, index) => {
-                        return (<span>
-                          {value.name}{sessionInfo.subjects.length - index - 1 == 0 ? <></> : <span>, </span>}
+                      <p><BsGrid className='BsGrid' />{sessionInfo.subjects.map((subject, index) => {
+                        return (<span key={subject.id}>
+                          {subject.name}{sessionInfo.subjects.length - index - 1 == 0 ? <></> : <span>, </span>}
                         </span>)
                       })}</p>
                     </div>
                     <div>
-                      <p><BsGrid className='BsGrid' />{session.type}</p>
+                      <p><BsGrid className='BsGrid' />{session.type || 'one-one'}</p>
                     </div>
                     <div>
-                      <p><BsGrid className='BsGrid' />{session.duration}</p>
+                      <p><BsGrid className='BsGrid' />{session.duration} mins</p>
                     </div>
                   </div>
 
