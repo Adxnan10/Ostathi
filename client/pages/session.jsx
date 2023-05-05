@@ -47,7 +47,7 @@ export default function SessionDetails() {
   const session = data.session
   const ratings = data?.rating
   const bidderData = (user_id) => {
-    
+
   }
   function calcRates() {
     const totalRating = [0, 0, 0, 0, 0];
@@ -92,7 +92,16 @@ export default function SessionDetails() {
     );
   }
 
-  const owner = session?.requester_id == userSession?.user?.id 
+  const owner = session?.requester_id == userSession?.user?.id
+  const checkAttendee = () => {
+    if (!userSession)
+      return false
+    return (session?.requester_id == userSession?.user?.id
+      || session?.tutor_id == userSession?.user?.id
+      || data?.attendees?.filter((att) =>
+        att.id == userSession?.user?.id
+      ).length == 1)
+  }
   const rateView = (e) => {
     total();
     setRate("block");
@@ -100,7 +109,7 @@ export default function SessionDetails() {
     setBiddersBlock("none")
     e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) //previousSibling.classList.remove("activeButtonDS")
     e.currentTarget.classList.add("activeButtonDS");
-    
+
   }
   const overViewView = (e) => {
     setOverview("block");
@@ -132,6 +141,10 @@ export default function SessionDetails() {
       })
   }
   const placeBid = () => {
+    if (!userSession) {
+      alert("You should sign in first")
+      return;
+    }
     const price = prompt("Please enter your bid price")
     if (price != null) {
       fetch(`/api/sessions/placeBid?session_id=${session.id}&price=${price}&user_id=${userSession.user.id}`, {
@@ -166,7 +179,7 @@ export default function SessionDetails() {
                   {session_type == "requested" && <Button className="optionSessionPage" onClick={biddersView}>
                     Bidders
                   </Button>}
-                  
+
                 </Col>
 
               </Row>
@@ -240,28 +253,29 @@ export default function SessionDetails() {
                     })}
                   </div>
                   <div className='biddersView' style={{ display: biddersBlock }}>
-                   
+
                     {biddersData?.bidders?.map((value, index) => {
                       return (
                         <>
-                        <Row>
-                          <div className='datailsSession'>
+                          <Row>
                             <div className='datailsSession'>
-                              <img src={value.profilePicture} alt="Model" id='sessionPics' />
-                              <p id='nameSessionDet'>{value.name}</p >
+                              <div className='datailsSession'>
+                                <img src={value.profilePicture} alt="Model" id='sessionPics' />
+                                <p id='nameSessionDet'>{value.name}</p >
+                              </div>
+                              <div className='datailsSession'>
+                                <span> Bid Value: {value.bid}
+                                </span>
+                                {!session.currentBid && owner &&
+                                  <Button variant='success' onClick={() => chooseBid(value.id, value.session_id)}>Choose</Button>
+                                }
+                                {session.tutor_id == value.id && <Button variant='success' disabled="true">CHOSEN TUTOR</Button>}
+                              </div>
                             </div>
-                            <div className='datailsSession'>
-                              {!session.currentBid && owner && 
-                              <Button variant='success' onClick={() => chooseBid(value.id, value.session_id)}>Choose</Button> 
-                    }
-                          {session.tutor_id == value.id && <Button variant='success' disabled="true">CHOSEN TUTOR</Button>}
-                            </div>
-                          </div>
-                        </Row>
-                          <Row className='datailsSession'>
-                            <p> Bid Value: {value.bid}
-                            </p>
                           </Row>
+                          {/* <Row className='datailsSession'>
+                            
+                          </Row> */}
                           {ratings.length - index - 1 == 0 ? <></> : <hr />}
                         </>
                       );
@@ -278,19 +292,15 @@ export default function SessionDetails() {
                   <p>{data.attendees.length} joined! </p>
                   <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => {
                     if (session.sessionType == "post")
-                    Router.push(data?.attendees?.filter((att) =>
-                      att.id == userSession?.user?.id
-                    ).length == 1 ? `session/room/session_room?session_id=${session_id}&session_type=${session_type}` : `/payment/${session_id}`)
-                    else 
-                    if (session?.tutor_id == userSession?.user?.id || session?.requester_id == userSession?.user?.id) 
-                    Router.push(
-                       `session/room/${session_id}`)
-                       else
-                       placeBid()
-                  }} disabled = {userSession && session?.currentBid} >
-                    {data?.attendees?.filter((att) =>
-                      att.id == userSession?.user?.id
-                    ).length == 1 ? 'Enter session' : session_type == "post" ? 'Register' : session?.currentBid ? 'Bidding Ended' : 'Bid'}
+                      Router.push(checkAttendee() ? `session/room/session_room?session_id=${session_id}&session_type=${session_type}` : `/payment/${session_id}`)
+                    else
+                      if (checkAttendee() == true)
+                        Router.push(
+                          `session/room/session_room?session_id=${session_id}&session_type=${session_type}`)
+                      else
+                        placeBid()
+                  }} disabled={userSession && session?.currentBid} >
+                    {checkAttendee() ? 'Enter session' : session_type == "post" ? 'Register' : session?.currentBid ? 'Bidding Ended' : 'Bid'}
                   </Button>
                 </Card.Title>
                 <hr />
