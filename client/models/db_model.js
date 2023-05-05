@@ -273,7 +273,9 @@ const getBidders = async (session_id) => {
 const chooseBidder = async (session_id, user_id) => {
   const db = await getDbConnection();
   const meta = await db.run(`UPDATE REQUEST_SESSION SET tutor_id = '${user_id}', currentBid = (SELECT bid FROM BIDDER WHERE session_id='${session_id}' AND user_id='${user_id}') WHERE id = '${session_id}'`)
-=======
+  await db.close()
+  return meta
+}
 // AHMAD ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Get a user's details from the database. Do not return the password. Return data from the user table.
@@ -322,6 +324,7 @@ export default {
   addSession,
   updateSession,
   deletesession,
-  getBidders, 
+  getBidders,
   chooseBidder,
+  getSessionRating,
 }
