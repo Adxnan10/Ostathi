@@ -89,9 +89,9 @@ export default function DashBoard() {
           <h4>My Sessions</h4>
         </Row>
         <Row className='cardsArea' >
-          {data != undefined ? (data.hostSessions.length == 0 ? 
+          {data != undefined ? (data.sessions.length == 0 ? 
           <div className="404-block d-flex justify-content-center align-items-center" style={{ height: '30vh' }}>
-    <h1 style={{ color: "#023047" }}>You don't host any session<span style={{ color: "#F48C06" }}> Ostathi!</span>.</h1>
+    <h1 style={{ color: "#023047" }}>You didn't register in any session<span style={{ color: "#F48C06" }}> Ostathi!</span>.</h1>
     </div>
             :data.sessions.map((value, index) => <>
             {index <= 2 ?
