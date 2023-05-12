@@ -10,7 +10,7 @@ export default function LoginButton() {
     return (
       <div className="login-btn-unique d-flex justify-content-around align-items-center">
         <img src={session.user?.profilePicture == undefined ? "Profile.png" : session.user.profilePicture} alt="Profile Pic" id="navProfilePic" onClick={() => router.push(`/dashboard?username=${session?.user?.username}&id=${session?.user?.id}`)} />
-        <button id="profileSignedIn" className="nav-item btn" onClick={() => router.push(`/dashboard?username=${session?.user?.username}&id=${session?.user?.id}`)}>
+        <button id="profileSignedIn" className="nav-item btn" onClick={() => router.push(`/dashboard?username=${session?.user?.username}`)}>
           <p id="navProfileName">{session.user?.username}</p>
         </button>
         <Button onClick={() => signOut({ redirect: false })} variant="#F48C06"><BiLogOut /></Button>

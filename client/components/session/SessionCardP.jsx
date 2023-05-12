@@ -56,7 +56,7 @@ export default function SessionCardP({ ...props }) {
           <Button variant='none' className="indicator-delete-btn" onClick={() => deleteSession()}>Delete <MdDeleteForever /></Button>
         </> : <div className="d-flex justify-content-between align-items-center">
           <div className='user-info'>
-            <img src={data.user[0].profilePicture == undefined ?"Profile.png" : data.user[0].profilePicture} alt="user pic" className='user-pic rounded-pic' />
+            <img src={data.user[0].profilePicture == undefined ? "/Profile.png" : data.user[0].profilePicture} alt="user pic" className='user-pic rounded-pic' />
             <span>{data.user[0].name}</span>
           </div>
           <div className='session-price' style={{ color: "#F5931C" }} >

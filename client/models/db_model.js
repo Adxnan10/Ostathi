@@ -75,9 +75,7 @@ const getUser = async (username) => {
 const getSessionRating = async (session_id) => {
   const db = await getDbConnection();
   const sessions = await db.all(`
-  SELECT * FROM RATING s JOIN User ss ON s.rater_id = ss.id WHERE EXISTS(
-  SELECT * FROM SESSION WHERE s.tutor_id = tutor_id AND id = '${session_id}'
-  )
+  SELECT * FROM RATING WHERE tutor_id = (SELECT tutor_id FROM SESSION WHERE id = '${session_id}')
   `)
   await db.close()
   return sessions
@@ -142,16 +140,16 @@ const getUserRating = async (user_id) => {
 const updateProfile = async (body) => {
   const db = await getDbConnection();
   let meta = '';
-  let email = body.Email;
+  let email = body.email;
   if (email == "") {
     meta = await db.run(`
     UPDATE USER
-    SET name = '${body.Name}'
+    SET name = '${body.name}'
     WHERE id = '${body.id}'`)
   } else {
     meta = await db.run(`
     UPDATE USER
-    SET name = '${body.Name}', email = '${email}'
+    SET name = '${body.name}', email = '${email}'
     WHERE id = '${body.id}'`)
   }
   await db.close()
@@ -192,16 +190,16 @@ const getSessionDetails = async (session_id, session_type) => {
 }
 // inserts in the sessions table the session_data given. Note the session_data parameter is an object that holds the session columns like the author and the content.
 // returns metadata about the inserted row
-const addSession = async (session_data, post) => {
+const addSession = async (session_data, post, date, time) => {
   const db = await getDbConnection();
   if (!post) {
-    const meta = await db.run(`insert into request_session('requester_id', 'title', 'description', 'Duration','Date','startBid','currentBid') 
-    values ('${session_data.id}','${session_data.title}','${session_data.description}','${session_data.Duration}','${session_data.Date}','${session_data.startBid}','${session_data.startBid}')`);
+    const meta = await db.run(`insert into request_session('requester_id', 'title', 'description', 'Duration','Date','Time','startBid','currentBid') 
+    values ('${session_data.id}','${session_data.title}','${session_data.description}','${session_data.Duration}','${date}','${time}','${session_data.startBid}','${session_data.startBid}')`);
     await db.close()
     return meta
   } else {
-    const meta = await db.run(`insert into session('title', 'description', 'Date', 'Duration','Type', 'price', 'tutor_id') 
-    values ('${session_data.title}','${session_data.Description}','${session_data.Date}','${session_data.Duration}','${session_data.Type}','${session_data.Price}','${session_data.id}')`);
+    const meta = await db.run(`insert into session('title', 'description', 'Date','Time','Duration','Type', 'price', 'tutor_id') 
+    values ('${session_data.title}','${session_data.description}','${date}','${time}','${session_data.Duration}','${session_data.type}','${session_data.price}','${session_data.id}')`);
     await db.close()
     return meta
   }
