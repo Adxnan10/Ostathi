@@ -46,8 +46,8 @@ export default function HomePage() {
   function goTosearch() {
     Router.push("/searchPage")
   }
-  const classes = [{ "subject": "Linear Algebra", "img": "/algebra.png" }, { "subject": "Calclus", "img": "/math.png" }, { "subject": "Programming", "img": "/programming.png" },
-  { "subject": "Project Managment", "img": "/managmanet.png" }, { "subject": "Physics", "img": "/physics.png" }, { "subject": "Science", "img": "/science.png" }, { "subject": "Writing", "img": "/writing.png" }, { "subject": "Art", "img": "/art.png" },]
+  const classes = [{ "subject": "Linear Algebra", "img": "/algebra.png" }, { "subject": "Calculus", "img": "/math.png" }, { "subject": "Programming", "img": "/programming.png" },
+  { "subject": "Project Management", "img": "/management.png" }, { "subject": "Physics", "img": "/physics.png" }, { "subject": "Science", "img": "/science.png" }, { "subject": "Writing", "img": "/writing.png" }, { "subject": "Art", "img": "/art.png" },]
 
   return (
     <div className="App">
