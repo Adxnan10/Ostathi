@@ -26,7 +26,20 @@ export default function SessionCardR({ ...props }) {
     // for now.. 
     const answer = confirm('Are you sure you want to delete this session?')
     if (answer)
-      Router.push(`/session/delete/${props.session.id}`)
+      fetch(`/api/sessions/deleteSession?session_id=${props.session.id}&session_type=requested`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }).then(res => res = res.json()).then(res => {
+        if (res.message == "Done") {
+          alert('Session deleted successfully!')
+          Router.reload()
+        }
+        else
+          alert('Something went wrong, please try again later.')
+        
+      })
   }
   return (
     <Card onClick={() => Router.push(`/session?session_id=${props.session.id}&session_type=requested&user_id=${data.user[0].id}`)} className="session-card session-card-posted" style={{ width: '20rem', borderRadius: '1rem' }}>

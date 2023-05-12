@@ -28,18 +28,19 @@ export default function SessionDetails() {
   const router = useRouter()
   const { session_id, session_type } = router.query
   const { data, error, isLoading } = useSWR(`/api/sessions/loadSession?session_id=${session_id}&session_type=${session_type}`, fetcher) // Fetches data from the API
-  let user_id = session_type == "post" ? data?.session.tutor_id : data?.session.requester_id
-  const { data: sessionInfo, isLoading: LoadingSessionInfo } = useSWR(`/api/sessions/loadSessionInfo?session_id=${session_id}&session_type=${session_type}&user_id=${user_id}`, fetcher) // Fetches data from the API
+  let user_id = session_type == "post" ? data?.session?.tutor_id : data?.session?.requester_id
+  const { data: sessionInfo, isLoading: LoadingSessionInfo, error: sessionInfoError} = useSWR(`/api/sessions/loadSessionInfo?session_id=${session_id}&session_type=${session_type}&user_id=${user_id}`, fetcher) // Fetches data from the API
   const [sessions, setSessions] = useState([...dummySessions]);
   //const [ratings, setRatings] = useState([...sessionRating]);
-  const { data: biddersData } = useSWR(`/api/sessions/biddingHandler?session_id=${session_id}`, fetcher) // Fetches data from the API
+  const { data: biddersData, error: bidderError } = useSWR(`/api/sessions/biddingHandler?session_id=${session_id}`, fetcher) // Fetches data from the API
 
-  if (isLoading || LoadingSessionInfo) {
+  if (isLoading || LoadingSessionInfo ) {
     console.log(data)
     return <h1> Loading . </h1>
   }
-  if (error) {
+  if (error || sessionInfoError || bidderError) {
     console.log(error)
+    router.push('/searchPage')
     return <h1> something went wrong . </h1>
   }
 

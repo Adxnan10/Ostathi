@@ -311,6 +311,19 @@ const placeBid = async (session_id, price, user_id) => {
   return meta
 }
 
+//Delete a session --Mubarak
+const deleteSession = async (session_id, session_type) => {
+  const db = await getDbConnection();
+  if (session_type == 'post') {
+    const meta = await db.run(`DELETE FROM SESSION WHERE id = '${session_id}'`)
+  } else if (session_type == 'requested') {
+    const meta = await db.run(`DELETE FROM REQUEST_SESSION WHERE id = '${session_id}'`)
+  }
+  await db.close()
+  return meta
+  
+}
+
 
 export default {
   getSessionAttendees,
@@ -337,5 +350,6 @@ export default {
   getBidders,
   chooseBidder,
   placeBid,
-  getSessionRating
+  getSessionRating,
+  deleteSession,
 }
