@@ -24,6 +24,33 @@ const addRating = async (rater_id, tutor_id, rating, comment, date) => {
   }
   return meta
 }
+const getRatingsCount = async (user_id) => {
+
+  const db = await getDbConnection();
+  let meta = '';
+  try {
+    meta = await db.get(`SELECT count(rating) as count, SUM(rating) as sum FROM RATING where tutor_id = ${user_id}`)
+  } catch (e) {
+    meta = { msg: 'There is a problem', changes: 0 }
+  } finally {
+    await db.close()
+  }
+  return meta
+}
+const updateUserRating = async (user_id, rating) => {
+  const db = await getDbConnection();
+  let meta = '';
+  try {
+    meta = await db.run(`UPDATE USER SET rating = '${rating}' WHERE id = '${user_id}'`)
+  } catch (e) {
+    meta = { msg: 'There is a problem', changes: 0 }
+  } finally {
+    await db.close()
+  }
+  return meta
+}
 module.exports = {
   addRating,
+  getRatingsCount,
+  updateUserRating,
 }

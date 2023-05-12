@@ -9,6 +9,7 @@ export default function RateUser({ ...props }) {
   const [show, setShow] = useState(false);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [message, setMessage] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setShow(true)
@@ -27,14 +28,17 @@ export default function RateUser({ ...props }) {
       comment: comment
     }
     fetch("/api/user/rate", {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(ratingDate)
     }).then(res => res.json()).then(res => {
-      // I will do something here
+      if (res.changes) {
+        alert("Your rate was recorded.")
+        handleClose()
+      }
     })
   }
   const modalBody = () => {
@@ -78,9 +82,11 @@ export default function RateUser({ ...props }) {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleRate}>
-              Submit rate
-            </Button>
+            <div>
+              <Button variant="primary" onClick={handleRate} id="registerSessionBTN" style={{ width: 'fit-content', padding: "0.375rem 0.75rem", fontWeight: "400" }}>
+                Submit rate
+              </Button>
+            </div>
           </Modal.Footer>
         </>
       )
