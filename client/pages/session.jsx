@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert'
 import Card from 'react-bootstrap/Card';
 import { BsStar, BsStarFill, BsGrid } from 'react-icons/bs'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { useRouter } from 'next/router'
 import Router from 'next/router'
 import Error from './error'
-import { dummyUsers, dummySessions, sessionRating } from '/public/fakeDataBase.json'
 import useSWR from 'swr'
 import { signIn, useSession } from "next-auth/react"
 
@@ -19,19 +19,19 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json()) // To be c
 
 export default function SessionDetails() {
   const { data: userSession } = useSession()
+  const [alertBlcok, setAlert] = useState('none')
+  const [alertContent, setContent] = useState('none')
+  const [alertVar, setVar] = useState('none')
   const [isAttendee, setIsAttendee] = useState(false)
   const [rate, setRate] = useState("none");
   const [overview, setOverview] = useState('block')
   const [OVB, setOVB] = useState("")
   const [biddersBlock, setBiddersBlock] = useState("none")
-
   const router = useRouter()
   const { session_id, session_type } = router.query
   const { data, error, isLoading } = useSWR(`/api/sessions/loadSession?session_id=${session_id}&session_type=${session_type}`, fetcher) // Fetches data from the API
   let user_id = session_type == "post" ? data?.session.tutor_id : data?.session.requester_id
   const { data: sessionInfo, isLoading: LoadingSessionInfo } = useSWR(`/api/sessions/loadSessionInfo?session_id=${session_id}&session_type=${session_type}&user_id=${user_id}`, fetcher) // Fetches data from the API
-  //const [sessions, setSessions] = useState([...dummySessions]);
-  //const [ratings, setRatings] = useState([...sessionRating]);
   const { data: biddersData } = useSWR(`/api/sessions/biddingHandler?session_id=${session_id}`, fetcher) // Fetches data from the API
   if (isLoading || LoadingSessionInfo) {
     return <h1> Loading . </h1>
@@ -127,16 +127,22 @@ export default function SessionDetails() {
     }).then(response => response.json())
       .then(data => {
         if (data.error) {
-          alert(data.error)
+          setAlert("block")
+          setVar("danger")
+          setContent(data.error)
         } else {
-          alert("Bidder has been chosen")
-          Router.reload(window.location.pathname)
+          setAlert("block")
+          setVar("success")
+          setContent("Bidder Has Been Choosen")
+          setTimeout(() => {Router.reload(window.location.pathname) }, 4000);
         }
       })
   }
   const placeBid = () => {
     if (!userSession) {
-      alert("You Are Not Signed in")
+      setAlert("block")
+      setVar("danger")
+      setContent("You are not Signed In")
       return;
     }
     const price = prompt("Please enter your bid price")
@@ -146,10 +152,14 @@ export default function SessionDetails() {
       }).then(response => response.json())
         .then(data => {
           if (data.error) {
-            alert(data.error)
+            setAlert("block")
+            setVar("danger")
+            setContent(data.error)
           } else {
-            alert("Bid has been placed")
-            Router.reload(window.location.pathname)
+            setAlert("block")
+            setVar("success")
+            setContent("Bidder Has Been Placed")
+            setTimeout(() => {Router.reload(window.location.pathname) }, 3000);
           }
         })
     }
@@ -160,6 +170,9 @@ export default function SessionDetails() {
       <>
         <div className="sessionBackGrnd" />
         <Container>
+        <div style={{margin:"2rem 30vw 0 0", display:alertBlcok}}>
+            <Alert variant={alertVar} onClose={() => {setAlert("none")}} dismissible>{alertContent}</Alert>
+            </div>
           <Row>
             <Col sm="12" md="8" id='sessionDetailsPage'>
               <Row>
@@ -246,7 +259,11 @@ export default function SessionDetails() {
                     })}
                   </div>
                   <div className='biddersView' style={{ display: biddersBlock }}>
-                    {biddersData?.bidders?.map((value, index) => {
+                    {biddersData.bidders.length == 0 ?
+                    <p>
+                      No tutors has bidded
+                    </p> 
+                    : biddersData?.bidders?.map((value, index) => {
                       return (
                         <>
                           <Row>
@@ -280,7 +297,7 @@ export default function SessionDetails() {
               <Card id='floatingCard'>
                 <Card.Img variant="top" src="/Model.jpeg" id='tutorPicSD' />
                 <Card.Title className='cardHeader'>
-                  <h2 >{session_type == "post" ? session.price : session.startBid} SAR</h2>
+                  <h2 >{session_type == "post" ? session.price : session.currentBid? session.currentBid: session.startBid} SAR</h2>
                   <p>{data.attendees.length} joined! </p>
                   <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => {
                     if (session_type == "post")

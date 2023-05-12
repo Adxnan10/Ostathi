@@ -18,7 +18,7 @@ export default function Login() {
     const [login, setLogin] = useState(true)
     if (session) {
         return (<div className="404-block d-flex justify-content-center align-items-center" style={{ height: '60vh' }}>
-            <h1 style={{ color: "#023047" }}><span style={{ color: "#F48C06" }}> Ostathi, </span>you logged in...</h1>
+            <h1 style={{ color: "#023047" }}><span style={{ color: "#F48C06" }}> Ostathi, </span>you logged in</h1>
         </div>
         )
     }
@@ -115,12 +115,12 @@ export default function Login() {
                                     </div>
                                     {showMessage && <div style={{ color: 'white', backgroundColor: '#F48C06', opacity: 1, padding: '10px' }}>{message}</div>}
                                     <form className="login-input-group" id="register-form" onSubmit={(e) => submitForm(e, "sign up")}>
-                                        <label htmlFor="email" className="login-form-label">Email</label>
-                                        <input type="email" className="login-input-field" placeholder="Enter your Email" requiered ref={email} />
                                         <label htmlFor="username" className="login-form-label">Username</label>
                                         <input type="text" className="login-input-field" placeholder="Enter your username" requiered ref={signUpUsername} />
                                         <label htmlFor="password" className="login-form-label">Password</label>
                                         <input type="password" className="login-input-field" placeholder="Enter your password" requiered ref={signUpPassword} />
+                                        <label htmlFor="email" className="login-form-label">Email</label>
+                                        <input type="email" className="login-input-field" placeholder="Enter your Email" requiered ref={email} />
                                         {/* <input type="checkbox" className="login-check-box" /><span id="login-chk-span">Agree to terms & conditions</span> */}
                                         <div className="login-submit-container">
                                             <button type="submit" className="login-submit-btn">Register</button>
