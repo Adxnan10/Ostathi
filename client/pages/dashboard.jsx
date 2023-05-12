@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react"
 import Error from "./error"
 
 
-const fetcher = (...args) => fetch(...args, {method: "GET"}).then((res) => res.json())
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function DashBoard() {
   const { data: session, status } = useSession()
