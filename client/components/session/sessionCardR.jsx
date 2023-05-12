@@ -35,7 +35,7 @@ export default function SessionCardR({ ...props }) {
     <Card onClick={() => Router.push(`/session?session_id=${props.session.id}&session_type=requested&user_id=${data.user[0].id}`)} className="session-card session-card-posted" style={{ width: '20rem', borderRadius: '1rem' }}>
       <div className="indicator">requested</div>
       <div className={`indicator session-type`}>one-one</div>
-      <Card.Img className="session-card-img" variant="top" src={subject in class_images ? class_images[subject] : "/default_class.png"} alt={subject + " icon"}/>
+      <Card.Img className="session-card-img" variant="top" src={subject in class_images ? class_images[subject] : "/default_class.png"} alt={subject in class_images ? subject + " icon" : "default session icon"}/>
       <Card.Body>
         <div className="session-info d-flex justify-content-around" style={{ color: "#666976" }}>
           <div className="topic">
