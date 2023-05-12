@@ -45,7 +45,7 @@ export default function RequestSession() {
             if (res.status == "success"){
                 setAlert("block")
                 setTimeout(() => {router.push("/") }, 3000);
-            } else {
+else {
                 return(<Error/>)
             }
         })
@@ -103,5 +103,6 @@ export default function RequestSession() {
         </>
     ); } else {
     router.push('/login');
+
 }
 }

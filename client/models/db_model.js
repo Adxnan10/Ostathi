@@ -193,6 +193,7 @@ const getSessionDetails = async (session_id, session_type) => {
 const addSession = async (session_data, post, date, time) => {
   const db = await getDbConnection();
   if (!post) {
+
     const meta = await db.run(`insert into request_session('requester_id', 'title', 'description', 'Duration','Date','Time','startBid') 
     values ('${session_data.id}','${session_data.title}','${session_data.description}','${session_data.Duration}','${date}','${time}','${session_data.startBid}')`);
     const meta_subject = await db.run(`insert into session_subject('request_session_id','subject_id')
@@ -202,6 +203,7 @@ const addSession = async (session_data, post, date, time) => {
   } else {
     const meta = await db.run(`insert into session('title', 'description', 'Date','Time','Duration','Type', 'price', 'tutor_id') 
     values ('${session_data.title}','${session_data.description}','${date}','${time}','${session_data.Duration}','${session_data.type}','${session_data.price}','${session_data.id}')`);
+
     const meta_subject = await db.run(`insert into session_subject('session_id','subject_id')
     values ('${meta.lastID}','${session_data.subject}')`)
     await db.close()
