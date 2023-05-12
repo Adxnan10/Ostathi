@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import SessionCardP from "./SessionCardP"
-import SessionCardR from "./SessionCardR"
+import SessionCardR from "./sessionCardR"
 import { useSession } from "next-auth/react"
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
