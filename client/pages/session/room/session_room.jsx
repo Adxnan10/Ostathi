@@ -25,6 +25,7 @@ export default function SessionRoom() {
     }
 
     // Put the session's details in the page
+    try {
   return (
     <div style={{marginBottom:"4rem", marginTop:"1rem", padding: "20px", width: "100%", display: 'flex', flexDirection:'column', alignItems : 'center'}}>
         <div className='session-details-container'>
@@ -63,7 +64,12 @@ export default function SessionRoom() {
 
 
     </div>
-  )
+  ) } 
+  catch {
+    return ( <div className="404-block d-flex justify-content-center align-items-center" style={{ height: '60vh' }}>
+    <h1 style={{ color: "#023047" }}>Error Has Occured<span style={{ color: "#F48C06" }}> Ostathi!</span>.</h1>
+    </div>)
+  }
   
 }
 

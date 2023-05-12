@@ -30,17 +30,16 @@ export default function SessionDetails() {
   const { data, error, isLoading } = useSWR(`/api/sessions/loadSession?session_id=${session_id}&session_type=${session_type}`, fetcher) // Fetches data from the API
   let user_id = session_type == "post" ? data?.session.tutor_id : data?.session.requester_id
   const { data: sessionInfo, isLoading: LoadingSessionInfo } = useSWR(`/api/sessions/loadSessionInfo?session_id=${session_id}&session_type=${session_type}&user_id=${user_id}`, fetcher) // Fetches data from the API
-  const [sessions, setSessions] = useState([...dummySessions]);
+  //const [sessions, setSessions] = useState([...dummySessions]);
   //const [ratings, setRatings] = useState([...sessionRating]);
   const { data: biddersData } = useSWR(`/api/sessions/biddingHandler?session_id=${session_id}`, fetcher) // Fetches data from the API
-
   if (isLoading || LoadingSessionInfo) {
-    console.log(data)
     return <h1> Loading . </h1>
   }
   if (error) {
-    console.log(error)
-    return <h1> something went wrong . </h1>
+    return  <div className="404-block d-flex justify-content-center align-items-center" style={{ height: '65vh' }}>
+    <h1 style={{ color: "#023047" }}>Error Has Occured<span style={{ color: "#F48C06" }}> Ostathi!</span>.</h1>
+    </div>
   }
 
 
@@ -66,7 +65,6 @@ export default function SessionDetails() {
   const totalRating = calcRates();
 
   function total() {
-
     var total = 0;
     for (let index = 0; index < ratings.length; index++) {
       total += ratings[index].rating;
@@ -138,7 +136,7 @@ export default function SessionDetails() {
   }
   const placeBid = () => {
     if (!userSession) {
-      alert("You should sign in first")
+      alert("You Are Not Signed in")
       return;
     }
     const price = prompt("Please enter your bid price")
@@ -189,7 +187,7 @@ export default function SessionDetails() {
                         </div>
                         <div className='datailsSession'>
                           <BsGrid className='BsGrid' />
-                          <p>&ensp;4th of May 2022</p>
+                          <p>&ensp;{session.Date}</p>
                         </div>
                       </div>
                     </Row>
@@ -201,7 +199,7 @@ export default function SessionDetails() {
                     <Row>
                       <Col sm="12" md="6" lg="4" xlg="4">
                         <div className='ratingBox'>
-                          <h4>{Math.round(total() / ratings.length * 10) / 10} out of 5</h4>
+                          <h4>{!Math.round(total()* 10) / 10 ? 0 : Math.round(total() * 10) / 10} out of 5</h4>
                           {stars(total())}
                           <p>{ratings.length} reviews</p>
                         </div>
@@ -254,7 +252,7 @@ export default function SessionDetails() {
                           <Row>
                             <div className='datailsSession'>
                               <div className='datailsSession'>
-                                <img src={value.profilePicture} alt="Model" id='sessionPics' />
+                                <img src={value.profilePicture == undefined ? "Profile.png": value.profilePicture} alt="Model" id='sessionPics' />
                                 <p id='nameSessionDet'>{value.name}</p >
                               </div>
                               <div className='datailsSession'>
@@ -285,15 +283,16 @@ export default function SessionDetails() {
                   <h2 >{session_type == "post" ? session.price : session.startBid} SAR</h2>
                   <p>{data.attendees.length} joined! </p>
                   <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => {
-                    if (session.sessionType == "post")
+                    if (session_type == "post")
                       Router.push(checkAttendee() ? `session/room/session_room?session_id=${session_id}&session_type=${session_type}` : `/payment/${session_id}`)
-                    else
+                    else {
                       if (checkAttendee() == true)
                         Router.push(
                           `session/room/session_room?session_id=${session_id}&session_type=${session_type}`)
                       else
                         placeBid()
-                  }} disabled={userSession && session?.currentBid} >
+                      }
+                  }} disabled={!userSession && session?.currentBid} >
                     {checkAttendee() ? 'Enter session' : session_type == "post" ? 'Register' : session?.currentBid ? 'Bidding Ended' : 'Bid'}
                   </Button>
                 </Card.Title>
