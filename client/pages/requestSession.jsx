@@ -2,12 +2,16 @@ import { useSession } from "next-auth/react"
 import Form from 'react-bootstrap/Form'
 import { useState } from 'react'
 import { useRouter} from 'next/router'
+import Alert from 'react-bootstrap/Alert'
 import useSWR from 'swr'
 import Error from "./error"
 
 
+const fetcher = (...args) => fetch(...args).then((res) => res.json()) // To be called by useSWR
+
 export default function RequestSession() {
     const { data: session, status } = useSession() 
+    const [alertBlcok, setAlert] = useState('none')
     const [subject, setSubject] = useState('')
     const [title, setTitle] = useState('')
     const [date, setDate] = useState('')
@@ -15,6 +19,8 @@ export default function RequestSession() {
     const [description, setDesc] = useState('')
     const [startBid, setBid] = useState('')
     const router = useRouter()
+    const { data: subjects, error: subjectError, isLoading: loadingSubjects } = useSWR(`/api/subjects/getSubjects`, fetcher)
+
 
 
     if(status === "authenticated") {
@@ -37,8 +43,9 @@ export default function RequestSession() {
             }) 
         }).then((res) => res.json()).then(res => {
             if (res.status == "success"){
-                router.push("/")
-            } else {
+                setAlert("block")
+                setTimeout(() => {router.push("/") }, 3000);
+else {
                 return(<Error/>)
             }
         })
@@ -60,11 +67,15 @@ export default function RequestSession() {
                 <div className="container">
                     <Form className="form-post" method="POST" onSubmit={send}>
                         <label className="row" htmlFor="subject"> Session Subject</label>
-                        <select className="row full-width" name="subject" placeholder="Software Engineering" onChange={(event) => {setSubject(event.target.value)}}>
-                            <option value="Tech" defaultValue>Technology</option>
-                            <option value="Math"> Mathematics </option>
-                            <option value="Physics"> Physics </option>
-                            <option value="Chemistry"> Chemistry </option>
+                        <select className="row full-width" name="subject" placeholder="Choose Subject" onChange={(event) => {setSubject(event.target.value)}}>
+                        <option key={0} value={0}>Choose Subject</option>
+                        {subjects &&
+                subjects.subjects.map((subject) => {
+                  return (
+                    <option value={subject.id}>{subject.name}</option>
+                  )
+                })
+              }
                         </select>
                         <label className="row" htmlFor="title"> Session Title </label>
                         <input className="row full-width" type="text" name="title" placeholder="Introduction to Web Development and Engineering" required onChange={(event) => {setTitle(event.target.value)}}/>
@@ -86,9 +97,12 @@ export default function RequestSession() {
                     </Form>
                 </div>
             </div>
-
+            <div style={{padding:"50px 150px 0", display:alertBlcok}}>
+            <Alert variant="success"> Added Successfully!</Alert>
+            </div>
         </>
     ); } else {
-    return(router.push('/login'));
+    router.push('/login');
+
 }
 }

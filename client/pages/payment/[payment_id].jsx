@@ -76,7 +76,8 @@ export default function Payment() {
                                     </button>
                                 </div>
                                 <div className="row">
-                                    <button className="btn btn-primary col paymenyButtons" id="cancelPayment" type='button' onClick={() => Router.push(`/`)}>
+                                    <button className="btn btn-primary col paymenyButtons" id="cancelPayment" type='button' onClick={() => Router.push(`/searchPage`)}>
+
                                         Cancel
                                     </button>
                                 </div>
