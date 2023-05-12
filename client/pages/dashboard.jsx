@@ -14,8 +14,17 @@ const fetcher = (...args) => fetch(...args, {method: "GET"}).then((res) => res.j
 
 export default function DashBoard() {
   const { data: session, status } = useSession()
-  if(status === "authenticated") {
   const { data, error, isLoading } = useSWR([`/api/user/dashboard?username=${session?.user?.username}&id=${session?.user?.id}`], fetcher);
+  const [toggle, setToggle] = useState(true);
+  const [moreSessions, setMoreSessions] = useState("none");
+  const [lessButton, setLessButton] = useState("none");
+  const [moreButton, setMoreButton] = useState("block");
+  const [toggle2, setToggle2] = useState(true);
+  const [moreSessions2, setMoreSessions2] = useState("none");
+  const [lessButton2, setLessButton2] = useState("none");
+  const [moreButton2, setMoreButton2] = useState("block");
+
+  if(status === "authenticated") {
 
   var cond = true;
   var cond2 = true;
@@ -23,10 +32,7 @@ export default function DashBoard() {
     Router.push(`/editProfile?username=${session?.user?.username}`)
   }
 
-  const [toggle, setToggle] = useState(true);
-  const [moreSessions, setMoreSessions] = useState("none");
-  const [lessButton, setLessButton] = useState("none");
-  const [moreButton, setMoreButton] = useState("block");
+  
   const showMoreSessions = (() => {
     if (toggle) {
       setToggle(false);
@@ -40,11 +46,6 @@ export default function DashBoard() {
       setToggle(true);
     }
   });
-
-  const [toggle2, setToggle2] = useState(true);
-  const [moreSessions2, setMoreSessions2] = useState("none");
-  const [lessButton2, setLessButton2] = useState("none");
-  const [moreButton2, setMoreButton2] = useState("block");
   const showMoreSessions2 = (() => {
     if (toggle2) {
       setToggle2(false);
@@ -86,7 +87,7 @@ export default function DashBoard() {
     <Row id='dashboardPage'>
       <Col lg="9" xl="9">
         <Row>
-          <h4>My Sessions</h4>
+          <h4>Enrolled Sessions</h4>
         </Row>
         <Row className='cardsArea' >
           {data != undefined ? (data.sessions.length == 0 ? 
@@ -179,7 +180,7 @@ export default function DashBoard() {
         </Row>
         <Row>
           <div className='ratingBox'>
-            <h4>{data == undefined ? "..." : ratings(data)[0]} out of 5</h4>
+            <h4>{data == undefined ? "..." : !ratings(data)[0] ? 0 : ratings(data)[0]} out of 5</h4>
             {data == undefined ? stars(0) : stars(ratings(data)[0])}
             <div>{data == undefined ? "..." : ratings(data)[1]} review</div>
           </div>
