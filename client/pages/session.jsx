@@ -45,8 +45,10 @@ export default function SessionDetails() {
   const ratings = data?.rating
   const subjects = sessionInfo.subjects
   const subject = subjects[0]?.name          // main subject of the session
-  const class_images = {"math" : "/math.png" , "programming" : "/programming.png", "algorithms" : "/programming.png",
-    "physics" : "/physics.png" , "data structures" : "/programming.png"  , "medicine" : "/medicine.png" }
+  const class_images = {
+    "math": "/math.png", "programming": "/programming.png", "algorithms": "/programming.png",
+    "physics": "/physics.png", "data structures": "/programming.png", "medicine": "/medicine.png"
+  }
 
 
   function calcRates() {
@@ -91,7 +93,7 @@ export default function SessionDetails() {
     );
   }
 
-  const owner = session?.requester_id == userSession?.user?.id 
+  const owner = session?.requester_id == userSession?.user?.id
   const checkAttendee = () => {
     if (!userSession)
       return false
@@ -225,7 +227,7 @@ export default function SessionDetails() {
                         <div className='ratingBars'>
                           {totalRating.map((value, index) => {
                             return (
-                              <Row>
+                              <Row key={index}>
                                 <Col md="6" lg="2">
                                   <p>{index + 1} stars</p>
                                 </Col>
@@ -240,8 +242,6 @@ export default function SessionDetails() {
                       </Col>
                     </Row>
                     {ratings.map((value, index) => {
-                      console.log("Here")
-                      console.log(value)
                       return (
                         <><Row>
                           <div className='datailsSession'>
@@ -301,7 +301,7 @@ export default function SessionDetails() {
             </Col>
             <Col>
               <Card id='floatingCard'>
-                <Card.Img variant="top" id='tutorPicSD' src={subject in class_images ? class_images[subject] : "/default_class.png"} alt={subject in class_images ? subject + " icon" : "default session icon"}/>
+                <Card.Img variant="top" id='tutorPicSD' src={subject in class_images ? class_images[subject] : "/default_class.png"} alt={subject in class_images ? subject + " icon" : "default session icon"} />
                 <Card.Title className='cardHeader'>
                   <h2 >{session_type == "post" ? session.price : session.currentBid ? session.currentBid : session.startBid} SAR</h2>
                   <p>{data.attendees.length} joined! </p>
