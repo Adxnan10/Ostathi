@@ -3,20 +3,18 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Error from '../error'
 import Router from 'next/router'
-import { dummySessions } from '/public/fakeDataBase.json'
 import { useSession } from "next-auth/react"
+import useSWR from 'swr'
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json())   // To be called by useSWR
 
 
 export default function Payment() {
     const { data: data, status } = useSession()
     const router = useRouter()
     const session_id = router.query.payment_id
-    const [sessions, setSessions] = useState([...dummySessions]);
-    const [session, setSession] = useState([...sessions.filter((session) => {
-        return (
-            session.session_id == session_id
-        );
-    })]);
+    const { data: session, error, isLoading } = useSWR(`/api/sessions/loadSession?session_id=${session_id}&session_type=post`, fetcher) // Fetches data from the API
+    
     try {
         if(status === "authenticated") {
         return (
@@ -27,7 +25,7 @@ export default function Payment() {
                         <div className="container">
                             <div className="row">
                                 <h1 className="col" style={{ margin: '2rem 2rem 0 2rem' }} >Check Out</h1>
-                                <h1 className="col" style={{ textAlign: 'end', margin: '3rem 5rem auto 0' }}>{session[0].price} SAR</h1>
+                                <h1 className="col" style={{ textAlign: 'end', margin: '3rem 5rem auto 0' }}>{session.session.price} SAR</h1>
                             </div>
                             <div className="row">
                                 <p style={{ color: "rgb(130, 130, 130)", margin: "0 0 2rem 3rem" }}>Choose your payment</p>
