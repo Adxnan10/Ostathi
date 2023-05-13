@@ -19,7 +19,7 @@ export default function Payment() {
         if(status === "authenticated") {
         return (
             <>
-                <Card className="paymentCard">
+                <Card className="paymentCard" style={{maxWidth:"720px"}}>
                     <Card.Body className="cardBody">
 
                         <div className="container">
