@@ -57,7 +57,7 @@ export default function SessionRoom() {
                     marginBottom: "2rem",
                     textAlign: "center",
                 }
-            }> Link to meeting: <a href = {session?.link||"https://zoom.com"}> Zoom meeting </a> </h6>
+            }> Link to meeting: <a href = {session?.link||"https://zoom.us/test"}> Zoom meeting </a> </h6>
         </div>
 
 
