@@ -13,7 +13,7 @@ export default function RequestSession() {
     const router = useRouter()
     const { data: session, status } = useSession()
     const { data: subjects, error: subjectError, isLoading: loadingSubjects } = useSWR(`/api/subjects/getSubjects`, fetcher)
-    const { id, subject:oldsubject, title:oldtitle, date:olddate, duration:oldduration, description:olddescription, startBid:oldstartBid, time:oldTime, session_id } = router.query
+    const { id, subject: oldsubject, title: oldtitle, date: olddate, duration: oldduration, description: olddescription, startBid: oldstartBid, time: oldTime, session_id } = router.query
     const oldDateTime = olddate + "T" + oldTime
     const [alertBlcok, setAlert] = useState('none')
     const [alertBlcok2, setAlert2] = useState('none')
@@ -22,8 +22,8 @@ export default function RequestSession() {
     const [date, setDate] = useState(oldDateTime)
     const [Duration, setDuration] = useState(oldduration)
     const [description, setDesc] = useState(olddescription)
-    const [startBid, setStartBid] = useState(oldstartBid)    
-    
+    const [startBid, setStartBid] = useState(oldstartBid)
+
 
 
 
@@ -44,14 +44,14 @@ export default function RequestSession() {
                     subject: subject,
                     title: title,
                     Duration: Duration,
-                    sessionID:session_id,
-                    session_type:"requested"
+                    sessionID: session_id,
+                    session_type: "requested"
                 })
             }).then((res) => res.json()).then(res => {
                 if (res.status == "success") {
                     setAlert("block")
                     setTimeout(() => { router.push(`/session?session_id=${session_id}&session_type=requested&user_id=${session.user.id}`) }, 2000);
-                } else if (res.status == "fail"){
+                } else if (res.status == "fail") {
                     setAlert2("block")
                 } else {
                     return (<Error />)
@@ -69,7 +69,7 @@ export default function RequestSession() {
                 <div className="container pageContent">
                     <div>
                         <h2> Being a student is easy. Learning requires actual work. </h2>
-                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodadipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                        <p> Edit your session below. </p>
                     </div>
 
                     <div className="container">
@@ -108,9 +108,9 @@ export default function RequestSession() {
                 <div style={{ padding: "50px 150px 0", display: alertBlcok }}>
                     <Alert variant="success"> Added Successfully!</Alert>
                 </div>
-                <div style={{padding:"50px 150px 0", display:alertBlcok2}}>
-            <Alert variant="danger"> Problem Saving Changes. Offer Already Chosen.</Alert>
-            </div>
+                <div style={{ padding: "50px 150px 0", display: alertBlcok2 }}>
+                    <Alert variant="danger"> Problem Saving Changes. Offer Already Chosen.</Alert>
+                </div>
             </>
         );
     } else {

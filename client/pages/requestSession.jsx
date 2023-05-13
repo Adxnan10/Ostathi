@@ -62,7 +62,7 @@ export default function RequestSession() {
                 <div className="container pageContent">
                     <div>
                         <h2> Being a student is easy. Learning requires actual work. </h2>
-                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodadipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                        <p> You can request a new session in a subject of your choice. Enter the requested session's details in the form below and submit the form. </p>
                     </div>
 
                     <div className="container">
