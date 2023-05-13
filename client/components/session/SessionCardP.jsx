@@ -19,8 +19,10 @@ export default function SessionCardP({ ...props }) {
     userImg: "/logo.svg",
     price: 20
    */
-  const class_images = {"math" : "/math.png" , "programming" : "/programming.png", "algorithms" : "/programming.png",
-     "physics" : "/physics.png" , "data structures" : "/programming.png"  , "medicine" : "/medicine.png" }
+  const class_images = {
+    "math": "/math.png", "programming": "/programming.png", "algorithms": "/programming.png",
+    "physics": "/physics.png", "data structures": "/programming.png", "medicine": "/medicine.png"
+  }
   const data = props.data
   const description = " " + props.session.description
   const subjects = data.subjects.map((value) => value.name).join(", ").substring(0, 15) + "..."
@@ -43,13 +45,13 @@ export default function SessionCardP({ ...props }) {
       })
   }
   const redierctToSession = () => {
-    Router.push(`/session?session_id=${props.session.id}&session_type=requested&user_id=${data.user[0].id}`)
+    Router.push(`/session?session_id=${props.session.id}&session_type=post&user_id=${data.user[0].id}`)
   }
   return (
     <Card className="session-card session-card-posted" style={{ width: '20rem', borderRadius: '1rem' }}>
       <div className="indicator">posted</div>
       <div className={`indicator session-type`}>{props.session.type}</div>
-      <Card.Img onClick={redierctToSession} className="session-card-img" variant="top" src={subject in class_images ? class_images[subject] : "/default_class.png"} alt={subject in class_images ? subject + " icon" : "default session icon"}/>
+      <Card.Img onClick={redierctToSession} className="session-card-img" variant="top" src={subject in class_images ? class_images[subject] : "/default_class.png"} alt={subject in class_images ? subject + " icon" : "default session icon"} />
       <Card.Body>
         <Container onClick={redierctToSession}>
           <div className="session-info d-flex justify-content-around" style={{ color: "#666976" }}>
