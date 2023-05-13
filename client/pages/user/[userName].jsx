@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { BsStar, BsStarFill } from 'react-icons/bs'
 import { useRouter } from 'next/router'
-import { dummyUsers, dummySessions, sessionRating } from '/public/fakeDataBase.json'
 import SessionCardFactory from '../../components/session/SessionCardFactory';
 import Error from '../error'
 import useSWR from 'swr'
@@ -91,7 +90,7 @@ export default function UserPage() {
                 </div>
                 : data.hostSessions.map((value, index) => <>
                   {index <= 2 ?
-                    <Col className='cardMargin' sm="12" md="12" lg="6" xl="6">
+                    <Col key={index} className='cardMargin' sm="12" md="12" lg="6" xl="6">
                       <SessionCardFactory session={value} post={value.requester_id ? "requested" : 'post'} />
                     </Col>
                     :

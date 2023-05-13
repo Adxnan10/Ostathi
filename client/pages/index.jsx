@@ -5,12 +5,10 @@ import { AiFillFileAdd } from 'react-icons/ai'
 import { MdGroups } from 'react-icons/md'
 import { TfiCreditCard } from 'react-icons/tfi'
 import React from 'react';
-import { dummySessions } from '/public/fakeDataBase.json'
 import Router from 'next/router'
 import SessionCardFactory from '../components/session/SessionCardFactory';
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import useSWR from 'swr'
-import Error from './error'
 
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
@@ -29,18 +27,18 @@ export default function HomePage() {
   const [content, setContent] = useState('Content is loading')
 
 
-  
+
   useEffect(() => {
     if (error) {
       setContent(<h1 style={{ textAlign: 'center', height: '40vh', color: "#023047" }}>Trying to load content...</h1>)
     } else if (isLoading) {
       setContent(<h1 style={{ textAlign: 'center', height: '40vh', color: "#023047" }}>Loading content...</h1>)
     } else {
-          setContent(data.result.map((value, index) => {
-            if (index < 4)
-              return <Col key={value.id} xxl={3} xl={4} lg={6} sm={12} ><SessionCardFactory session={value} post="post" /></Col>
-          }))
-        }
+      setContent(data.result.map((value, index) => {
+        if (index < 4)
+          return <Col key={value.id} xxl={3} xl={4} lg={6} sm={12} ><SessionCardFactory session={value} post="post" /></Col>
+      }))
+    }
   }, [data])
 
   function goTosearch() {
@@ -79,15 +77,15 @@ export default function HomePage() {
       </Row>
       <Row id='landingCards'>
         {content}
-        
+
         <Button id='moreSessions' onClick={goTosearch}>See more</Button>
       </Row>
       <Row>
         <div className='landingText'>Choose Your <span style={{ color: "#F48C06" }}> Topic </span></div>
       </Row>
       <Row id='classesLandPage'>
-        {classes.map((value) => <>{
-          <Col sm="6" md="4" lg="4" xl="3">
+        {classes.map((value, index) => <>{
+          <Col key={index} sm="6" md="4" lg="4" xl="3">
             <div onClick={goTosearch} id='classLandPage' style={{ cursor: 'pointer', backgroundImage: `url(${value.img})` }}><div class="d-flex align-items-center justify-content-center">{value.subject}</div></div>
           </Col>
         }</>)}
