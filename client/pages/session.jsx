@@ -315,7 +315,7 @@ export default function SessionDetails() {
                       else
                         placeBid()
                     }
-                  }} disabled={!userSession || session?.currentBid} >
+                  }} disabled={!userSession || (!checkAttendee() && session?.currentBid)} >
                     {checkAttendee() ? 'Enter session' : session_type == "post" ? 'Register' : session?.currentBid ? 'Offers Ended' : 'Offer'}
                   </Button>
                 </Card.Title>

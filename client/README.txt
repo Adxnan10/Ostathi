@@ -1,6 +1,7 @@
 ## Walkthrough video
 You can find it in the final report.
 
+
 ## Tools required
 
 You need to install Node js (v18.15.0) and make sure that npm is updated.
