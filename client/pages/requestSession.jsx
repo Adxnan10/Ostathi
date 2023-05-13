@@ -73,7 +73,7 @@ export default function RequestSession() {
                                 {subjects &&
                                     subjects.subjects.map((subject) => {
                                         return (
-                                            <option value={subject.id}>{subject.name}</option>
+                                            <option key={subject.id} value={subject.id}>{subject.name}</option>
                                         )
                                     })
                                 }

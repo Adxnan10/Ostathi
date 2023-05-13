@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Router from 'next/router'
 import { FaEdit } from 'react-icons/fa'
 import { MdDeleteForever } from 'react-icons/md'
+import { AiOutlineCalendar } from 'react-icons/ai'
 import Container from 'react-bootstrap/Container'
 
 export default function SessionCardR({ ...props }) {
@@ -20,8 +21,10 @@ export default function SessionCardR({ ...props }) {
     userImg: "/logo.svg",
     price: 20
    */
-  const class_images = {"math" : "/math.png" , "programming" : "/programming.png", "algorithms" : "/programming.png",
-    "physics" : "/physics.png" , "data structures" : "/programming.png"  , "medicine" : "/medicine.png" }
+  const class_images = {
+    "math": "/math.png", "programming": "/programming.png", "algorithms": "/programming.png",
+    "physics": "/physics.png", "data structures": "/programming.png", "medicine": "/medicine.png"
+  }
   const data = props.data
   const description = " " + props.session.description
   const subjects = data.subjects.map((value) => value.name).join(", ").substring(0, 15) + "..."
@@ -50,18 +53,18 @@ export default function SessionCardR({ ...props }) {
     <Card className="session-card session-card-posted" style={{ width: '20rem', borderRadius: '1rem' }}>
       <div className="indicator">requested</div>
       <div className={`indicator session-type`}>one-one</div>
-      <Card.Img onClick={redierctToSession} className="session-card-img" variant="top" src={subject in class_images ? class_images[subject] : "/default_class.png"} alt={subject in class_images ? subject + " icon" : "default session icon"}/>
+      <Card.Img onClick={redierctToSession} className="session-card-img" variant="top" src={subject in class_images ? class_images[subject] : "/default_class.png"} alt={subject in class_images ? subject + " icon" : "default session icon"} />
       <Card.Body>
+
         <Container className='clickable-container' onClick={redierctToSession}>
-          <div className="session-info d-flex justify-content-around" style={{ color: "#666976" }}>
-            <div className="topic">
-              <BsGrid /> <span> {subjects}</span>
+          <div className="session-info d-flex justify-content-between" style={{ color: "#666976", fontSize: '.9em', fontStyle: 'italic' }}>
+            <div className="date" style={{ color: "#666976" }}>
+              <AiOutlineCalendar /><span>{` ${props.session.Date} at ${props.session.Time}`}</span>
             </div>
             <div className="duration" >
-              <BsClockHistory /><span>{` ${props.session.duration}`}</span>
+              <BsClockHistory /><span>{` ${props.session.duration} mins`}</span>
             </div>
           </div>
-
           <Card.Title>{props.session.title}</Card.Title>
           <Card.Text style={{ color: "#666976" }}>
             {description.substring(0, 100)} <span style={{ color: '#6E7BAF' }}>...Read more</span>
