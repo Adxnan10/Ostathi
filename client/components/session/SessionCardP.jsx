@@ -67,7 +67,7 @@ export default function SessionCardP({ ...props }) {
           </Card.Text>
         </Container>
         {props.owner ? <>
-          <Button variant='none' className="indicator-edit-btn" onClick={() => Router.push(`/session/edit/${props.session.id}`)}>Edit <FaEdit /></Button>
+          <Button variant='none' className="indicator-edit-btn" onClick={() => Router.push(`/session/edit/postSession?id=${data.user[0].id}&price=${props.session.price}&date=${props.session.Date}&time=${props.session.Time}&type=${props.session.type}&description=${props.session.description}&subject=${props.session.subject}&title=${props.session.title}&duration=${props.session.duration}&session_id=${props.session.id}`)}>Edit <FaEdit /></Button>
           <Button variant='none' className="indicator-delete-btn" onClick={() => deleteSession()}>Delete <MdDeleteForever /></Button>
         </> : <div className="d-flex justify-content-between align-items-center">
           <div className='user-info' onClick={redierctToSession}>
