@@ -1,5 +1,7 @@
 import Router from 'next/router'
 import { useRouter } from 'next/router'
+
+import Alert from 'react-bootstrap/Alert'
 import { useState } from 'react'
 import useSWR from 'swr'
 import { useSession } from "next-auth/react"
@@ -8,6 +10,7 @@ import { useSession } from "next-auth/react"
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function EditProfile() {
+    const [alertBlcok, setAlert] = useState('none')
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const { data: session, status } = useSession()
@@ -30,7 +33,8 @@ export default function EditProfile() {
                 }) 
             }).then((res) => res.json()).then(res => {
                 if (res.status == "success"){
-                    router.push(`/dashboard?username=${session?.user?.username}`);
+                    setAlert("block")
+                    setTimeout(() => {router.push(`/dashboard?username=${session?.user?.username}`) }, 2000);
                 } else {
                     return(<Error/>)
                 }
@@ -51,6 +55,9 @@ export default function EditProfile() {
                                 <div className="row">
                                     <div className="row">
                                         <h1 id="details">Details</h1>
+                                    </div>
+                                    <div style={{padding:"0 150px 0", display:alertBlcok}}>
+                                    <Alert variant="success"> Added Successfully!  Redirecting...</Alert>
                                     </div>
                                     <label htmlFor="Name" className="Labels">
                                         Name
@@ -96,21 +103,21 @@ export default function EditProfile() {
                                         Edit Picture
                                     </button>
                                 </div>
-                                <div className="row">
-                                    <button className="btn btn-primary dis" onClick={() => Router.push(`/dashboard?username=${session?.user?.username}&id=${session?.user?.id}`)}>
-                                        Preview
-                                    </button>
-                                </div>
+                                
                                 <div className="row">
                                     <button className="btn btn-primary profileButton" type="submit">
                                         Save
+                                    </button>
+                                </div>
+                                <div className="row">
+                                    <button type="button" className="btn btn-primary cancelProfile" onClick={() => Router.push(`/dashboard?username=${session?.user?.username}&id=${session?.user?.id}`)}>
+                                        Cancel
                                     </button>
                                 </div>
                             </div>
 
                         </div>
                     </form>
-
                 </div>
             </>
         );

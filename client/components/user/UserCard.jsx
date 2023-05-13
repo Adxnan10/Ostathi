@@ -21,7 +21,7 @@ export default function UserCard({ ...props }) {
   return (
     <div className="userCard" onClick={goToUserPage}>
       <div className="img-container">
-        <img src={props.user.profilePicture} alt="" />
+        <img src={props.user.profilePicture == undefined ? "Profile.png": props.user.profilePicture} alt="" />
       </div>
       <h4 className="user-full-name">{props.user.name}</h4>
       <p className="user-major">{props.user.pref_subject}</p>

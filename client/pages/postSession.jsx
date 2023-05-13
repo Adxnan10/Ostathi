@@ -1,27 +1,29 @@
 import { useSession } from "next-auth/react"
 import Form from 'react-bootstrap/Form'
+import Alert from 'react-bootstrap/Alert'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+
 import useSWR from 'swr'
 import Error from "./error"
 
+const fetcher = (...args) => fetch(...args).then((res) => res.json()) // To be called by useSWR
 
 export default function PostSession() {
-    const [Subject, setSubject] = useState('')
+    const [alertBlcok, setAlert] = useState('none')
+    const [subject, setSubject] = useState('')
     const [title, setTitle] = useState('')
     const [date, setDate] = useState('')
     const [Duration, setDuration] = useState('')
     const [description, setDesc] = useState('')
     const [price, setPrice] = useState('')
     const [type, setType] = useState('')
-    //const { data, error, isLoading } = useSWR(`/api/sessions/postSession?subject=${Subject}&title=${title}&Date=${date}&Duration=${Duration}&description=${description}&price=${price}&type2=${type2}&type=${type}&id=${ID}`, fetcher)
     const router = useRouter()
     const { data: session, status } = useSession()
-    //const { data: subjects, error: subjectError, isLoading: loadingSubjects } = useSWR(`/api/subjects/getSubjects`, fetcher)
+    const { data: subjects, error: subjectError, isLoading: loadingSubjects } = useSWR(`/api/subjects/getSubjects`, fetcher)
     if (status === "authenticated") {
         
     const id = session.user.id;
-
     const send = (event) => {
         event.preventDefault()
         fetch(`/api/sessions/postSession`, {
@@ -33,13 +35,15 @@ export default function PostSession() {
                 Date:date,
                 type:type,
                 description:description,
-                subject:Subject,
+                subject:subject,
                 title:title,
                 Duration:Duration
             }) 
         }).then((res) => res.json()).then(res => {
             if (res.status == "success"){
-                router.push("/")
+                setAlert("block")
+                setTimeout(() => {router.push("/") }, 3000);
+               
             } else {
                 return(<Error/>)
             }
@@ -62,12 +66,15 @@ export default function PostSession() {
                 <div className="container">
                     <Form className="form-post" method="POST" onSubmit={send}>
                         <label className="row" htmlFor="Subject"> Session Subject</label>
-                        <select className="row full-width" name="Subject" placeholder="Software Engineering"  onChange={(event) => {setSubject(event.target.value)}}>
-                            <option value="Tech" defaultValue>Technology </option>
-                            <option value="Math"> Mathematics </option>
-                            <option value="Physics"> Physics </option>
-                            <option value="Chemistry"> Chemistry </option>
-                            
+                        <select className="row full-width" name="Subject" placeholder="Choose Subjcet"  onChange={(event) => {setSubject(event.target.value)}}>
+                        <option key={0} value={0}>Choose Subject</option>
+                        {subjects &&
+                subjects.subjects.map((subject) => {
+                  return (
+                    <option value={subject.id}>{subject.name}</option>
+                  )
+                })
+              }
                         </select>
                         <label className="row" htmlFor="title"> Session Title </label>
                         <input className="row full-width" type="text" name="title" placeholder="Introduction to Web Development and Engineering" required onChange={(event) => {setTitle(event.target.value)}}/>
@@ -103,9 +110,12 @@ export default function PostSession() {
                     </Form>
                 </div>
             </div>
+            <div style={{padding:"50px 150px 0", display:alertBlcok}}>
+            <Alert variant="success"> Added Successfully!</Alert>
+            </div>
         </>
     )}
-    else {
-        return(router.push('/login'));
+else {
+        router.push('/login');
     }
 }

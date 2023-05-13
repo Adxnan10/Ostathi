@@ -75,7 +75,7 @@ const getUser = async (username) => {
 const getSessionRating = async (session_id) => {
   const db = await getDbConnection();
   const sessions = await db.all(`
-  SELECT * FROM RATING WHERE tutor_id = (SELECT tutor_id FROM SESSION WHERE id = '${session_id}')
+  SELECT rate.rating, comment, date, name FROM RATING rate JOIN USER rater on rate.rater_id = rater.id WHERE tutor_id = (SELECT tutor_id FROM SESSION WHERE id = '${session_id}')
   `)
   await db.close()
   return sessions
@@ -193,18 +193,25 @@ const getSessionDetails = async (session_id, session_type) => {
 const addSession = async (session_data, post, date, time) => {
   const db = await getDbConnection();
   if (!post) {
-    const meta = await db.run(`insert into request_session('requester_id', 'title', 'description', 'Duration','Date','Time','startBid','currentBid') 
-    values ('${session_data.id}','${session_data.title}','${session_data.description}','${session_data.Duration}','${date}','${time}','${session_data.startBid}','${session_data.startBid}')`);
+
+    const meta = await db.run(`insert into request_session('requester_id', 'title', 'description', 'Duration','Date','Time','startBid') 
+    values ('${session_data.id}','${session_data.title}','${session_data.description}','${session_data.Duration}','${date}','${time}','${session_data.startBid}')`);
+    const meta_subject = await db.run(`insert into session_subject('request_session_id','subject_id')
+    values ('${meta.lastID}','${session_data.subject}')`)
     await db.close()
     return meta
   } else {
     const meta = await db.run(`insert into session('title', 'description', 'Date','Time','Duration','Type', 'price', 'tutor_id') 
     values ('${session_data.title}','${session_data.description}','${date}','${time}','${session_data.Duration}','${session_data.type}','${session_data.price}','${session_data.id}')`);
+
+    const meta_subject = await db.run(`insert into session_subject('session_id','subject_id')
+    values ('${meta.lastID}','${session_data.subject}')`)
     await db.close()
     return meta
   }
 
 }
+
 // updates the sessions table with the data given. 
 // Note that the data parameter is an object that holds the session columns like the author and the content 
 // And returns metadata about the updated row.
@@ -245,11 +252,16 @@ const updateSession = async (session_id, data) => {
   return meta
 }
 // deletes the session from the database. And returns metadata about the affected row.
-const deletesession = async (session_id) => {
+const deleteSession = async (session_id, session_type) => {
   const db = await getDbConnection();
-  const meta = await db.run(`DELETE FROM session WHERE id = ${session_id}`)
+  if (session_type == 'post') {
+    const meta = await db.run(`DELETE FROM SESSION WHERE id = '${session_id}'`)
+  } else if (session_type == 'requested') {
+    const meta = await db.run(`DELETE FROM REQUEST_SESSION WHERE id = '${session_id}'`)
+  }
   await db.close()
   return meta
+
 }
 
 // AHMAD ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -324,7 +336,7 @@ export default {
   getSessionDetails,
   addSession,
   updateSession,
-  deletesession,
+  deleteSession,
   getUserSessionsRequested,
   getUserRating,
   getOwnerPosted,
@@ -335,5 +347,5 @@ export default {
   getBidders,
   chooseBidder,
   placeBid,
-  getSessionRating
+  getSessionRating,
 }

@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert'
 import Card from 'react-bootstrap/Card';
 import { BsStar, BsStarFill, BsGrid } from 'react-icons/bs'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { useRouter } from 'next/router'
 import Router from 'next/router'
 import Error from './error'
-import { dummyUsers, dummySessions, sessionRating } from '/public/fakeDataBase.json'
 import useSWR from 'swr'
 import { signIn, useSession } from "next-auth/react"
 
@@ -19,26 +19,24 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json()) // To be c
 
 export default function SessionDetails() {
   const { data: userSession } = useSession()
-  const [isAttendee, setIsAttendee] = useState(false)
+  const [alertBlcok, setAlert] = useState('none')
+  const [alertContent, setContent] = useState('none')
+  const [alertVar, setVar] = useState('none')
   const [rate, setRate] = useState("none");
   const [overview, setOverview] = useState('block')
-  const [OVB, setOVB] = useState("")
   const [biddersBlock, setBiddersBlock] = useState("none")
-
   const router = useRouter()
   const { session_id, session_type } = router.query
   const { data, error, isLoading } = useSWR(`/api/sessions/loadSession?session_id=${session_id}&session_type=${session_type}`, fetcher) // Fetches data from the API
   let user_id = session_type == "post" ? data?.session.tutor_id : data?.session.requester_id
   const { data: sessionInfo, isLoading: LoadingSessionInfo } = useSWR(`/api/sessions/loadSessionInfo?session_id=${session_id}&session_type=${session_type}&user_id=${user_id}`, fetcher) // Fetches data from the API
-  //const [sessions, setSessions] = useState([...dummySessions]);
-  //const [ratings, setRatings] = useState([...sessionRating]);
   const { data: biddersData } = useSWR(`/api/sessions/biddingHandler?session_id=${session_id}`, fetcher) // Fetches data from the API
   if (isLoading || LoadingSessionInfo) {
     return <h1> Loading . </h1>
   }
   if (error) {
-    return  <div className="404-block d-flex justify-content-center align-items-center" style={{ height: '65vh' }}>
-    <h1 style={{ color: "#023047" }}>Error Has Occured<span style={{ color: "#F48C06" }}> Ostathi!</span>.</h1>
+    return <div className="404-block d-flex justify-content-center align-items-center" style={{ height: '65vh' }}>
+      <h1 style={{ color: "#023047" }}>Error Has Occured<span style={{ color: "#F48C06" }}> Ostathi!</span>.</h1>
     </div>
   }
 
@@ -109,13 +107,13 @@ export default function SessionDetails() {
     setOverview("none");
     setBiddersBlock("none")
     e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) //previousSibling.classList.remove("activeButtonDS")
-    e.currentTarget.classList.add("activeButtonDS");    
+    e.currentTarget.classList.add("activeButtonDS");
   }
   const overViewView = (e) => {
     setOverview("block");
     setRate("none");
     setBiddersBlock("none")
-    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) 
+    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS"))
     e.currentTarget.classList.add("activeButtonDS");
   }
 
@@ -123,7 +121,7 @@ export default function SessionDetails() {
     setOverview("none");
     setRate("none");
     setBiddersBlock("block")
-    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) 
+    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS"))
     e.currentTarget.classList.add("activeButtonDS");
   }
 
@@ -133,29 +131,39 @@ export default function SessionDetails() {
     }).then(response => response.json())
       .then(data => {
         if (data.error) {
-          alert(data.error)
+          setAlert("block")
+          setVar("danger")
+          setContent(data.error)
         } else {
-          alert("Bidder has been chosen")
-          Router.reload(window.location.pathname)
+          setAlert("block")
+          setVar("success")
+          setContent("Offer Has Been Choosen")
+          setTimeout(() => { Router.reload(window.location.pathname) }, 4000);
         }
       })
   }
   const placeBid = () => {
     if (!userSession) {
-      alert("You Are Not Signed in")
+      setAlert("block")
+      setVar("danger")
+      setContent("You are not Signed In")
       return;
     }
-    const price = prompt("Please enter your bid price")
+    const price = prompt("Please enter your Offer price")
     if (price != null) {
       fetch(`/api/sessions/placeBid?session_id=${session.id}&price=${price}&user_id=${userSession.user.id}`, {
         method: 'PUT',
       }).then(response => response.json())
         .then(data => {
           if (data.error) {
-            alert(data.error)
+            setAlert("block")
+            setVar("danger")
+            setContent(data.error)
           } else {
-            alert("Bid has been placed")
-            Router.reload(window.location.pathname)
+            setAlert("block")
+            setVar("success")
+            setContent("Offer Has Been Placed")
+            setTimeout(() => { Router.reload(window.location.pathname) }, 3000);
           }
         })
     }
@@ -166,6 +174,9 @@ export default function SessionDetails() {
       <>
         <div className="sessionBackGrnd" />
         <Container>
+          <div style={{ margin: "2rem 30vw 0 0", display: alertBlcok }}>
+            <Alert variant={alertVar} onClose={() => { setAlert("none") }} dismissible>{alertContent}</Alert>
+          </div>
           <Row>
             <Col sm="12" md="8" id='sessionDetailsPage'>
               <Row>
@@ -177,7 +188,7 @@ export default function SessionDetails() {
                     Rating
                   </Button>
                   {session_type == "requested" && <Button className="optionSessionPage" onClick={biddersView}>
-                    Bidders
+                    Offered by
                   </Button>}
                 </Col>
 
@@ -205,7 +216,7 @@ export default function SessionDetails() {
                     <Row>
                       <Col sm="12" md="6" lg="4" xlg="4">
                         <div className='ratingBox'>
-                          <h4>{!Math.round(total()* 10) / 10 ? 0 : Math.round(total() * 10) / 10} out of 5</h4>
+                          <h4>{!Math.round(total() * 10) / 10 ? 0 : Math.round(total() * 10) / 10} out of 5</h4>
                           {stars(total())}
                           <p>{ratings.length} reviews</p>
                         </div>
@@ -229,11 +240,13 @@ export default function SessionDetails() {
                       </Col>
                     </Row>
                     {ratings.map((value, index) => {
+                      console.log("Here")
+                      console.log(value)
                       return (
                         <><Row>
                           <div className='datailsSession'>
                             <div className='datailsSession'>
-                              <img src={sessionInfo.user[0].profilePicture == undefined ? "Profile.png" : sessionInfo.user[0].profilePicture} alt="Model" id='sessionPics' />
+                              <img src={value.profilePicture == undefined ? "Profile.png" : value.profilePicture} alt="Model" id='sessionPics' />
                               <p id='nameSessionDet'>{value.name}</p >
                             </div>
                             <div className='datailsSession'>
@@ -252,32 +265,36 @@ export default function SessionDetails() {
                     })}
                   </div>
                   <div className='biddersView' style={{ display: biddersBlock }}>
-                    {biddersData?.bidders?.map((value, index) => {
-                      return (
-                        <>
-                          <Row>
-                            <div className='datailsSession'>
+                    {biddersData.bidders.length == 0 ?
+                      <p>
+                        No tutors has offered
+                      </p>
+                      : biddersData?.bidders?.map((value, index) => {
+                        return (
+                          <>
+                            <Row>
                               <div className='datailsSession'>
-                                <img src={value.profilePicture == undefined ? "Profile.png": value.profilePicture} alt="Model" id='sessionPics' />
-                                <p id='nameSessionDet'>{value.name}</p >
+                                <div className='datailsSession'>
+                                  <img src={value.profilePicture == undefined ? "Profile.png" : value.profilePicture} alt="Model" id='sessionPics' />
+                                  <p id='nameSessionDet'>{value.name}</p >
+                                </div>
+                                <div className='datailsSession'>
+                                  <span> Bid Value: {value.bid}
+                                  </span>
+                                  {!session.currentBid && owner &&
+                                    <Button variant='success' onClick={() => chooseBid(value.id, value.session_id)}>Choose</Button>
+                                  }
+                                  {session.tutor_id == value.id && <Button variant='success' disabled="true">CHOSEN TUTOR</Button>}
+                                </div>
                               </div>
-                              <div className='datailsSession'>
-                                <span> Bid Value: {value.bid}
-                                </span>
-                                {!session.currentBid && owner &&
-                                  <Button variant='success' onClick={() => chooseBid(value.id, value.session_id)}>Choose</Button>
-                                }
-                                {session.tutor_id == value.id && <Button variant='success' disabled="true">CHOSEN TUTOR</Button>}
-                              </div>
-                            </div>
-                          </Row>
-                          {/* <Row className='datailsSession'>
+                            </Row>
+                            {/* <Row className='datailsSession'>
                             
                           </Row> */}
-                          {ratings.length - index - 1 == 0 ? <></> : <hr />}
-                        </>
-                      );
-                    })}
+                            {ratings.length - index - 1 == 0 ? <></> : <hr />}
+                          </>
+                        );
+                      })}
                   </div>
                 </div>
               </Row>
@@ -286,7 +303,7 @@ export default function SessionDetails() {
               <Card id='floatingCard'>
                 <Card.Img variant="top" id='tutorPicSD' src={subject in class_images ? class_images[subject] : "/default_class.png"} alt={subject in class_images ? subject + " icon" : "default session icon"}/>
                 <Card.Title className='cardHeader'>
-                  <h2 >{session_type == "post" ? session.price : session.startBid} SAR</h2>
+                  <h2 >{session_type == "post" ? session.price : session.currentBid ? session.currentBid : session.startBid} SAR</h2>
                   <p>{data.attendees.length} joined! </p>
                   <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => {
                     if (session_type == "post")
@@ -297,9 +314,9 @@ export default function SessionDetails() {
                           `session/room/session_room?session_id=${session_id}&session_type=${session_type}`)
                       else
                         placeBid()
-                      }
-                  }} disabled={!userSession && session?.currentBid} >
-                    {checkAttendee() ? 'Enter session' : session_type == "post" ? 'Register' : session?.currentBid ? 'Bidding Ended' : 'Bid'}
+                    }
+                  }} disabled={!userSession || session?.currentBid} >
+                    {checkAttendee() ? 'Enter session' : session_type == "post" ? 'Register' : session?.currentBid ? 'Offers Ended' : 'Offer'}
                   </Button>
                 </Card.Title>
                 <hr />
