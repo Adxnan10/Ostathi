@@ -252,11 +252,16 @@ const updateSession = async (session_id, data) => {
   return meta
 }
 // deletes the session from the database. And returns metadata about the affected row.
-const deletesession = async (session_id) => {
+const deleteSession = async (session_id, session_type) => {
   const db = await getDbConnection();
-  const meta = await db.run(`DELETE FROM session WHERE id = ${session_id}`)
+  if (session_type == 'post') {
+    const meta = await db.run(`DELETE FROM SESSION WHERE id = '${session_id}'`)
+  } else if (session_type == 'requested') {
+    const meta = await db.run(`DELETE FROM REQUEST_SESSION WHERE id = '${session_id}'`)
+  }
   await db.close()
   return meta
+
 }
 
 // AHMAD ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -331,7 +336,7 @@ export default {
   getSessionDetails,
   addSession,
   updateSession,
-  deletesession,
+  deleteSession,
   getUserSessionsRequested,
   getUserRating,
   getOwnerPosted,
