@@ -271,6 +271,7 @@ button.cancelProfile {
     height: 3rem;
     width: 25rem;
 }
+
 button.cancelProfile:hover {
     margin: 1rem auto 0 auto;
     background-color: #c27106;
@@ -287,7 +288,7 @@ button.profileButton:hover {
     width: 25rem;
 }
 
-button.dis{
+button.dis {
     cursor: not-allowed;
     pointer-events: none;
     margin: 1rem auto 0 auto;
@@ -909,7 +910,7 @@ h4 {
     border: 1px solid #D9D9D9;
     border-radius: 10px;
     box-sizing: border-box;
-    color: #9D9B9B;
+    color: var(--secondryColor);
 }
 
 .form-post .half-width {
@@ -920,17 +921,7 @@ h4 {
     border: 1px solid #D9D9D9;
     border-radius: 10px;
     box-sizing: border-box;
-    color: #9D9B9B;
-}
-.form-post .quarter-width {
-    display: block;
-    width: 25%;
-    max-width: 49vw;
-    padding: 0.85rem;
-    border: 1px solid #D9D9D9;
-    border-radius: 10px;
-    box-sizing: border-box;
-    color: #9D9B9B;
+    color: var(--secondryColor);
 }
 
 .form-post .quarter-width {
@@ -941,7 +932,18 @@ h4 {
     border: 1px solid #D9D9D9;
     border-radius: 10px;
     box-sizing: border-box;
-    color: #9D9B9B;
+    color: var(--secondryColor);
+}
+
+.form-post .quarter-width {
+    display: block;
+    width: 25%;
+    max-width: 49vw;
+    padding: 0.85rem;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: var(--secondryColor);
 }
 
 
