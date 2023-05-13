@@ -44,7 +44,8 @@ export default function SessionRoom() {
         <div className='chat-container' style={{marginTop: "2rem", width:"80%", justifyItems:"center", alignItems:"center"}}>
             <h1 style={{textAlign:"center", marginBottom:"1rem"}}> Session Meeting </h1> 
             
-                <img src="https://t3.ftcdn.net/jpg/03/78/19/34/360_F_378193453_hMzRmqmk3c8ce4jiR9bpPpte2kWncjQA.jpg" alt="zoom" style={{
+                <img src="https://t3.ftcdn.net/jpg/03/78/19/34/360_F_378193453_hMzRmqmk3c8ce4jiR9bpPpte2kWncjQA.jpg" 
+                role="button" onClick={() => window.open(session?.link||"https://zoom.us/test")} alt="zoom" style={{
                     width: "95%",
                     height: "95%",
                     objectFit: "fill",
@@ -57,7 +58,7 @@ export default function SessionRoom() {
                     marginBottom: "2rem",
                     textAlign: "center",
                 }
-            }> Link to meeting: <a href = {session?.link||"https://zoom.com"}> Zoom meeting </a> </h6>
+            }> Link to meeting: <a target="_blank" href = {session?.link||"https://zoom.us/test"}> Zoom meeting </a> </h6>
         </div>
 
 
