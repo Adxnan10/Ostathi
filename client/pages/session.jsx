@@ -45,6 +45,12 @@ export default function SessionDetails() {
 
   const session = data.session
   const ratings = data?.rating
+  const subjects = sessionInfo.subjects
+  const subject = subjects[0]?.name          // main subject of the session
+  const class_images = {"math" : "/math.png" , "programming" : "/programming.png", "algorithms" : "/programming.png",
+    "physics" : "/physics.png" , "data structures" : "/programming.png"  , "medicine" : "/medicine.png" }
+
+
   function calcRates() {
     const totalRating = [0, 0, 0, 0, 0];
     ratings.forEach((e) => {
@@ -278,7 +284,7 @@ export default function SessionDetails() {
             </Col>
             <Col>
               <Card id='floatingCard'>
-                <Card.Img variant="top" src="/Model.jpeg" id='tutorPicSD' />
+                <Card.Img variant="top" id='tutorPicSD' src={subject in class_images ? class_images[subject] : "/default_class.png"} alt={subject in class_images ? subject + " icon" : "default session icon"}/>
                 <Card.Title className='cardHeader'>
                   <h2 >{session_type == "post" ? session.price : session.startBid} SAR</h2>
                   <p>{data.attendees.length} joined! </p>
