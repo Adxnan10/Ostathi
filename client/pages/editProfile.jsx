@@ -1,17 +1,46 @@
 import Router from 'next/router'
+import { useRouter } from 'next/router'
+
+import Alert from 'react-bootstrap/Alert'
+import { useState } from 'react'
 import useSWR from 'swr'
 import { useSession } from "next-auth/react"
 
 
-const fetcher = (...args) => fetch(...args, { method: "GET" }).then((res) => res.json())
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function EditProfile() {
+    const [alertBlcok, setAlert] = useState('none')
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
     const { data: session, status } = useSession()
     const { data, error, isLoading } = useSWR(`/api/user/editProfile?username=${session?.user?.username}`, fetcher)
+    const router = useRouter()
     if (status === "authenticated") {
         if (isLoading) {
             return (<h1>We are bringing your info</h1>)
         }
+        const id = session.user.id;
+        const send = (event) => {
+            event.preventDefault()
+            fetch(`/api/user/editProfile`, {
+                method: "POST",
+                headers: {'Accept': 'application/json',"Content-Type" : "application/json"},
+                body: JSON.stringify({
+                    id:id,
+                    name:name,
+                    email:email
+                }) 
+            }).then((res) => res.json()).then(res => {
+                if (res.status == "success"){
+                    setAlert("block")
+                    setTimeout(() => {router.push(`/dashboard?username=${session?.user?.username}`) }, 2000);
+                } else {
+                    return(<Error/>)
+                }
+            })
+        }
+
         return (
             <>
                 <div className="editHeader">
@@ -19,8 +48,7 @@ export default function EditProfile() {
                 </div>
 
                 <div className="container">
-                    <form method='POST' action='/api/user/editProfile'>
-                        <input value={session?.user?.id} name="id" style={{ display: "none" }} />
+                    <form method='POST' onSubmit={send}>
                         <div className="row  editProfile">
                             <div className="col-sm-12 col-md-12 col-lg-6">
 
@@ -28,12 +56,15 @@ export default function EditProfile() {
                                     <div className="row">
                                         <h1 id="details">Details</h1>
                                     </div>
+                                    <div style={{padding:"0 150px 0", display:alertBlcok}}>
+                                    <Alert variant="success"> Added Successfully!  Redirecting...</Alert>
+                                    </div>
                                     <label htmlFor="Name" className="Labels">
                                         Name
                                     </label>
                                 </div>
                                 <div className="row">
-                                    <input type="text" name="Name" className="col paymenyButtons" placeholder={data == undefined ? "" : data.name} />
+                                    <input type="text" name="Name" className="col paymenyButtons" placeholder={data == undefined ? "" : data.name} onChange={(event) => {setName(event.target.value)}}/>
                                 </div>
 
                                 <div className="row">
@@ -51,7 +82,7 @@ export default function EditProfile() {
                                     </label>
                                 </div>
                                 <div className="row">
-                                    <input type="text" name="Email" className="col paymenyButtons" placeholder={data == undefined ? "" : data.email} />
+                                    <input type="email" name="Email" className="col paymenyButtons" placeholder={data == undefined ? "" : data.email} onChange={(event) => {setEmail(event.target.value)}}/>
                                 </div>
                                 <div className="row">
                                     <label htmlFor="DateBirth" className="Labels">
@@ -72,21 +103,21 @@ export default function EditProfile() {
                                         Edit Picture
                                     </button>
                                 </div>
-                                <div className="row">
-                                    <button className="btn btn-primary dis" onClick={() => Router.push(`/dashboard?username=${session?.user?.username}&id=${session?.user?.id}`)}>
-                                        Preview
-                                    </button>
-                                </div>
+                                
                                 <div className="row">
                                     <button className="btn btn-primary profileButton" type="submit">
                                         Save
+                                    </button>
+                                </div>
+                                <div className="row">
+                                    <button type="button" className="btn btn-primary cancelProfile" onClick={() => Router.push(`/dashboard?username=${session?.user?.username}&id=${session?.user?.id}`)}>
+                                        Cancel
                                     </button>
                                 </div>
                             </div>
 
                         </div>
                     </form>
-
                 </div>
             </>
         );

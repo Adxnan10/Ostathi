@@ -6,12 +6,25 @@ import { MdDeleteForever } from 'react-icons/md'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 export default function SessionCardP({ ...props }) {
-
-  const classes = ["/algebra.png", "/Calclus.png", "/programming.png",
-    "/managmanet.png", "/physics.png", "/science.png", "/art.png"]
+  /**
+   * you should pass a session as an object
+   * a session object looks like:
+    post: true, // this is not necessary for this component to work
+    topic: "Math",
+    duration: "2 hours",
+    title: "Linear Algebra",
+    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
+    img: "/Model.jpeg",
+    userName: "Yzd",
+    userImg: "/logo.svg",
+    price: 20
+   */
+  const class_images = {"math" : "/math.png" , "programming" : "/programming.png", "algorithms" : "/programming.png",
+     "physics" : "/physics.png" , "data structures" : "/programming.png"  , "medicine" : "/medicine.png" }
   const data = props.data
   const description = " " + props.session.description
   const subjects = data.subjects.map((value) => value.name).join(", ").substring(0, 15) + "..."
+  const subject = data.subjects.map((value) => value.name)[0]
   const deleteSession = () => {
     const answer = confirm('Are you sure you want to delete this session?')
     if (answer)
@@ -36,7 +49,7 @@ export default function SessionCardP({ ...props }) {
     <Card className="session-card session-card-posted" style={{ width: '20rem', borderRadius: '1rem' }}>
       <div className="indicator">posted</div>
       <div className={`indicator session-type`}>{props.session.type}</div>
-      <Card.Img className="session-card-img" variant="top" src={classes[Math.floor(Math.random() * 6)]} onClick={redierctToSession} />
+      <Card.Img onClick={redierctToSession} className="session-card-img" variant="top" src={subject in class_images ? class_images[subject] : "/default_class.png"} alt={subject in class_images ? subject + " icon" : "default session icon"}/>
       <Card.Body>
         <Container onClick={redierctToSession}>
           <div className="session-info d-flex justify-content-around" style={{ color: "#666976" }}>

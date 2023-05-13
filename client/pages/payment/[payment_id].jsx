@@ -76,7 +76,8 @@ export default function Payment() {
                                     </button>
                                 </div>
                                 <div className="row">
-                                    <button className="btn btn-primary col paymenyButtons" id="cancelPayment" onClick={() => Router.push(`/session/${session_id}`)}>
+                                    <button className="btn btn-primary col paymenyButtons" id="cancelPayment" type='button' onClick={() => Router.push(`/searchPage`)}>
+
                                         Cancel
                                     </button>
                                 </div>
@@ -87,7 +88,7 @@ export default function Payment() {
             </>
         ); }
         else {
-            return(<div className="404-block d-flex justify-content-center align-items-center" style={{ height: '60vh' }}>
+            return(<div className="404-block d-flex justify-content-center align-items-center" style={{ height: '65vh' }}>
             <h1 style={{ color: "#023047" }}>You Are not Signed in<span style={{ color: "#F48C06" }}> Ostathi!</span>.</h1>
             </div>)
           }

@@ -263,6 +263,22 @@ button.profileButton {
     width: 25rem;
 }
 
+button.cancelProfile {
+    margin: 1rem auto 0 auto;
+    color: #F48C06;
+    background-color: white;
+    border: 2px solid #F48C06;
+    height: 3rem;
+    width: 25rem;
+}
+button.cancelProfile:hover {
+    margin: 1rem auto 0 auto;
+    background-color: #c27106;
+    border: none;
+    height: 3rem;
+    width: 25rem;
+}
+
 button.profileButton:hover {
     margin: 1rem auto 0 auto;
     background-color: #c27106;
@@ -631,6 +647,9 @@ p>.BsGrid {
 }
 
 #sessionPics {
+    width: 90px;
+    height: 90px;
+    padding: 10px;
     border-radius: 50%;
 }
 
@@ -711,9 +730,9 @@ p>.BsGrid {
     min-height: 35rem;
 }
 
-#sessionPics {
+/* #sessionPics {
     border-radius: 50%;
-}
+} */
 
 #nameSessionDet {
     display: flex;
