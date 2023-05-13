@@ -4,23 +4,17 @@ import Router from 'next/router'
 import { FaEdit } from 'react-icons/fa'
 import { MdDeleteForever } from 'react-icons/md'
 import Button from 'react-bootstrap/Button'
+import { AiOutlineCalendar } from 'react-icons/ai'
 import Container from 'react-bootstrap/Container'
 export default function SessionCardP({ ...props }) {
   /**
    * you should pass a session as an object
-   * a session object looks like:
-    post: true, // this is not necessary for this component to work
-    topic: "Math",
-    duration: "2 hours",
-    title: "Linear Algebra",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, voluptate!",
-    img: "/Model.jpeg",
-    userName: "Yzd",
-    userImg: "/logo.svg",
-    price: 20
+   * a session object looks like...
    */
-  const class_images = {"math" : "/math.png" , "programming" : "/programming.png", "algorithms" : "/programming.png",
-     "physics" : "/physics.png" , "data structures" : "/programming.png"  , "medicine" : "/medicine.png" }
+  const class_images = {
+    "math": "/math.png", "programming": "/programming.png", "algorithms": "/programming.png",
+    "physics": "/physics.png", "data structures": "/programming.png", "medicine": "/medicine.png"
+  }
   const data = props.data
   const description = " " + props.session.description
   const subjects = data.subjects.map((value) => value.name).join(", ").substring(0, 15) + "..."
@@ -49,13 +43,13 @@ export default function SessionCardP({ ...props }) {
     <Card className="session-card session-card-posted" style={{ width: '20rem', borderRadius: '1rem' }}>
       <div className="indicator">posted</div>
       <div className={`indicator session-type`}>{props.session.type}</div>
-      <Card.Img onClick={redierctToSession} className="session-card-img" variant="top" src={subject in class_images ? class_images[subject] : "/default_class.png"} alt={subject in class_images ? subject + " icon" : "default session icon"}/>
+      <Card.Img onClick={redierctToSession} className="session-card-img" variant="top" src={subject in class_images ? class_images[subject] : "/default_class.png"} alt={subject in class_images ? subject + " icon" : "default session icon"} />
       <Card.Body>
         <Container onClick={redierctToSession}>
-          <div className="session-info d-flex justify-content-around" style={{ color: "#666976" }}>
-            <div className="topic">
-              <BsGrid />
-              <span> {subjects}</span>
+
+          <div className="session-info d-flex justify-content-between" style={{ color: "#666976", fontSize: '.9em', fontStyle: 'italic' }}>
+            <div className="date" style={{ color: "#666976" }}>
+              <AiOutlineCalendar /><span>{` ${props.session.Date} at ${props.session.Time}`}</span>
             </div>
             <div className="duration" >
               <BsClockHistory /><span>{` ${props.session.duration} mins`}</span>
