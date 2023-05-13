@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import Router from 'next/router'
 import Error from './error'
 import useSWR from 'swr'
-import { signIn, useSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json()) // To be called by useSWR
 
@@ -278,13 +278,13 @@ export default function SessionDetails() {
                                   <img src={value.profilePicture == undefined ? "Profile.png" : value.profilePicture} alt="Model" id='sessionPics' />
                                   <p id='nameSessionDet'>{value.name}</p >
                                 </div>
-                                <div className='datailsSession'>
+                                <div className='datailsSession d-flex justify-content-center align-items-center'>
                                   <span> Bid Value: {value.bid}
                                   </span>
                                   {!session.currentBid && owner &&
-                                    <Button variant='success' onClick={() => chooseBid(value.id, value.session_id)}>Choose</Button>
+                                    <Button variant='success' style={{ margin: '0px 10px' }} onClick={() => chooseBid(value.id, value.session_id)}>Choose</Button>
                                   }
-                                  {session.tutor_id == value.id && <Button variant='success' disabled="true">CHOSEN TUTOR</Button>}
+                                  {session.tutor_id == value.id && <Button variant='success' disabled="true" style={{ margin: '0px 10px' }} >CHOSEN TUTOR</Button>}
                                 </div>
                               </div>
                             </Row>
