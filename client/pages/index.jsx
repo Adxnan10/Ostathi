@@ -4,10 +4,14 @@ import Button from 'react-bootstrap/Button'
 import { AiFillFileAdd } from 'react-icons/ai'
 import { MdGroups } from 'react-icons/md'
 import { TfiCreditCard } from 'react-icons/tfi'
-import React, { useState } from 'react';
-import { dummySessions } from '/public/fakeDataBase.json'
+import React from 'react';
 import Router from 'next/router'
 import SessionCardFactory from '../components/session/SessionCardFactory';
+import { useState, useEffect } from 'react'
+import useSWR from 'swr'
+
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 
 function FeatureCard({ ...props }) {
@@ -19,23 +23,29 @@ function FeatureCard({ ...props }) {
   )
 }
 export default function HomePage() {
-  const [sessions, setSessoin] = useState([...dummySessions])
-  function generateSession() {
-    var list = [];
-    if (sessions.length > 4) {
-      for (let index = 0; index < 4; index++) {
-        list.push(sessions[index]);
-      }
+  const { data, error, isLoading } = useSWR(`/api/search?searchType=session&subject=&sessionType=post&searchKeyword=`, fetcher)
+  const [content, setContent] = useState('Content is loading')
+
+
+
+  useEffect(() => {
+    if (error) {
+      setContent(<h1 style={{ textAlign: 'center', height: '40vh', color: "#023047" }}>Trying to load content...</h1>)
+    } else if (isLoading) {
+      setContent(<h1 style={{ textAlign: 'center', height: '40vh', color: "#023047" }}>Loading content...</h1>)
     } else {
-      list = [...sessions];
+      setContent(data.result.map((value, index) => {
+        if (index < 4)
+          return <Col key={value.id} xxl={3} xl={4} lg={6} sm={12} ><SessionCardFactory session={value} post="post" /></Col>
+      }))
     }
-    return (list)
-  }
+  }, [data])
+
   function goTosearch() {
     Router.push("/searchPage")
   }
-  const classes = [{ "subject": "Linear Algebra", "img": "/algebra.png" }, { "subject": "Calclus", "img": "/Calclus.png" }, { "subject": "Programming", "img": "/programming.png" },
-  { "subject": "Project Managment", "img": "/managmanet.png" }, { "subject": "Physics", "img": "/physics.png" }, { "subject": "Science", "img": "/science.png" }, { "subject": "Writing", "img": "/writing.png" }, { "subject": "Art", "img": "/art.png" },]
+  const classes = [{ "subject": "Linear Algebra", "img": "/algebra.png" }, { "subject": "Calculus", "img": "/math.png" }, { "subject": "Programming", "img": "/programming.png" },
+  { "subject": "Project Management", "img": "/management.png" }, { "subject": "Physics", "img": "/physics.png" }, { "subject": "Science", "img": "/science.png" }, { "subject": "Writing", "img": "/writing.png" }, { "subject": "Art", "img": "/art.png" },]
 
   return (
     <div className="App">
@@ -43,7 +53,7 @@ export default function HomePage() {
         <img id='landingBCKGRN' src="/landingPage.png" alt="Page" />
         <div id='welcoming'>
           <span style={{ color: "#F48C06" }}> Studying </span> online is now much easier
-          <p style={{ fontSize: "1vw" }}>Ostathi is an interesting platform that will teach you in more an interactive way</p>
+          <p style={{ fontSize: "1vw" }}>Ostathi is an interesting platform that will teach you in more interactive way</p>
         </div>
       </Row>
       <Row style={{ padding: "8vw 1vw", justifyContent: 'center', alignItems: 'center' }}>
@@ -66,19 +76,16 @@ export default function HomePage() {
         <div className='landingText'> Explore our upcoming <span style={{ color: "#F48C06" }}> sessions </span></div>
       </Row>
       <Row id='landingCards'>
-        {generateSession().map((value, index) => <>{
-          <Col key={index} xxl={3} xl={4} lg={6} sm={12} >
-            <SessionCardFactory session={value}></SessionCardFactory>
-          </Col>
-        }</>)}
+        {content}
+
         <Button id='moreSessions' onClick={goTosearch}>See more</Button>
       </Row>
       <Row>
         <div className='landingText'>Choose Your <span style={{ color: "#F48C06" }}> Topic </span></div>
       </Row>
       <Row id='classesLandPage'>
-        {classes.map((value) => <>{
-          <Col sm="6" md="4" lg="4" xl="3">
+        {classes.map((value, index) => <>{
+          <Col key={index} sm="6" md="4" lg="4" xl="3">
             <div onClick={goTosearch} id='classLandPage' style={{ cursor: 'pointer', backgroundImage: `url(${value.img})` }}><div class="d-flex align-items-center justify-content-center">{value.subject}</div></div>
           </Col>
         }</>)}

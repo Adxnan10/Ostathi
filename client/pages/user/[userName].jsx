@@ -6,33 +6,21 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { BsStar, BsStarFill } from 'react-icons/bs'
 import { useRouter } from 'next/router'
-import { dummyUsers, dummySessions, sessionRating } from '/public/fakeDataBase.json'
 import SessionCardFactory from '../../components/session/SessionCardFactory';
 import Error from '../error'
+import useSWR from 'swr'
+import RateUser from './rateUser'
+import { useSession } from "next-auth/react"
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function UserPage() {
-  var cond = true;
   const router = useRouter()
   const { userName } = router.query
-  const [users, setUsers] = useState([...dummyUsers]);
-  const [sessions, setSessions] = useState([...dummySessions]);
-  const [ratings, setRatings] = useState([...sessionRating]);
-  const [rating, setRating] = useState([...ratings.filter((rating) => {
-    return (
-      rating.tutor == userName
-    );
-  })]);
-  const [user, setUser] = useState([...dummyUsers.filter((user) => {
-    return (
-      user.userName == userName
-    );
-  })]);
+  const { data, error, isLoading } = useSWR(`/api/user/dashboard?username=${userName}`, fetcher);
+  const { data: session, status } = useSession()
+  var cond = true;
 
-  const [session, setSession] = useState([...sessions.filter((session) => {
-    return (
-      session.userName == userName
-    );
-  })])
 
   const stars = (rating) => {
     const starsTags = [];
@@ -52,6 +40,7 @@ export default function UserPage() {
   const [moreSessions, setMoreSessions] = useState("none");
   const [lessButton, setLessButton] = useState("none");
   const [moreButton, setMoreButton] = useState("block");
+  let rated = false;
   const showMoreSessions = (() => {
     if (toggle) {
       setToggle(false);
@@ -65,67 +54,91 @@ export default function UserPage() {
       setToggle(true);
     }
   });
-
-  try{
-  return (<>
-    <div className="sessionBackGrnd" />
-    <Container>
-      <Row>
-        <Col md="6" lg="6" xl="7" id='sessionDetailsPage'>
-          <Row id='overviewTutor'>
-            <h5><b>Overvirew</b></h5>
-            <p>{user[0].Bio}</p>
-          </Row>
-          <hr />
-          <Row className='cardsArea'>
-            {session.length == 0 ? <h4 style={{ marginTop: "4rem" }}>Sorry Ostathi, There is no session at this time!</h4> :
-              session.map((value, index) => <>
-                {
-                  index <= 1 ?
-                    <Col sm="12" md="12" lg='6' xl="6" className='cardMargin'><SessionCardFactory session={value} /></Col>
+  const ratings = (data) => {
+    let overallRating = 0;
+    let overallReviews = 0;
+    data.rating.forEach(element => {
+      overallRating += element.rating == undefined ? 0 : element.rating;
+      overallReviews += element.comment == undefined ? 0 : 1;
+    });
+    return [Math.round((overallRating / data.rating.length) * 10) / 10, overallReviews]
+  }
+  if (isLoading || error) {
+    return <h1>wait ostahti, we are loading the user's info</h1>
+  }
+  if (session) {
+    const hasRated = data.rating.find(element => element.rater_id == session.user.id)
+    if (hasRated) {
+      rated = true;
+    }
+  }
+  try {
+    return (<>
+      <div className="sessionBackGrnd" />
+      <Container>
+        <Row>
+          <Col md="12" lg="8" xl="8" id='sessionDetailsPage'>
+            <Row id='overviewTutor'>
+              <h5><b>Overvirew</b></h5>
+              <p>{data.user.bio}</p>
+            </Row>
+            <hr />
+            <Row className='cardsArea'>
+              {data != undefined ? (data.hostSessions.length == 0 ?
+                <div className="404-block d-flex justify-content-center align-items-center" style={{ height: '30vh' }}>
+                  <h1 style={{ color: "#023047" }}>This user does not host sessions.<span style={{ color: "#F48C06" }}> Ostathi!</span>.</h1>
+                </div>
+                : data.hostSessions.map((value, index) => <>
+                  {index <= 2 ?
+                    <Col key={index} className='cardMargin' sm="12" md="12" lg="6" xl="6">
+                      <SessionCardFactory session={value} post={value.requester_id ? "requested" : 'post'} />
+                    </Col>
                     :
-                    session.length > 2 && cond ?
+                    data.sessions.length > 3 && cond ?
                       <>
                         <Button id='moreSessions' style={{ display: moreButton }} onClick={showMoreSessions}>
-                          More Sessions
+                          More Session
                         </Button>
                         {cond = false}
-                        <Col style={{ display: moreSessions }} sm="12" md="12" lg='6' xl="6"><SessionCardFactory session={value} /></Col>
-                      </> : <Col style={{ display: moreSessions }} sm="12" md="12" lg='6' xl="6"><SessionCardFactory session={value} /></Col>
+                        <Col sm="12" md="12" lg="6" xl="6" style={{ display: moreSessions }} className='cardMargin'>
+                          <SessionCardFactory session={value} post={value.requester_id ? "requested" : 'post'} />
+                        </Col>
+                      </> : <Col sm="12" md="12" lg="6" xl="6" style={{ display: moreSessions }} className='cardMargin'>
+                        <SessionCardFactory session={value} post={value.requester_id ? "requested" : 'post'} />
+                      </Col>
 
-                }
-              </>
-              )}
-            <Row>
-              <Col> <Button id='moreSessions' style={{ display: lessButton }} onClick={showMoreSessions}>
-                Show Less
-              </Button></Col>
+                  }
+                </>
+                )) : "Loading.gif"}
+              <Row>
+                <Col> <Button id='moreSessions' style={{ display: lessButton }} onClick={showMoreSessions}>
+                  Show Less
+                </Button></Col>
+              </Row>
             </Row>
-          </Row>
-        </Col>
-        <Col>
-          <Card id='floatingCard'>
-            <Card.Img variant="top" src={user[0].img} id='tutorPicSD' />
-            <Card.Title className='cardHeader'>
-              <h2 >{user[0].fullName}</h2>
-              <p style={{ color: 'gray' }} >{user[0].major}</p>
-              <Button className="btn btn-primary" id='registerSessionBTN'>
-                Star
-              </Button>
-            </Card.Title>
-            <hr />
-            <Card.Body>
-              <div className='ratingBox'>
-                <h4>{user[0].rating} out of 5</h4>
-                {stars(user[0].rating)}
-                <p style={{ margin: "1rem" }}>{rating.length} review</p>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
-  </>);} catch {
-    return(<Error/>)
+          </Col>
+          <Col>
+            <Card id='floatingCard'>
+              <Card.Img variant="top" src={data.user.profilePicture} id='tutorPicSD' />
+              <Card.Title className='cardHeader'>
+                <h2 >{data.user.name}</h2>
+                <p style={{ color: 'gray' }} >{data.user.pref_subject}</p>
+                <RateUser rater_id={session?.user?.id} tutor_id={data.user.id} hasRated={rated} />
+              </Card.Title>
+              <hr />
+              <Card.Body>
+                <div className='ratingBox'>
+                  <h4>{ratings(data)[0] || '0'} out of 5</h4>
+                  {stars(ratings(data)[0])}
+                  <div>{ratings(data)[1]} review</div>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </>);
+  } catch {
+    return (<Error />)
   }
 }

@@ -11,7 +11,7 @@ export default function Tester() {
   return (
     <div>
       <h1>{data.Title}</h1>
-      <p>this title: {data.Title} is for session # {data.id}</p>
+      <p>this title: {data.title} is for session # {data.id}</p>
     </div>
   )
 }
