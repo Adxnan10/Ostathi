@@ -264,8 +264,6 @@ const deleteSession = async (session_id, session_type) => {
 
 }
 
-// AHMAD ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 // Get a user's details from the database. Do not return the password. Return data from the user table.
 const getUserDetails = async (user_id) => {
   const db = await getDbConnection();
