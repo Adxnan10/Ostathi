@@ -91,7 +91,7 @@ export default function SessionDetails() {
     );
   }
 
-  const owner = session?.requester_id == userSession?.user?.id
+  const owner = session?.requester_id == userSession?.user?.id 
   const checkAttendee = () => {
     if (!userSession)
       return false
