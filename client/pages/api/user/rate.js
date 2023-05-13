@@ -4,7 +4,8 @@ export default async function handler(req, res) {
   if (req.method === 'PUT') {
     const { rater_id, tutor_id, rating, comment } = req.body
     const date = new Date()
-    const formattedDate = date.getUTCFullYear() + "-" + date.getUTCMonth() + "-" + date.getUTCDay()
+    const toCut = date.toString().indexOf(':')
+    const formattedDate = date.toString().substring(0, toCut - 2)
     const meta = await db_ratingModel.addRating(rater_id, tutor_id, rating, comment, formattedDate)
     if (meta.changes == 1) {  // meta.changes = 1 is success  
       const getUserRatingsCount = await db_ratingModel.getRatingsCount(tutor_id)

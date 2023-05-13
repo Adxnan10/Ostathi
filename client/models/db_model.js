@@ -75,7 +75,7 @@ const getUser = async (username) => {
 const getSessionRating = async (session_id) => {
   const db = await getDbConnection();
   const sessions = await db.all(`
-  SELECT * FROM RATING WHERE tutor_id = (SELECT tutor_id FROM SESSION WHERE id = '${session_id}')
+  SELECT rate.rating, comment, date, name FROM RATING rate JOIN USER rater on rate.rater_id = rater.id WHERE tutor_id = (SELECT tutor_id FROM SESSION WHERE id = '${session_id}')
   `)
   await db.close()
   return sessions
