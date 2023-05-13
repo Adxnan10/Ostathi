@@ -9,10 +9,10 @@ export default async function handler(req, res) {
 
   if (searchType == 'session') {
     if (sessionType == 'requested') {
-      searchResult = await db_model.getAllRequestedSessions(searchKeyword, subject, 10, 0)
+      searchResult = await db_model.getAllRequestedSessions(searchKeyword, subject, 1000, 0) // the limits are arbitary, should be dynamic
     }
     else if (sessionType == 'post') {
-      searchResult = await db_model.getAllPostedSessions(searchKeyword, subject, 10, 0)
+      searchResult = await db_model.getAllPostedSessions(searchKeyword, subject, 1000, 0)
     } else {
       res.status(400).send("invalid request. make sure url sends the right query.")
     }

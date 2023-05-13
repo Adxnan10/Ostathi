@@ -22,10 +22,8 @@ export default function SessionDetails() {
   const [alertBlcok, setAlert] = useState('none')
   const [alertContent, setContent] = useState('none')
   const [alertVar, setVar] = useState('none')
-  const [isAttendee, setIsAttendee] = useState(false)
   const [rate, setRate] = useState("none");
   const [overview, setOverview] = useState('block')
-  const [OVB, setOVB] = useState("")
   const [biddersBlock, setBiddersBlock] = useState("none")
   const router = useRouter()
   const { session_id, session_type } = router.query
@@ -37,8 +35,8 @@ export default function SessionDetails() {
     return <h1> Loading . </h1>
   }
   if (error) {
-    return  <div className="404-block d-flex justify-content-center align-items-center" style={{ height: '65vh' }}>
-    <h1 style={{ color: "#023047" }}>Error Has Occured<span style={{ color: "#F48C06" }}> Ostathi!</span>.</h1>
+    return <div className="404-block d-flex justify-content-center align-items-center" style={{ height: '65vh' }}>
+      <h1 style={{ color: "#023047" }}>Error Has Occured<span style={{ color: "#F48C06" }}> Ostathi!</span>.</h1>
     </div>
   }
 
@@ -87,7 +85,7 @@ export default function SessionDetails() {
     );
   }
 
-  const owner = session?.requester_id == userSession?.user?.id 
+  const owner = session?.requester_id == userSession?.user?.id
   const checkAttendee = () => {
     if (!userSession)
       return false
@@ -103,13 +101,13 @@ export default function SessionDetails() {
     setOverview("none");
     setBiddersBlock("none")
     e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) //previousSibling.classList.remove("activeButtonDS")
-    e.currentTarget.classList.add("activeButtonDS");    
+    e.currentTarget.classList.add("activeButtonDS");
   }
   const overViewView = (e) => {
     setOverview("block");
     setRate("none");
     setBiddersBlock("none")
-    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) 
+    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS"))
     e.currentTarget.classList.add("activeButtonDS");
   }
 
@@ -117,7 +115,7 @@ export default function SessionDetails() {
     setOverview("none");
     setRate("none");
     setBiddersBlock("block")
-    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS")) 
+    e.currentTarget.parentNode.childNodes.forEach(node => node.classList.remove("activeButtonDS"))
     e.currentTarget.classList.add("activeButtonDS");
   }
 
@@ -133,8 +131,8 @@ export default function SessionDetails() {
         } else {
           setAlert("block")
           setVar("success")
-          setContent("Bidder Has Been Choosen")
-          setTimeout(() => {Router.reload(window.location.pathname) }, 4000);
+          setContent("Offer Has Been Choosen")
+          setTimeout(() => { Router.reload(window.location.pathname) }, 4000);
         }
       })
   }
@@ -145,7 +143,7 @@ export default function SessionDetails() {
       setContent("You are not Signed In")
       return;
     }
-    const price = prompt("Please enter your bid price")
+    const price = prompt("Please enter your Offer price")
     if (price != null) {
       fetch(`/api/sessions/placeBid?session_id=${session.id}&price=${price}&user_id=${userSession.user.id}`, {
         method: 'PUT',
@@ -158,8 +156,8 @@ export default function SessionDetails() {
           } else {
             setAlert("block")
             setVar("success")
-            setContent("Bidder Has Been Placed")
-            setTimeout(() => {Router.reload(window.location.pathname) }, 3000);
+            setContent("Offer Has Been Placed")
+            setTimeout(() => { Router.reload(window.location.pathname) }, 3000);
           }
         })
     }
@@ -170,9 +168,9 @@ export default function SessionDetails() {
       <>
         <div className="sessionBackGrnd" />
         <Container>
-        <div style={{margin:"2rem 30vw 0 0", display:alertBlcok}}>
-            <Alert variant={alertVar} onClose={() => {setAlert("none")}} dismissible>{alertContent}</Alert>
-            </div>
+          <div style={{ margin: "2rem 30vw 0 0", display: alertBlcok }}>
+            <Alert variant={alertVar} onClose={() => { setAlert("none") }} dismissible>{alertContent}</Alert>
+          </div>
           <Row>
             <Col sm="12" md="8" id='sessionDetailsPage'>
               <Row>
@@ -184,7 +182,7 @@ export default function SessionDetails() {
                     Rating
                   </Button>
                   {session_type == "requested" && <Button className="optionSessionPage" onClick={biddersView}>
-                    Bidders
+                    Offered by
                   </Button>}
                 </Col>
 
@@ -212,7 +210,7 @@ export default function SessionDetails() {
                     <Row>
                       <Col sm="12" md="6" lg="4" xlg="4">
                         <div className='ratingBox'>
-                          <h4>{!Math.round(total()* 10) / 10 ? 0 : Math.round(total() * 10) / 10} out of 5</h4>
+                          <h4>{!Math.round(total() * 10) / 10 ? 0 : Math.round(total() * 10) / 10} out of 5</h4>
                           {stars(total())}
                           <p>{ratings.length} reviews</p>
                         </div>
@@ -236,11 +234,13 @@ export default function SessionDetails() {
                       </Col>
                     </Row>
                     {ratings.map((value, index) => {
+                      console.log("Here")
+                      console.log(value)
                       return (
                         <><Row>
                           <div className='datailsSession'>
                             <div className='datailsSession'>
-                              <img src={sessionInfo.user[0].profilePicture == undefined ? "Profile.png" : sessionInfo.user[0].profilePicture} alt="Model" id='sessionPics' />
+                              <img src={value.profilePicture == undefined ? "Profile.png" : value.profilePicture} alt="Model" id='sessionPics' />
                               <p id='nameSessionDet'>{value.name}</p >
                             </div>
                             <div className='datailsSession'>
@@ -260,35 +260,35 @@ export default function SessionDetails() {
                   </div>
                   <div className='biddersView' style={{ display: biddersBlock }}>
                     {biddersData.bidders.length == 0 ?
-                    <p>
-                      No tutors has bidded
-                    </p> 
-                    : biddersData?.bidders?.map((value, index) => {
-                      return (
-                        <>
-                          <Row>
-                            <div className='datailsSession'>
+                      <p>
+                        No tutors has offered
+                      </p>
+                      : biddersData?.bidders?.map((value, index) => {
+                        return (
+                          <>
+                            <Row>
                               <div className='datailsSession'>
-                                <img src={value.profilePicture == undefined ? "Profile.png": value.profilePicture} alt="Model" id='sessionPics' />
-                                <p id='nameSessionDet'>{value.name}</p >
+                                <div className='datailsSession'>
+                                  <img src={value.profilePicture == undefined ? "Profile.png" : value.profilePicture} alt="Model" id='sessionPics' />
+                                  <p id='nameSessionDet'>{value.name}</p >
+                                </div>
+                                <div className='datailsSession'>
+                                  <span> Bid Value: {value.bid}
+                                  </span>
+                                  {!session.currentBid && owner &&
+                                    <Button variant='success' onClick={() => chooseBid(value.id, value.session_id)}>Choose</Button>
+                                  }
+                                  {session.tutor_id == value.id && <Button variant='success' disabled="true">CHOSEN TUTOR</Button>}
+                                </div>
                               </div>
-                              <div className='datailsSession'>
-                                <span> Bid Value: {value.bid}
-                                </span>
-                                {!session.currentBid && owner &&
-                                  <Button variant='success' onClick={() => chooseBid(value.id, value.session_id)}>Choose</Button>
-                                }
-                                {session.tutor_id == value.id && <Button variant='success' disabled="true">CHOSEN TUTOR</Button>}
-                              </div>
-                            </div>
-                          </Row>
-                          {/* <Row className='datailsSession'>
+                            </Row>
+                            {/* <Row className='datailsSession'>
                             
                           </Row> */}
-                          {ratings.length - index - 1 == 0 ? <></> : <hr />}
-                        </>
-                      );
-                    })}
+                            {ratings.length - index - 1 == 0 ? <></> : <hr />}
+                          </>
+                        );
+                      })}
                   </div>
                 </div>
               </Row>
@@ -297,7 +297,7 @@ export default function SessionDetails() {
               <Card id='floatingCard'>
                 <Card.Img variant="top" src="/Model.jpeg" id='tutorPicSD' />
                 <Card.Title className='cardHeader'>
-                  <h2 >{session_type == "post" ? session.price : session.currentBid? session.currentBid: session.startBid} SAR</h2>
+                  <h2 >{session_type == "post" ? session.price : session.currentBid ? session.currentBid : session.startBid} SAR</h2>
                   <p>{data.attendees.length} joined! </p>
                   <Button className="btn btn-primary" id='registerSessionBTN' onClick={() => {
                     if (session_type == "post")
@@ -308,9 +308,9 @@ export default function SessionDetails() {
                           `session/room/session_room?session_id=${session_id}&session_type=${session_type}`)
                       else
                         placeBid()
-                      }
-                  }} disabled={!userSession && session?.currentBid} >
-                    {checkAttendee() ? 'Enter session' : session_type == "post" ? 'Register' : session?.currentBid ? 'Bidding Ended' : 'Bid'}
+                    }
+                  }} disabled={!userSession || session?.currentBid} >
+                    {checkAttendee() ? 'Enter session' : session_type == "post" ? 'Register' : session?.currentBid ? 'Offers Ended' : 'Offer'}
                   </Button>
                 </Card.Title>
                 <hr />
