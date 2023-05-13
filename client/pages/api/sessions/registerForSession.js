@@ -5,7 +5,9 @@ export default async function sessionHandler(req, res) {
     const id = req.body.id;
     const user_id = req.body.user_id;
     const createdSessions = await db_model.registerSession(id, user_id)
-    res.status(200).send({createdSessions});
+
+    res.redirect(`/session?session_id=${id}&session_type=post&user_id=${user_id}`);   // redirect to the registered session's page
+
   } else {
     res.send("Error");
   }
