@@ -1,4 +1,4 @@
-#Ostathi 
+# Ostathi 
 Ostathi is a project made for SWE363 project. It is an e-learning website. It connects students with tutors. The website will allow a student to request a session for any topic, then tutors offer to teach that session. The other way around is supported as well; a tutor can post sessions that students can request to join. It is like a freelancing website for tutors and students.
 ## Walkthrough video
 https://www.youtube.com/watch?v=t97G6CKAIYw
